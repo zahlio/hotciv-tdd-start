@@ -248,16 +248,15 @@ public class TestAlphaCiv {
   /*
    * Dynamic test for production.
    */
-  public void shouldProduceX(Unit _u, String _unitConstant, Position p){
+  public void shouldProduceX(Unit _u, String _unitConstant){
 	  assertEquals(
 			  String.format(
 					  "A new %s should have been created at (%d, %d)",
 					  _unitConstant, 
-					  p.getRow(),
-					  p.getColumn()
+					  _u.getTypeString()
 			  ), 
-			  _u.getTypeString(),
-			  _unitConstant
+			  GameConstants.ARCHER,
+			  _u.getTypeString()
 	  );
 	  
       assertEquals(
@@ -275,7 +274,7 @@ public class TestAlphaCiv {
       game.changeProductionInCityAt(redCity, GameConstants.ARCHER);
       Utility.playRounds(game, 2);
       Unit u = game.getUnitAt(redCity);
-      shouldProduceX(u, GameConstants.ARCHER, redCity);
+      shouldProduceX(u, GameConstants.ARCHER);
   }
   
   @Test
@@ -283,7 +282,7 @@ public class TestAlphaCiv {
       game.changeProductionInCityAt(redCity, GameConstants.LEGION);
       Utility.playRounds(game, 3);
       Unit u = game.getUnitAt(redCity);
-      shouldProduceX(u, GameConstants.LEGION, redCity);
+      shouldProduceX(u, GameConstants.LEGION);
   }
   
   @Test
@@ -291,7 +290,7 @@ public class TestAlphaCiv {
       game.changeProductionInCityAt(redCity, GameConstants.SETTLER);
       Utility.playRounds(game, 5);
       Unit u = game.getUnitAt(redCity);
-      shouldProduceX(u, GameConstants.SETTLER, redCity);
+      shouldProduceX(u, GameConstants.SETTLER);
   }
   
   @Test
@@ -309,6 +308,7 @@ public class TestAlphaCiv {
       Unit u2 = game.getUnitAt(new Position(0,2));
       Unit u3 = game.getUnitAt(new Position(1,2));
       
+      String _constant = GameConstants.ARCHER;
       assertEquals("There should be an Archer at (1,1)", GameConstants.ARCHER, u.getTypeString());
       assertEquals("There should be an Archer at (0,1)", GameConstants.ARCHER, u1.getTypeString());
       assertEquals("There should be an Archer at (0,2)", GameConstants.ARCHER, u2.getTypeString());
