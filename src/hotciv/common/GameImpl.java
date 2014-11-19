@@ -103,18 +103,21 @@ public class GameImpl implements Game {
 	public int getAge() { 
 		return age;
 	}
-	
+
+	//EPSILONCIV
 	public int getRedAttacks(){
 		return redAttack;
 	}
-	
+
+	//EPSILONCIV
 	public int getBlueAttacks(){
 		return blueAttack;
 	}
-	
+
+	//EPSILONCIV
 	public void setAttackCount(){
 		if(currentPlayer==Player.RED){
-		redAttack++;
+			redAttack++;
 		}else{
 			blueAttack++;
 		}
@@ -130,11 +133,17 @@ public class GameImpl implements Game {
 		if (getUnitAt(from).getMoveCount()==0){ return false; }
 		if (!canMoveDistance(from, to)) { return false; }
 
-		if(getUnitAt(to) != null){
-			if(getUnitAt(to).getOwner() != currentPlayer){
-				attackAndDefenceStrategy.performAttack(this, from, to);
-				((UnitImpl) getUnitAt(to)).setHasMoved(true);
-			}
+		if(getUnitAt(to) != null && getUnitAt(to).getOwner() != currentPlayer){
+			attackAndDefenceStrategy.performAttack(this, from, to);
+			((UnitImpl) getUnitAt(to)).setHasMoved(true);
+			return true;
+		}
+		else if(getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
+			CityImpl c = (CityImpl) getCityAt(to);
+			c.changeOwner(c.getOwner());
+			units.put(to, (UnitImpl) getUnitAt(from));
+			units.remove(from);
+			((UnitImpl) getUnitAt(to)).setHasMoved(true);
 			return true;
 		}else if(getTileAt(to).getTypeString().equals(GameConstants.PLAINS) || getTileAt(to).getTypeString().equals(GameConstants.HILLS)){
 			units.put(to, (UnitImpl) getUnitAt(from));
@@ -142,7 +151,7 @@ public class GameImpl implements Game {
 			((UnitImpl) getUnitAt(to)).setHasMoved(true);
 			return true;
 		}
-		else { return true; }
+		return false;
 	}
 
 	public boolean canMoveDistance(Position from, Position to){
@@ -164,22 +173,44 @@ public class GameImpl implements Game {
 		}
 	}
 
-	public void produceUnit(String unit, Position p){
-		ProduceUnit pu = new ProduceUnit(this);
-		if(pu.canProduceUnitAt(p) != null && pu.accumulatedEnoughProduction(unit, p)){
-			units.put(pu.canProduceUnitAt(p), new UnitImpl(unit, currentPlayer));
-			CityImpl c = (CityImpl) getCityAt(p);
-			c.deductResources(unit);
-		}
+	public void produceUnitAt(String unit, Position p){
+		units.put(getNextSpawnPositionAtCity(p), new UnitImpl(unit, currentPlayer));
 	}
 
+	public Position getNextSpawnPositionAtCity(Position p){
+		Position unitProduced = null;
+		unitProduced = unitCanBePlacedAt(p);
+		return unitProduced;
+	}
+
+	private Position unitCanBePlacedAt(Position p){
+		Position placeAtPosition = null;
+		int i = 0;
+
+		while(i<9){
+			if(getUnitAt(PlaceUnitAt(p, i))==null){
+				placeAtPosition = PlaceUnitAt(p, i);
+				i=9;
+			}else{
+				i++;
+			}
+		}
+		return placeAtPosition;
+	}
+
+	private Position PlaceUnitAt(Position p, int number){
+		int[] placeX = {0,-1,-1,0,1,1,1,0,-1}; 
+		int[] placeY = {0,0,1,1,1,0,-1,-1,-1};
+
+		return new Position(p.getRow()+placeX[number],p.getRow()+placeY[number]);
+	}
 	public void endOfTurn() {
 		if(currentPlayer == Player.RED){
 			currentPlayer = Player.BLUE;
 		}else if(currentPlayer == Player.BLUE){
 			currentPlayer = Player.RED;
 			age = ageStrategy.getNewAge(age);
-			setResources();
+			setResourcesForEachCityAndProduceUnitIfCan();
 			resetMoveCount();
 		}
 	}
@@ -193,18 +224,26 @@ public class GameImpl implements Game {
 		}
 	}
 
-	private void setResources(){
+	private void setResourcesForEachCityAndProduceUnitIfCan(){
 		Iterator<Entry<Position, CityImpl>> it = cities.entrySet().iterator();
 		while (it.hasNext()) {
 			Entry<Position, CityImpl> pairs = it.next();
 			Position p = pairs.getKey();
 			((CityImpl) getCityAt(p)).setResourcesPerRound();
+			CityImpl c = (CityImpl) getCityAt(p);
+			if(c.canDeductResources(c.getProduction()) && getNextSpawnPositionAtCity(p) != null){
+				produceUnitAt(c.getProduction(), getNextSpawnPositionAtCity(p));
+				c.deductResources(c.getProduction());
+				produceUnitAt(c.getProduction(), p);
+				c.setProduction("");
+			}
 		}
 	}
 
 	public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
 	public void changeProductionInCityAt( Position p, String unitType ) {
-		//THIS METHOD CHANGES THE PRODUCTION IN THE CITY - FOR ALPHACIV
+		CityImpl c = (CityImpl) getCityAt(p);
+		c.setProduction(unitType);
 	}
 
 	public void performUnitActionAt(Position p) {
