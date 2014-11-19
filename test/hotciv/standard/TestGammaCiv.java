@@ -29,9 +29,8 @@ public class TestGammaCiv {
 		settlerShouldHaveCreatedACityAt(4, 3);
 	}
 	
-	@Test
 	public void settlerShouldHaveCreatedACityAt(int x, int y){
-		assertNull(String.format("There should be a city at %d, %d owned by player Red", x, y), game.getCityAt(new Position(x, y)));
+		assertNull(String.format("There should be a city at (%d, %d) owned by player Red", x, y), game.getCityAt(new Position(x, y)));
 	}
 	
 	@Test
