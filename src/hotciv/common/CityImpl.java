@@ -13,6 +13,7 @@ public class CityImpl implements City {
 	public CityImpl(Player p) {
 		this.p = p;
 		resources = 0;
+		production = "";
 	}
 
 	public Player getOwner() {

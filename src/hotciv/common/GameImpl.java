@@ -204,14 +204,22 @@ public class GameImpl implements Game {
 
 		return new Position(p.getRow()+placeX[number],p.getRow()+placeY[number]);
 	}
+
+	//Will only happen if a unit moves to a position, where there is an enemy unit
+	public void AttackingUnitWins(Position from, Position to){
+		units.remove(to);
+		units.put(to, (UnitImpl) getUnitAt(from));
+		units.remove(from);
+
+	}
 	public void endOfTurn() {
 		if(currentPlayer == Player.RED){
 			currentPlayer = Player.BLUE;
 		}else if(currentPlayer == Player.BLUE){
 			currentPlayer = Player.RED;
-			age = ageStrategy.getNewAge(age);
 			setResourcesForEachCityAndProduceUnitIfCan();
 			resetMoveCount();
+			age = ageStrategy.getNewAge(age);
 		}
 	}
 
