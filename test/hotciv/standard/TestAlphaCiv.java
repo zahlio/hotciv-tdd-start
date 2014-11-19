@@ -248,12 +248,13 @@ public class TestAlphaCiv {
   /*
    * Dynamic test for production.
    */
-  public void shouldProduceX(Unit _u, String _unitConstant){
+  public void shouldProduceX(Unit _u, String _unitConstant, Position p){
 	  assertEquals(
 			  String.format(
 					  "A new %s should have been created at (%d, %d)",
 					  _unitConstant, 
-					  _u.getTypeString()
+					  p.getRow(),
+					  p.getColumn()
 			  ), 
 			  GameConstants.ARCHER,
 			  _u.getTypeString()
@@ -274,7 +275,7 @@ public class TestAlphaCiv {
       game.changeProductionInCityAt(redCity, GameConstants.ARCHER);
       Utility.playRounds(game, 2);
       Unit u = game.getUnitAt(redCity);
-      shouldProduceX(u, GameConstants.ARCHER);
+      shouldProduceX(u, GameConstants.ARCHER, redCity);
   }
   
   @Test
@@ -282,7 +283,7 @@ public class TestAlphaCiv {
       game.changeProductionInCityAt(redCity, GameConstants.LEGION);
       Utility.playRounds(game, 3);
       Unit u = game.getUnitAt(redCity);
-      shouldProduceX(u, GameConstants.LEGION);
+      shouldProduceX(u, GameConstants.LEGION, redCity);
   }
   
   @Test
@@ -290,7 +291,7 @@ public class TestAlphaCiv {
       game.changeProductionInCityAt(redCity, GameConstants.SETTLER);
       Utility.playRounds(game, 5);
       Unit u = game.getUnitAt(redCity);
-      shouldProduceX(u, GameConstants.SETTLER);
+      shouldProduceX(u, GameConstants.SETTLER, redCity);
   }
   
   @Test
