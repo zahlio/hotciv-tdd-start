@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import hotciv.common.GameImpl;
 import hotciv.framework.Game;
+import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
 import hotciv.variants.AlphaCivAging;
@@ -26,11 +27,15 @@ public class TestGammaCiv {
 	@Test
 	public void settlerShouldHaveCreatedACityAt4_3(){
 		game.performUnitActionAt(new Position(4,3));
-		settlerShouldHaveCreatedACityAt(4, 3);
+		settlerShouldHaveCreatedACityAt(4, 3, Player.RED);
 	}
 	
-	public void settlerShouldHaveCreatedACityAt(int x, int y){
-		assertNull(String.format("There should be a city at (%d, %d) owned by player Red", x, y), game.getCityAt(new Position(x, y)));
+	public void settlerShouldHaveCreatedACityAt(int x, int y, Player p){
+		assertEquals(
+				String.format("There should be a city at (%d, %d) owned by player %s", x, y, p), 
+				p, 
+				game.getCityAt(new Position(x, y)).getOwner()
+		);
 	}
 	
 	@Test

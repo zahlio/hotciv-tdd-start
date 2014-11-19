@@ -16,7 +16,7 @@ import org.junit.runners.Suite;
 	   TestDeltaCivWorldLayout.class,
 	   TestEpsilonCivAttacking.class,
 	   TestEpsilonCivWinning.class,
-	   TestGammaCiv.class	   
+	   TestGammaCiv.class   
 	})
 	public class TestAll {
 		

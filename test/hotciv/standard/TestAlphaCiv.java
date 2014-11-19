@@ -256,7 +256,7 @@ public class TestAlphaCiv {
 					  p.getRow(),
 					  p.getColumn()
 			  ), 
-			  GameConstants.ARCHER,
+			  _unitConstant,
 			  _u.getTypeString()
 	  );
 	  
