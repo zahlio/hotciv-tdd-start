@@ -1,16 +1,12 @@
 package hotciv.standard;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import hotciv.common.GameImpl;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
-import hotciv.variants.AlphaCivAging;
-import hotciv.variants.AlphaCivFactory;
-import hotciv.variants.AlphaCivWorldLayout;
-import hotciv.variants.GammaCivUnitAction;
+import hotciv.variants.GammaCivFactory;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +17,7 @@ public class TestGammaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new AlphaCivAging(), new GammaCivUnitAction(), new AlphaCivWorldLayout(), new AlphaCivFactory());
+		game = new GameImpl(new GammaCivFactory());
 	}
 	
 	@Test

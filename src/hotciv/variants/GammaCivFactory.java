@@ -7,7 +7,7 @@ import hotciv.framework.UnitActionStrategy;
 import hotciv.framework.WinStrategy;
 import hotciv.framework.WorldLayoutStrategy;
 
-public class AlphaCivFactory implements CivFactory {
+public class GammaCivFactory implements CivFactory {
 
 	public AgingStrategy createAging() {
 		return new AlphaCivAging();
@@ -18,7 +18,7 @@ public class AlphaCivFactory implements CivFactory {
 	}
 	
 	public UnitActionStrategy createUnitAction() {
-		return new AlphaCivUnitAction();
+		return new GammaCivUnitAction();
 	}
 
 	public WorldLayoutStrategy createLayout() {
@@ -28,7 +28,5 @@ public class AlphaCivFactory implements CivFactory {
 	public AttackStrategy createAttack() {
 		return new AlphaCivAttacking();
 	}
-
-	
 
 }

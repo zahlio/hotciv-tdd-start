@@ -10,7 +10,7 @@ import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
 import hotciv.framework.UnitActionStrategy;
-import hotciv.framework.WinAndFightingFactory;
+import hotciv.framework.CivFactory;
 import hotciv.framework.WinStrategy;
 import hotciv.framework.WorldLayoutStrategy;
 
@@ -59,13 +59,12 @@ public class GameImpl implements Game {
 	private HashMap<Position, UnitImpl> units = new HashMap<Position, UnitImpl>();
 	private HashMap<Position, CityImpl> cities = new HashMap<Position, CityImpl>();
 
-	//If we can change the constructor then do it
-	public GameImpl(AgingStrategy ageStrategy, UnitActionStrategy actionStrategy , WorldLayoutStrategy layoutStrategy, WinAndFightingFactory winAndFightingFactory) {
-		this.ageStrategy = ageStrategy;
-		this.actionStrategy = actionStrategy;
-		this.layoutStrategy = layoutStrategy;
-		winner = winAndFightingFactory.createWinner();
-		attackAndDefenceStrategy = winAndFightingFactory.createAttack();
+	public GameImpl(CivFactory civFactory) {
+		ageStrategy = civFactory.createAging();
+		actionStrategy = civFactory.createUnitAction();
+		layoutStrategy = civFactory.createLayout();
+		winner = civFactory.createWinner();
+		attackAndDefenceStrategy = civFactory.createAttack();
 		units.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
 		units.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
 		units.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));

@@ -11,6 +11,7 @@ import hotciv.framework.Tile;
 import hotciv.variants.AlphaCivAging;
 import hotciv.variants.AlphaCivFactory;
 import hotciv.variants.AlphaCivUnitAction;
+import hotciv.variants.DeltaCivFactory;
 import hotciv.variants.DeltaCivWorldLayout;
 
 import org.junit.Before;
@@ -22,7 +23,7 @@ public class TestDeltaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new AlphaCivAging(), new AlphaCivUnitAction(), new DeltaCivWorldLayout(), new AlphaCivFactory());
+		game = new GameImpl(new DeltaCivFactory());
 	}
 	
 	@Test

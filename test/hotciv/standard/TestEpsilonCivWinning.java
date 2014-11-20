@@ -21,7 +21,7 @@ public class TestEpsilonCivWinning {
 	Game game;
 	@Before 
 	public void setUp() {
-		game = new GameImpl(new AlphaCivAging(), new AlphaCivUnitAction(), new AlphaCivWorldLayout(), new EpsilonCivFactory());
+		game = new GameImpl(new EpsilonCivFactory());
 	}
 
 	@Test
