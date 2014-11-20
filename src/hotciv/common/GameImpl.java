@@ -82,6 +82,10 @@ public class GameImpl implements Game {
 	public City getCityAt(Position p) {
 		return cities.get(p);
 	}
+	
+	public AttackStrategy getAttackStrategy(){
+		return attackAndDefenceStrategy;
+	}
 
 	public HashMap<Position, UnitImpl> getUnits(){
 		return units;
@@ -103,32 +107,12 @@ public class GameImpl implements Game {
 		return age;
 	}
 
-	//EPSILONCIV
-	public int getRedAttacks(){
-		return redAttack;
-	}
-
-	//EPSILONCIV
-	public int getBlueAttacks(){
-		return blueAttack;
-	}
-
-	//EPSILONCIV
-	public void setAttackCount(){
-		if(currentPlayer==Player.RED){
-			redAttack++;
-		}else{
-			blueAttack++;
-		}
-	}
-
 	//IF UNIT TRIES TO MOVES MORE THAN ALLOWED RETURN FALSE
 	public boolean moveUnit(Position from, Position to) {
 		if ( getUnitAt(from) == null ) { return false; }
 		if ( getUnitAt(from).getOwner() != getPlayerInTurn() ) { return false; }
 		if ( getTileAt(to).getTypeString().equals(GameConstants.OCEANS) ) { return false; }
 		if ( getTileAt(to).getTypeString().equals(GameConstants.MOUNTAINS) ) { return false; }
-		if (!isInsideWorld(from) || !isInsideWorld(to)) { return false; }
 		if (getUnitAt(from).getMoveCount()==0){ return false; }
 		if (!canMoveDistance(from, to)) { return false; }
 
@@ -157,15 +141,6 @@ public class GameImpl implements Game {
 		int moveHorizontal = from.getRow() - to.getRow();
 		int moveVertical = from.getColumn() - to.getColumn();
 		if(getUnitAt(from).getMoveCount() >= Math.abs(moveHorizontal) && getUnitAt(from).getMoveCount() >= Math.abs(moveVertical)){
-			return true;
-		}else{
-			return false;
-		}
-	}
-
-	public boolean isInsideWorld(Position p){
-		if(p.getRow() >= 0 && p.getRow() < GameConstants.WORLDSIZE &&
-				p.getColumn() >= 0 && p.getColumn() < GameConstants.WORLDSIZE){
 			return true;
 		}else{
 			return false;
@@ -204,13 +179,6 @@ public class GameImpl implements Game {
 		return new Position(p.getRow()+placeX[number],p.getRow()+placeY[number]);
 	}
 
-	//Will only happen if a unit moves to a position, where there is an enemy unit
-	public void AttackingUnitWins(Position from, Position to){
-		units.remove(to);
-		units.put(to, (UnitImpl) getUnitAt(from));
-		units.remove(from);
-
-	}
 	public void endOfTurn() {
 		if(currentPlayer == Player.RED){
 			currentPlayer = Player.BLUE;

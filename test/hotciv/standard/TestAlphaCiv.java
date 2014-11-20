@@ -14,10 +14,7 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
-import hotciv.variants.AlphaCivAging;
 import hotciv.variants.AlphaCivFactory;
-import hotciv.variants.AlphaCivUnitAction;
-import hotciv.variants.AlphaCivWorldLayout;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -107,13 +104,7 @@ public class TestAlphaCiv {
   public void shouldHaveMountains(){
 	  shouldHaveTileatXY(GameConstants.MOUNTAINS, new Position(2,2));
   }
-  
-  @Test
-  public void positionOutsideWorldShouldReturnFalse(){
-	  assertFalse("This should be outside the world", ((GameImpl)game).isInsideWorld(new Position(17,4)));
-  }
-  
-  
+
   /*
    * Dynamic test for unit.
    * Returns the unit for further testing

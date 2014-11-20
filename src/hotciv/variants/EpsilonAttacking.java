@@ -1,6 +1,5 @@
 package hotciv.variants;
 
-import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
 import hotciv.framework.AttackStrategy;
 import hotciv.framework.Game;
@@ -15,6 +14,9 @@ import java.util.Random;
 
 public class EpsilonAttacking implements AttackStrategy{
 
+	private int redAttacks = 0;
+	private int blueAttacks = 0;
+
 	//Attack win = 1, DefenceWin = 2, Equal Outcome = 0;
 	public int performAttack(Game game, Position from, Position to) {
 		UnitImpl attackingUnit = (UnitImpl) game.getUnitAt(from);
@@ -28,19 +30,35 @@ public class EpsilonAttacking implements AttackStrategy{
 		System.out.println("The Attacker has the strength of: " + attackingStrength);
 
 		//This defines the outcome
-		if(defensiveStrength<attackingStrength){
-			((GameImpl)game).setAttackCount();
+		if(defensiveStrength<attackingStrength && game.getPlayerInTurn()==Player.RED){
+			redAttacks++;
 			game.getUnits().remove(to);
 			game.getUnits().put(to, (UnitImpl) game.getUnitAt(from));
 			game.getUnits().remove(from);
 			return 1;
-		}else if(defensiveStrength>attackingStrength){
+		}
+		else if(defensiveStrength<attackingStrength && game.getPlayerInTurn()==Player.BLUE){
+			blueAttacks++;
+			game.getUnits().remove(to);
+			game.getUnits().put(to, (UnitImpl) game.getUnitAt(from));
+			game.getUnits().remove(from);
+			return 1;
+		}
+		else if(defensiveStrength>attackingStrength){
 			game.getUnits().remove(from);
 			return 2;
 		}else{
 			return 0;
 		}
 
+	}
+	
+	public int getRedAttacks(){
+		return redAttacks;
+	}
+	
+	public int getBlueAttacks(){
+		return blueAttacks;
 	}
 
 	public static int getTerrainFactor(Game game, Position position) {
