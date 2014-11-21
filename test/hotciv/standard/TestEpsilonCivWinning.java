@@ -9,9 +9,6 @@ import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
-import hotciv.variants.AlphaCivAging;
-import hotciv.variants.AlphaCivUnitAction;
-import hotciv.variants.AlphaCivWorldLayout;
 import hotciv.variants.EpsilonCivFactory;
 
 import org.junit.Before;

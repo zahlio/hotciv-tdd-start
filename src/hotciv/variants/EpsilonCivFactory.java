@@ -13,10 +13,6 @@ public class EpsilonCivFactory implements CivFactory {
 		return new AlphaCivAging();
 	}
 	
-	public WinStrategy createWinner() {
-		return new EpsilonWinCondition();
-	}
-	
 	public UnitActionStrategy createUnitAction() {
 		return new AlphaCivUnitAction();
 	}
@@ -25,8 +21,11 @@ public class EpsilonCivFactory implements CivFactory {
 		return new AlphaCivWorldLayout();
 	}
 
+	public WinStrategy createWinner() {
+		return new EpsilonWinCondition();
+	}
+
 	public AttackStrategy createAttack() {
 		return new EpsilonAttacking();
 	}
-
 }

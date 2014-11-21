@@ -13,10 +13,6 @@ public class BetaCivFactory implements CivFactory{
 		return new BetaCivAging();
 	}
 	
-	public WinStrategy createWinner() {
-		return new BetaCivWinCondition();
-	}
-	
 	public UnitActionStrategy createUnitAction() {
 		return new AlphaCivUnitAction();
 	}
@@ -27,5 +23,9 @@ public class BetaCivFactory implements CivFactory{
 
 	public AttackStrategy createAttack() {
 		return new AlphaCivAttacking();
+	}
+
+	public WinStrategy createWinner() {
+		return new BetaCivWinCondition();
 	}
 }

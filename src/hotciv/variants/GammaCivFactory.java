@@ -13,10 +13,6 @@ public class GammaCivFactory implements CivFactory {
 		return new AlphaCivAging();
 	}
 	
-	public WinStrategy createWinner() {
-		return new AlphaCivWinCondition();
-	}
-	
 	public UnitActionStrategy createUnitAction() {
 		return new GammaCivUnitAction();
 	}
@@ -29,4 +25,7 @@ public class GammaCivFactory implements CivFactory {
 		return new AlphaCivAttacking();
 	}
 
+	public WinStrategy createWinner() {
+		return new AlphaCivWinCondition();
+	}
 }

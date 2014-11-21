@@ -1,12 +1,12 @@
 package hotciv.variants;
 
-import hotciv.common.UnitImpl;
 import hotciv.framework.AttackStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
+import hotciv.framework.Unit;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,8 +19,8 @@ public class EpsilonAttacking implements AttackStrategy{
 
 	//Attack win = 1, DefenceWin = 2, Equal Outcome = 0;
 	public int performAttack(Game game, Position from, Position to) {
-		UnitImpl attackingUnit = (UnitImpl) game.getUnitAt(from);
-		UnitImpl defendingUnit = (UnitImpl) game.getUnitAt(to);
+		Unit attackingUnit = game.getUnitAt(from);
+		Unit defendingUnit = game.getUnitAt(to);
 		Random r = new Random();
 		int defensiveStrength = defendingUnit.getDefensiveStrength() + getFriendlySupport(game, to, defendingUnit.getOwner()) 
 				* getTerrainFactor(game, to) * 1+r.nextInt(5);
@@ -32,20 +32,13 @@ public class EpsilonAttacking implements AttackStrategy{
 		//This defines the outcome
 		if(defensiveStrength<attackingStrength && game.getPlayerInTurn()==Player.RED){
 			redAttacks++;
-			game.getUnits().remove(to);
-			game.getUnits().put(to, (UnitImpl) game.getUnitAt(from));
-			game.getUnits().remove(from);
 			return 1;
 		}
 		else if(defensiveStrength<attackingStrength && game.getPlayerInTurn()==Player.BLUE){
 			blueAttacks++;
-			game.getUnits().remove(to);
-			game.getUnits().put(to, (UnitImpl) game.getUnitAt(from));
-			game.getUnits().remove(from);
 			return 1;
 		}
 		else if(defensiveStrength>attackingStrength){
-			game.getUnits().remove(from);
 			return 2;
 		}else{
 			return 0;

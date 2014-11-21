@@ -10,4 +10,8 @@ public interface AttackStrategy {
 	 * @return 1 if attack wins, 2 if defence wins, 0 if there is equal outcome
 	 */
 	public int performAttack(Game game, Position from, Position to);
+	
+	public int getRedAttacks();
+	
+	public int getBlueAttacks();
 }

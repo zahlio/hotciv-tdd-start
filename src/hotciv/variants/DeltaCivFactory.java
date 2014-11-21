@@ -13,10 +13,6 @@ public class DeltaCivFactory implements CivFactory {
 		return new AlphaCivAging();
 	}
 	
-	public WinStrategy createWinner() {
-		return new AlphaCivWinCondition();
-	}
-	
 	public UnitActionStrategy createUnitAction() {
 		return new AlphaCivUnitAction();
 	}
@@ -25,8 +21,13 @@ public class DeltaCivFactory implements CivFactory {
 		return new DeltaCivWorldLayout();
 	}
 
+	@Override
+	public WinStrategy createWinner() {
+		return new AlphaCivWinCondition();
+	}
+
+	@Override
 	public AttackStrategy createAttack() {
 		return new AlphaCivAttacking();
 	}
-
 }
