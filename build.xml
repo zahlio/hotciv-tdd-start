@@ -16,7 +16,7 @@
    distribute it for non-commercial purposes. For any 
    commercial use, see http://www.baerbak.com/
 -->
-<project name="HotCiv" default="help" basedir="."
+<project name="Hotciv" default="help" basedir="."
 	 xmlns:jacoco="antlib:org.jacoco.ant">
 
   <property name="source-directory" value="src"/>

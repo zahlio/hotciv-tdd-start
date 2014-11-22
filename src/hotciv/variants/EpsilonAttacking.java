@@ -14,9 +14,6 @@ import java.util.Random;
 
 public class EpsilonAttacking implements AttackStrategy{
 
-	private int redAttacks = 0;
-	private int blueAttacks = 0;
-
 	//Attack win = 1, DefenceWin = 2, Equal Outcome = 0;
 	public int performAttack(Game game, Position from, Position to) {
 		Unit attackingUnit = game.getUnitAt(from);
@@ -31,11 +28,9 @@ public class EpsilonAttacking implements AttackStrategy{
 
 		//This defines the outcome
 		if(defensiveStrength<attackingStrength && game.getPlayerInTurn()==Player.RED){
-			redAttacks++;
 			return 1;
 		}
 		else if(defensiveStrength<attackingStrength && game.getPlayerInTurn()==Player.BLUE){
-			blueAttacks++;
 			return 1;
 		}
 		else if(defensiveStrength>attackingStrength){
@@ -44,14 +39,6 @@ public class EpsilonAttacking implements AttackStrategy{
 			return 0;
 		}
 
-	}
-	
-	public int getRedAttacks(){
-		return redAttacks;
-	}
-	
-	public int getBlueAttacks(){
-		return blueAttacks;
 	}
 
 	public static int getTerrainFactor(Game game, Position position) {

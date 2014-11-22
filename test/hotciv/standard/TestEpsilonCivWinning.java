@@ -4,12 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
+import hotciv.factories.EpsilonCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Unit;
-import hotciv.variants.EpsilonCivFactory;
 
 import org.junit.Before;
 import org.junit.Test;

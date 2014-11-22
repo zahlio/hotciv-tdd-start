@@ -10,4 +10,10 @@ public interface WinStrategy {
 	   * @return a player, null if no one has won.
 	   */
 	public Player getWinner(Game game);
+	
+	public void setAttackCount(Game game);
+	
+	public int getRedAttacks();
+	
+	public int getBlueAttacks();
 }

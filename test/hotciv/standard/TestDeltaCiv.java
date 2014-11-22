@@ -2,6 +2,8 @@ package hotciv.standard;
 
 import static org.junit.Assert.assertEquals;
 import hotciv.common.GameImpl;
+import hotciv.factories.AlphaCivFactory;
+import hotciv.factories.DeltaCivFactory;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
@@ -9,9 +11,7 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.variants.AlphaCivAging;
-import hotciv.variants.AlphaCivFactory;
 import hotciv.variants.AlphaCivUnitAction;
-import hotciv.variants.DeltaCivFactory;
 import hotciv.variants.DeltaCivWorldLayout;
 
 import org.junit.Before;

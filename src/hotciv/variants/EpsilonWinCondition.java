@@ -1,25 +1,37 @@
 package hotciv.variants;
 
-import hotciv.common.GameImpl;
-import hotciv.framework.AttackStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.WinStrategy;
 
 public class EpsilonWinCondition implements WinStrategy {
 
-	//KAN IKKE TESTE DET HER FORDI JEG CASTER GAMEIMPL
-	
+	private int redAttacks = 0;
+	private int blueAttacks = 0;
+
 	public Player getWinner(Game game) {
-		return giveWinner(((GameImpl)game).getAttackStrategy());
-	}
-	
-	public Player giveWinner(AttackStrategy attackStrategy){
-		if(attackStrategy.getRedAttacks()==3){
+		if(redAttacks==3){
 			return Player.RED;
-		}else if(attackStrategy.getBlueAttacks()==3){
+		}else if(blueAttacks==3){
 			return Player.BLUE;
 		}
 		return null;
+	}
+
+	public void setAttackCount(Game game) {
+		if(game.getPlayerInTurn()==Player.RED){
+			redAttacks++;
+		}else{
+			blueAttacks++;
+		}
+	}
+
+	//purely for statistical use
+	public int getRedAttacks(){
+		return redAttacks;
+	}
+
+	public int getBlueAttacks(){
+		return blueAttacks;
 	}
 }

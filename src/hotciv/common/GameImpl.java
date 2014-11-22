@@ -117,7 +117,8 @@ public class GameImpl implements Game {
 		if (!canMoveDistance(from, to)) { return false; }
 
 		if(getUnitAt(to) != null && getUnitAt(to).getOwner() != currentPlayer && attackAndDefenceStrategy.performAttack(this, from, to)==1){
-
+			winner.setAttackCount(this);
+			units.remove(to);
 		}else if(getUnitAt(to) != null && getUnitAt(to).getOwner() != currentPlayer && attackAndDefenceStrategy.performAttack(this, from, to)==2){
 			units.remove(from);
 			return true;

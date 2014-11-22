@@ -13,7 +13,8 @@ import java.util.Map.Entry;
 
 public class BetaCivWinCondition implements WinStrategy {
 
-	//STUB SHOULD BE ABLE TO CALL THIS METHOD
+	private int redAttacks = 0;
+	private int blueAttacks = 0;
 	
 	public Player getWinner(Game game){
 		return BetaCivWinStrategy(game.getCities());
@@ -41,4 +42,21 @@ public class BetaCivWinCondition implements WinStrategy {
 			return Player.RED;
 		}
 	}
+	
+	//purely for statistical use
+		public void setAttackCount(Game game) {
+			if(game.getPlayerInTurn()==Player.RED){
+				redAttacks++;
+			}else{
+				blueAttacks++;
+			}
+		}
+		
+		public int getRedAttacks(){
+			return redAttacks;
+		}
+		
+		public int getBlueAttacks(){
+			return blueAttacks;
+		}
 }

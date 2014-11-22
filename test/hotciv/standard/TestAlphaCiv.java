@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import hotciv.common.CityImpl;
 import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
+import hotciv.factories.AlphaCivFactory;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
@@ -14,7 +15,6 @@ import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
-import hotciv.variants.AlphaCivFactory;
 
 import org.junit.Before;
 import org.junit.Test;

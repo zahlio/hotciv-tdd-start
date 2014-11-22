@@ -3,13 +3,13 @@ package hotciv.standard;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import hotciv.common.GameImpl;
+import hotciv.factories.BetaCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.variants.AlphaCivUnitAction;
 import hotciv.variants.AlphaCivWorldLayout;
 import hotciv.variants.BetaCivAging;
-import hotciv.variants.BetaCivFactory;
 
 import org.junit.Before;
 import org.junit.Test;
