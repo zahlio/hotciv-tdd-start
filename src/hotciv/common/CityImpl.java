@@ -28,10 +28,10 @@ public class CityImpl implements City {
 		return production;
 	}
 	
-	public void changeOwner(Player currentOwner){
-		if(currentOwner==Player.RED){
+	public void changeOwner(){
+		if(getOwner()==Player.RED){
 			p = Player.BLUE;
-		}else if(currentOwner==Player.BLUE){
+		}else if(getOwner()==Player.BLUE){
 			p = Player.RED;
 		}
 	}

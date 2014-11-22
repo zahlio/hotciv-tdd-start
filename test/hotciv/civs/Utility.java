@@ -1,4 +1,4 @@
-package hotciv.standard;
+package hotciv.civs;
 
 import hotciv.common.CityImpl;
 import hotciv.framework.Game;
@@ -14,6 +14,6 @@ public class Utility {
 
 	public static void changeOwnerOfCity(Game game, Position p){
 		CityImpl c = (CityImpl) game.getCityAt(p);
-		c.changeOwner(c.getOwner());			
+		c.changeOwner();			
 	}
 }

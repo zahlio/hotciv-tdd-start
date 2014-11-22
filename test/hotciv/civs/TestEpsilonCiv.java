@@ -1,4 +1,4 @@
-package hotciv.standard;
+package hotciv.civs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -14,7 +14,8 @@ import hotciv.framework.Unit;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestEpsilonCivWinning {
+//THIS METHOD NEEDS TO TEST ATTACKING ASWELL
+public class TestEpsilonCiv {
 
 	Game game;
 	@Before 

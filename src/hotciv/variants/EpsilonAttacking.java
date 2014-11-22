@@ -23,14 +23,11 @@ public class EpsilonAttacking implements AttackStrategy{
 				* getTerrainFactor(game, to) * 1+r.nextInt(5);
 		int attackingStrength = attackingUnit.getAttackingStrength() + getFriendlySupport(game, from, attackingUnit.getOwner()) 
 				* getTerrainFactor(game, from) * 1+r.nextInt(5);
-		System.out.println("The Defender has the strength of: " + defensiveStrength);
-		System.out.println("The Attacker has the strength of: " + attackingStrength);
+		//System.out.println("The Defender has the strength of: " + defensiveStrength);
+		//System.out.println("The Attacker has the strength of: " + attackingStrength);
 
 		//This defines the outcome
-		if(defensiveStrength<attackingStrength && game.getPlayerInTurn()==Player.RED){
-			return 1;
-		}
-		else if(defensiveStrength<attackingStrength && game.getPlayerInTurn()==Player.BLUE){
+		if(defensiveStrength<attackingStrength){
 			return 1;
 		}
 		else if(defensiveStrength>attackingStrength){

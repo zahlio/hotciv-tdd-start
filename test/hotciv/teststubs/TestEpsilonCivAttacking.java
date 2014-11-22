@@ -1,10 +1,11 @@
-package hotciv.standard;
+package hotciv.teststubs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import hotciv.common.CityImpl;
 import hotciv.common.UnitImpl;
+import hotciv.framework.AttackStrategy;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
@@ -26,12 +27,15 @@ import org.junit.Test;
  */
 public class TestEpsilonCivAttacking {
   private Iterator<Position> iter;
+  private HashMap<Position, UnitImpl> units = new HashMap<Position, UnitImpl>();
   private ArrayList<Position> neighborhood;
   private Position center, p;
   
   Game game;
+  AttackStrategy attackStrategy;
   @Before public void setUp() {
     game = new GameStubForBattleTesting();
+    attackStrategy = new EpsilonAttacking();
   }
   
   /** helper method to insert elements in an iterator into a list. */
@@ -42,6 +46,19 @@ public class TestEpsilonCivAttacking {
       neighborhood.add(p);
     }
     return neighborhood;
+  }
+  
+  //THIS COULD BE TESTED ANOTHER WAY
+  @Test public void AttackerShouldWin(){
+	  int whoWon = attackStrategy.performAttack(game, new Position(1,1), new Position(2,1));
+	  
+	  if(whoWon==1){
+		  assertEquals("Attacker Won", 1, whoWon);
+	  }else if(whoWon==2){
+		  assertEquals("Defender won", 2, whoWon);
+	  }else{
+		  assertEquals("It ended equal", 0, whoWon);
+	  }
   }
   
   @Test public void shouldGive8PositionsForP8_8() {
@@ -127,7 +144,7 @@ public class TestEpsilonCivAttacking {
   }
   @Test public void shouldGiveSum3ForRedAtP2_2() {
     assertEquals("Red unit at (2,2) should get +3 support",
-        +3, EpsilonAttacking.getFriendlySupport( game, new Position(2,2), Player.RED));
+        +4, EpsilonAttacking.getFriendlySupport( game, new Position(2,2), Player.RED));
   }
 }
 
@@ -146,8 +163,8 @@ class StubUnit implements Unit {
   public String getTypeString() { return type; }
   public Player getOwner() { return owner; }
   public int getMoveCount() { return 0; }
-  public int getDefensiveStrength() { return 0; }
-  public int getAttackingStrength() { return 0; }
+  public int getDefensiveStrength() { return 2; }
+  public int getAttackingStrength() { return 8; }
 }
 
 
@@ -178,6 +195,12 @@ class GameStubForBattleTesting implements Game {
     }
     if ( p.getRow() == 4 && p.getColumn() == 4 ) {
       return new StubUnit(GameConstants.ARCHER, Player.BLUE);
+    }
+    if(p.getRow()==1 && p.getColumn()==1){
+    	return new StubUnit(GameConstants.LEGION, Player.RED);
+    }
+    if(p.getRow()==2 && p.getColumn()==1){
+    	return new StubUnit(GameConstants.LEGION, Player.BLUE);
     }
     return null;
   }

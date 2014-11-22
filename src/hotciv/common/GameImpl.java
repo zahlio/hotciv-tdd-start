@@ -83,11 +83,6 @@ public class GameImpl implements Game {
 		return cities.get(p);
 	}
 
-	//BAD SOLUTION
-	public AttackStrategy getAttackStrategy(){
-		return attackAndDefenceStrategy;
-	}
-
 	public HashMap<Position, UnitImpl> getUnits(){
 		return units;
 	}
@@ -108,7 +103,10 @@ public class GameImpl implements Game {
 		return age;
 	}
 
+	//NEEDS METHOD WHEN YOU ATTACK ON A CITY THAT THE CITY SHOULD CHANGE ASWELL
 	public boolean moveUnit(Position from, Position to) {
+		int outcome = 0;
+		
 		if ( getUnitAt(from) == null ) { return false; }
 		if ( getUnitAt(from).getOwner() != getPlayerInTurn() ) { return false; }
 		if ( getTileAt(to).getTypeString().equals(GameConstants.OCEANS) ) { return false; }
@@ -116,22 +114,45 @@ public class GameImpl implements Game {
 		if (getUnitAt(from).getMoveCount()==0){ return false; }
 		if (!canMoveDistance(from, to)) { return false; }
 
-		if(getUnitAt(to) != null && getUnitAt(to).getOwner() != currentPlayer && attackAndDefenceStrategy.performAttack(this, from, to)==1){
+		if(getUnitAt(to) != null && getUnitAt(to).getOwner() != currentPlayer){
+			outcome = attackAndDefenceStrategy.performAttack(this, from, to);
+		}
+		
+		if(outcome==1){
 			winner.setAttackCount(this);
-			units.remove(to);
-		}else if(getUnitAt(to) != null && getUnitAt(to).getOwner() != currentPlayer && attackAndDefenceStrategy.performAttack(this, from, to)==2){
+			moveToTile(from, to, "unit");
+			return true;
+		}else if(outcome == 2){
 			units.remove(from);
 			return true;
+		}else if(getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
+			moveToTile(from, to, "city");
+			return true;
+		}else if(getTileAt(to).getTypeString().equals(GameConstants.PLAINS) && getUnitAt(to)==null || getTileAt(to).getTypeString().equals(GameConstants.HILLS) && getUnitAt(to)==null){
+			moveToTile(from, to, "tile");
+			return true; 
 		}
-		if(getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
-			CityImpl c = (CityImpl) getCityAt(to);
-			c.changeOwner(c.getOwner());
+		return false;
+	}
+
+	//MOVE TO OBJECT?
+	public void moveToTile(Position current, Position other, String moveToType){
+		if(moveToType.equals("unit")){
+			units.remove(other);
+			units.put(other, (UnitImpl) getUnitAt(current));
+			units.remove(current);
+			((UnitImpl) getUnitAt(other)).setHasMoved(true);
+		}else if(moveToType.equals("city")){
+			CityImpl c = (CityImpl) getCityAt(other);
+			c.changeOwner();
+			units.put(other, (UnitImpl) getUnitAt(current));
+			units.remove(current);
+			((UnitImpl) getUnitAt(other)).setHasMoved(true);
+		}else if(moveToType.equals("tile")){
+			units.put(other, (UnitImpl) getUnitAt(current));
+			units.remove(current);
+			((UnitImpl) getUnitAt(other)).setHasMoved(true);
 		}
-		if(getTileAt(to).getTypeString().equals(GameConstants.PLAINS) || getTileAt(to).getTypeString().equals(GameConstants.HILLS)){}
-		units.put(to, (UnitImpl) getUnitAt(from));
-		units.remove(from);
-		((UnitImpl) getUnitAt(to)).setHasMoved(true);
-		return true;
 	}
 
 	public boolean canMoveDistance(Position from, Position to){
@@ -176,12 +197,6 @@ public class GameImpl implements Game {
 		return new Position(p.getRow()+placeX[number],p.getRow()+placeY[number]);
 	}
 
-	public void moveUnitTo(Position from, Position to){
-		units.put(to, (UnitImpl) getUnitAt(from));
-		units.remove(from);
-		((UnitImpl) getUnitAt(to)).setHasMoved(true);
-	}
-
 	public void endOfTurn() {
 		if(currentPlayer == Player.RED){
 			currentPlayer = Player.BLUE;
@@ -194,22 +209,17 @@ public class GameImpl implements Game {
 	}
 
 	private void resetMoveCount(){
-		Iterator<Entry<Position, UnitImpl>> it = units.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<Position, UnitImpl> pairs = it.next();
-			Position p = pairs.getKey();
+		for(Position p : units.keySet()){
 			((UnitImpl) getUnitAt(p)).setHasMoved(false);
 		}
 	}
 
 	private void setResourcesForEachCityAndProduceUnitIfCan(){
-		Iterator<Entry<Position, CityImpl>> it = cities.entrySet().iterator();
-		while (it.hasNext()) {
-			Entry<Position, CityImpl> pairs = it.next();
-			Position p = pairs.getKey();
-			((CityImpl) getCityAt(p)).setResourcesPerRound();
+		for(Position p : cities.keySet()){
 			CityImpl c = (CityImpl) getCityAt(p);
-			if(c.canDeductResources(c.getProduction()) && getNextSpawnPositionAtCity(p) != null){
+			c.setResourcesPerRound();
+			if(c.canDeductResources(c.getProduction()) && 
+					getNextSpawnPositionAtCity(p) != null){
 				produceUnitAt(c.getProduction(), getNextSpawnPositionAtCity(p));
 				c.deductResources(c.getProduction());
 				produceUnitAt(c.getProduction(), p);
