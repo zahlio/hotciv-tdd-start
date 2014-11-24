@@ -1,9 +1,9 @@
 package hotciv.variants;
 
-import hotciv.framework.AttackStrategy;
-import hotciv.framework.DieStrategy;
-import hotciv.framework.Game;
-import hotciv.framework.Position;
+import hotciv.framework.common.Game;
+import hotciv.framework.common.Position;
+import hotciv.framework.strategy.AttackStrategy;
+import hotciv.framework.strategy.DieStrategy;
 
 public class ZetaCivAttacks implements AttackStrategy {
 	

@@ -1,4 +1,4 @@
-package hotciv.framework;
+package hotciv.framework.common;
 
 /** Represents a single unit in the game.
 

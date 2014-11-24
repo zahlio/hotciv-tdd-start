@@ -1,6 +1,6 @@
 package hotciv.variants;
 
-import hotciv.framework.DieStrategy;
+import hotciv.framework.strategy.DieStrategy;
 
 import java.util.Random;
 
@@ -9,7 +9,7 @@ public class SixSidedDie implements DieStrategy {
 	Random r = new Random();
 	
 	public int dieValue() {
-		return r.nextInt(5)+1;
+		return 1+r.nextInt(6);
 	}
 
 }

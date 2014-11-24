@@ -1,8 +1,8 @@
 package hotciv.civs;
 
 import hotciv.common.CityImpl;
-import hotciv.framework.Game;
-import hotciv.framework.Position;
+import hotciv.framework.common.Game;
+import hotciv.framework.common.Position;
 
 public class Utility {
 

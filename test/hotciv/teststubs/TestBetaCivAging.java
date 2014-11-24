@@ -1,7 +1,7 @@
 package hotciv.teststubs;
 
 import static org.junit.Assert.assertEquals;
-import hotciv.framework.AgingStrategy;
+import hotciv.framework.strategy.AgingStrategy;
 import hotciv.variants.BetaCivAging;
 
 import org.junit.Before;

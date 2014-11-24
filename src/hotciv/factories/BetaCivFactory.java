@@ -1,11 +1,11 @@
 package hotciv.factories;
 
-import hotciv.framework.AgingStrategy;
-import hotciv.framework.AttackStrategy;
-import hotciv.framework.CivFactory;
-import hotciv.framework.UnitActionStrategy;
-import hotciv.framework.WinStrategy;
-import hotciv.framework.WorldLayoutStrategy;
+import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.strategy.AgingStrategy;
+import hotciv.framework.strategy.AttackStrategy;
+import hotciv.framework.strategy.UnitActionStrategy;
+import hotciv.framework.strategy.WinStrategy;
+import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.AlphaCivAttacking;
 import hotciv.variants.AlphaCivUnitAction;
 import hotciv.variants.AlphaCivWorldLayout;

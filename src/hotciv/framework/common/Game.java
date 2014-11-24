@@ -1,4 +1,4 @@
-package hotciv.framework;
+package hotciv.framework.common;
 
 import hotciv.common.CityImpl;
 import hotciv.common.UnitImpl;

@@ -1,8 +1,8 @@
 package hotciv.variants;
 
-import hotciv.framework.Game;
-import hotciv.framework.Player;
-import hotciv.framework.WinStrategy;
+import hotciv.framework.common.Game;
+import hotciv.framework.common.Player;
+import hotciv.framework.strategy.WinStrategy;
 
 public class AlphaCivWinCondition implements WinStrategy {
 	

@@ -2,11 +2,11 @@ package hotciv.variants;
 
 import hotciv.common.CityImpl;
 import hotciv.common.TileImpl;
-import hotciv.framework.GameConstants;
-import hotciv.framework.Player;
-import hotciv.framework.Position;
-import hotciv.framework.Tile;
-import hotciv.framework.WorldLayoutStrategy;
+import hotciv.framework.common.GameConstants;
+import hotciv.framework.common.Player;
+import hotciv.framework.common.Position;
+import hotciv.framework.common.Tile;
+import hotciv.framework.strategy.WorldLayoutStrategy;
 
 import java.util.HashMap;
 

@@ -1,4 +1,4 @@
-package hotciv.framework;
+package hotciv.framework.common;
 
 /** Collection of constants used in HotCiv Game. Note that strings are
  * used instead of enumeration types to keep the set of valid
@@ -45,10 +45,7 @@ public class GameConstants {
 	// Valid production balance types
 	public static final String productionFocus = "hammer";
 	public static final String foodFocus = "apple";
-	//Check what game we are playing
-	public static final String ALPHACIV = "alphaciv";
-	public static final String BETACIV = "betaciv";
-	public static final String GAMMACIV = "gammaciv";
+	//UnitActions
 	public static final String BUILDCITY = "buildcity";
 	public static final String FORTIFY = "fortify";
 }

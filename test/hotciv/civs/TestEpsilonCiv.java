@@ -5,22 +5,22 @@ import static org.junit.Assert.assertNull;
 import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
 import hotciv.factories.EpsilonCivFactory;
-import hotciv.framework.Game;
-import hotciv.framework.GameConstants;
-import hotciv.framework.Player;
-import hotciv.framework.Position;
-import hotciv.framework.Unit;
+import hotciv.framework.common.Game;
+import hotciv.framework.common.GameConstants;
+import hotciv.framework.common.Player;
+import hotciv.framework.common.Position;
+import hotciv.framework.common.Unit;
+import hotciv.variants.OneSidedDie;
 
 import org.junit.Before;
 import org.junit.Test;
 
-//THIS METHOD NEEDS TO TEST ATTACKING ASWELL
 public class TestEpsilonCiv {
 
 	Game game;
 	@Before 
 	public void setUp() {
-		game = new GameImpl(new EpsilonCivFactory());
+		game = new GameImpl(new EpsilonCivFactory(new OneSidedDie()));
 	}
 
 	@Test
@@ -47,5 +47,15 @@ public class TestEpsilonCiv {
 		}else{
 			assertNull("There should be no winner", game.getWinner());
 		}
+	}
+	
+	@Test
+	public void RedLegionShouldHaveKilledBlueArcherAndMovedToPosition(){
+		
+	}
+	
+	@Test
+	public void BlueArcherShouldRemainInPositionAndRedArcherRemoved(){
+		
 	}
 }

@@ -1,18 +1,18 @@
 package hotciv.common;
 
-import hotciv.framework.AgingStrategy;
-import hotciv.framework.AttackStrategy;
-import hotciv.framework.City;
-import hotciv.framework.CivFactory;
-import hotciv.framework.Game;
-import hotciv.framework.GameConstants;
-import hotciv.framework.Player;
-import hotciv.framework.Position;
-import hotciv.framework.Tile;
-import hotciv.framework.Unit;
-import hotciv.framework.UnitActionStrategy;
-import hotciv.framework.WinStrategy;
-import hotciv.framework.WorldLayoutStrategy;
+import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.common.City;
+import hotciv.framework.common.Game;
+import hotciv.framework.common.GameConstants;
+import hotciv.framework.common.Player;
+import hotciv.framework.common.Position;
+import hotciv.framework.common.Tile;
+import hotciv.framework.common.Unit;
+import hotciv.framework.strategy.AgingStrategy;
+import hotciv.framework.strategy.AttackStrategy;
+import hotciv.framework.strategy.UnitActionStrategy;
+import hotciv.framework.strategy.WinStrategy;
+import hotciv.framework.strategy.WorldLayoutStrategy;
 
 import java.util.HashMap;
 
@@ -101,12 +101,12 @@ public class GameImpl implements Game {
 		return age;
 	}
 
-	//NEEDS METHOD WHEN YOU ATTACK ON A CITY THAT THE CITY SHOULD CHANGE ASWELL
 	public boolean moveUnit(Position from, Position to) {
 		//CANT INITIALIZE THIS WAY
-		boolean outcomeIsinitialized = false;;
+		boolean outcomeIsinitialized = false;
+		//BAD WAY TO USE OUTCOME
 		boolean outcome = false;
-		
+
 		if ( getUnitAt(from) == null ) { return false; }
 		if ( getUnitAt(from).getOwner() != getPlayerInTurn() ) { return false; }
 		if ( getTileAt(to).getTypeString().equals(GameConstants.OCEANS) ) { return false; }
@@ -118,19 +118,25 @@ public class GameImpl implements Game {
 			outcomeIsinitialized = true;
 			outcome = attackAndDefenceStrategy.performAttack(this, from, to);
 		}
-		
+		if(outcome && outcomeIsinitialized && getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
+			moveToTile(from, to, "cityAndUnit");
+			return true;
+		}
 		if(outcome && outcomeIsinitialized){
 			winner.setAttackCount(this);
 			moveToTile(from, to, "unit");
 			return true;
 			//This method will be changed
-		}else if(!outcome && outcomeIsinitialized){
+		}
+		if(!outcome && outcomeIsinitialized){
 			units.remove(from);
 			return true;
-		}else if(getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
+		}
+		if(getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
 			moveToTile(from, to, "city");
 			return true;
-		}else if(getTileAt(to).getTypeString().equals(GameConstants.PLAINS) && getUnitAt(to)==null || getTileAt(to).getTypeString().equals(GameConstants.HILLS) && getUnitAt(to)==null){
+		}
+		if(getTileAt(to).getTypeString().equals(GameConstants.PLAINS) && getUnitAt(to)==null || getTileAt(to).getTypeString().equals(GameConstants.HILLS) && getUnitAt(to)==null){
 			moveToTile(from, to, "tile");
 			return true; 
 		}
@@ -141,20 +147,21 @@ public class GameImpl implements Game {
 	public void moveToTile(Position current, Position other, String moveToType){
 		if(moveToType.equals("unit")){
 			units.remove(other);
-			units.put(other, (UnitImpl) getUnitAt(current));
-			units.remove(current);
-			((UnitImpl) getUnitAt(other)).setHasMoved(true);
-		}else if(moveToType.equals("city")){
+		}
+		if(moveToType.equals("city")){
 			CityImpl c = (CityImpl) getCityAt(other);
 			c.changeOwner();
-			units.put(other, (UnitImpl) getUnitAt(current));
-			units.remove(current);
-			((UnitImpl) getUnitAt(other)).setHasMoved(true);
-		}else if(moveToType.equals("tile")){
-			units.put(other, (UnitImpl) getUnitAt(current));
-			units.remove(current);
-			((UnitImpl) getUnitAt(other)).setHasMoved(true);
 		}
+		if(moveToType.equals("cityAndUnit")){
+			units.remove(other);
+			CityImpl c = (CityImpl) getCityAt(other);
+			c.changeOwner();
+		}
+		if(moveToType.equals("tile")){
+		}
+		units.put(other, (UnitImpl) getUnitAt(current));
+		units.remove(current);
+		((UnitImpl) getUnitAt(other)).setHasMoved(true);
 	}
 
 	public boolean canMoveDistance(Position from, Position to){
@@ -205,17 +212,18 @@ public class GameImpl implements Game {
 		}else if(currentPlayer == Player.BLUE){
 			currentPlayer = Player.RED;
 			setResourcesForEachCityAndProduceUnitIfCan();
-			resetMoveCount();
+			resetUnitMoveCount();
 			age = ageStrategy.getNewAge(age);
 		}
 	}
 
-	private void resetMoveCount(){
+	private void resetUnitMoveCount(){
 		for(Position p : units.keySet()){
 			((UnitImpl) getUnitAt(p)).setHasMoved(false);
 		}
 	}
 
+	//METHOD NAME TOO LONG, THATS WHAT SHE SAID!
 	private void setResourcesForEachCityAndProduceUnitIfCan(){
 		for(Position p : cities.keySet()){
 			CityImpl c = (CityImpl) getCityAt(p);

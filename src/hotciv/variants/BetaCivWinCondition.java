@@ -1,11 +1,11 @@
 package hotciv.variants;
 
 import hotciv.common.CityImpl;
-import hotciv.framework.City;
-import hotciv.framework.Game;
-import hotciv.framework.Player;
-import hotciv.framework.Position;
-import hotciv.framework.WinStrategy;
+import hotciv.framework.common.City;
+import hotciv.framework.common.Game;
+import hotciv.framework.common.Player;
+import hotciv.framework.common.Position;
+import hotciv.framework.strategy.WinStrategy;
 
 import java.util.HashMap;
 import java.util.Iterator;

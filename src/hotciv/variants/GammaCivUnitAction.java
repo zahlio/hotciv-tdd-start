@@ -2,10 +2,10 @@ package hotciv.variants;
 
 import hotciv.common.CityImpl;
 import hotciv.common.UnitImpl;
-import hotciv.framework.Game;
-import hotciv.framework.GameConstants;
-import hotciv.framework.Position;
-import hotciv.framework.UnitActionStrategy;
+import hotciv.framework.common.Game;
+import hotciv.framework.common.GameConstants;
+import hotciv.framework.common.Position;
+import hotciv.framework.strategy.UnitActionStrategy;
 
 public class GammaCivUnitAction implements UnitActionStrategy{
 

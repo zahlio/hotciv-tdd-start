@@ -8,13 +8,13 @@ import hotciv.common.CityImpl;
 import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
 import hotciv.factories.AlphaCivFactory;
-import hotciv.framework.City;
-import hotciv.framework.Game;
-import hotciv.framework.GameConstants;
-import hotciv.framework.Player;
-import hotciv.framework.Position;
-import hotciv.framework.Tile;
-import hotciv.framework.Unit;
+import hotciv.framework.common.City;
+import hotciv.framework.common.Game;
+import hotciv.framework.common.GameConstants;
+import hotciv.framework.common.Player;
+import hotciv.framework.common.Position;
+import hotciv.framework.common.Tile;
+import hotciv.framework.common.Unit;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -200,6 +200,20 @@ public class TestAlphaCiv {
 	  game.moveUnit(red, blue);
 	  Unit u = game.getUnitAt(blue);
 	  assertEquals("3,2 should be owned by red now", Player.RED, u.getOwner());
+  }
+  
+  @Test
+  public void RedLegionHasKilledBlueLegionAndConqueredBlueCity(){
+	  Position redLegion = new Position(3,1);
+	  Position blueLegion = new Position(4,1);
+	  game.getUnits().put(redLegion, new UnitImpl(GameConstants.LEGION, Player.RED));
+	  game.getUnits().put(blueLegion, new UnitImpl(GameConstants.LEGION, Player.BLUE));
+	  
+	  game.moveUnit(redLegion, blueLegion);
+	  Unit u = game.getUnitAt(blueLegion);
+	  City c = game.getCityAt(blueLegion);
+	  assertEquals("unit at (4,1) should be owned by red now", Player.RED, u.getOwner());
+	  assertEquals("city at (4,1) should be owned by blue now", Player.RED, c.getOwner());
   }
   
   @Test

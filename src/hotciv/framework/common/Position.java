@@ -1,4 +1,4 @@
-package hotciv.framework;
+package hotciv.framework.common;
 
 /** Position on the world map.
     

@@ -1,6 +1,6 @@
 package hotciv.common;
 
-import hotciv.framework.Tile;
+import hotciv.framework.common.Tile;
 
 public class TileImpl implements Tile {
 	

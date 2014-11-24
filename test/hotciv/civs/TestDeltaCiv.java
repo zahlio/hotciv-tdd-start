@@ -3,12 +3,12 @@ package hotciv.civs;
 import static org.junit.Assert.assertEquals;
 import hotciv.common.GameImpl;
 import hotciv.factories.DeltaCivFactory;
-import hotciv.framework.City;
-import hotciv.framework.Game;
-import hotciv.framework.GameConstants;
-import hotciv.framework.Player;
-import hotciv.framework.Position;
-import hotciv.framework.Tile;
+import hotciv.framework.common.City;
+import hotciv.framework.common.Game;
+import hotciv.framework.common.GameConstants;
+import hotciv.framework.common.Player;
+import hotciv.framework.common.Position;
+import hotciv.framework.common.Tile;
 
 import org.junit.Before;
 import org.junit.Test;

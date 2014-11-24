@@ -6,6 +6,7 @@ import hotciv.teststubs.TestAlphaCivWorldLayout;
 import hotciv.teststubs.TestBetaCivAging;
 import hotciv.teststubs.TestBetaCivWinStrategy;
 import hotciv.teststubs.TestDeltaCivWorldLayout;
+import hotciv.teststubs.TestDieStub;
 import hotciv.teststubs.TestEpsilonCivAttacking;
 import hotciv.teststubs.TestEpsilonCivWinning;
 import hotciv.teststubs.TestZetaCivAttacking;
@@ -30,7 +31,8 @@ import org.junit.runners.Suite;
 	TestEpsilonCiv.class,
 	TestGammaCiv.class,
 	TestZetaCivAttacking.class,
-	TestZetaCivWinStrategy.class
+	TestZetaCivWinStrategy.class,
+	TestDieStub.class
 })
 public class TestAll {
 

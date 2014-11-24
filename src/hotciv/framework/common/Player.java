@@ -1,10 +1,9 @@
-package hotciv.framework;
+package hotciv.framework.common;
 
-/** Represents a city in the game.
+/** Represents a player of the game.
 
 Responsibilities:
-1) Knows its owner.
-2) Knows its population size.
+  1) To represent a player, specifically his/her color.
 
    This source code is from the book 
      "Flexible, Reliable Software:
@@ -30,27 +29,6 @@ Responsibilities:
    limitations under the License.
 
 */
-public interface City {
-  /** return the owner of this city.
-   * @return the player that controls this city.
-   */
-  public Player getOwner();
-  
-  /** return the size of the population.
-   * @return population size.
-   */
-  public int getSize();
-
-  /** return the type of unit this city is currently producing.
-   * @return a string type defining the unit under production,
-   * see GameConstants for valid values.
-   */
-  public String getProduction();
-
-  /** return the work force's focus in this city.
-   * @return a string type defining the focus, see GameConstants
-   * for valid return values.
-   */
-  public String getWorkforceFocus();
-
+public enum Player {
+  RED, BLUE, YELLOW, GREEN
 }
