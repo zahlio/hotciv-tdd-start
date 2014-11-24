@@ -9,5 +9,5 @@ public interface AttackStrategy {
 	 * @param to the defending unit
 	 * @return 1 if attack wins, 2 if defence wins, 0 if there is equal outcome
 	 */
-	public int performAttack(Game game, Position from, Position to);
+	public boolean performAttack(Game game, Position from, Position to);
 }

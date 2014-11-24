@@ -7,9 +7,6 @@ import hotciv.factories.BetaCivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
-import hotciv.variants.AlphaCivUnitAction;
-import hotciv.variants.AlphaCivWorldLayout;
-import hotciv.variants.BetaCivAging;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -47,17 +47,17 @@ import org.junit.Test;
 */
 public class TestAlphaCiv {
   private Game game;
-  private Position redCity, blueCity, redArcher, redSettler, blueLegion;
+  private Position redCity; //blueCity, redArcher, redSettler, blueLegion;
   /** Fixture for alphaciv testing. */
   
   @Before
   public void setUp() {
     game = new GameImpl(new AlphaCivFactory());
     redCity = new Position(1,1);
-    blueCity = new Position(4,1);
-    redArcher = new Position(2,0);
-    redSettler = new Position(4,3);
-    blueLegion = new Position(3,2);
+    //blueCity = new Position(4,1);
+    //redArcher = new Position(2,0);
+    //redSettler = new Position(4,3);
+    //blueLegion = new Position(3,2);
   }
   
   @Test
@@ -300,7 +300,7 @@ public class TestAlphaCiv {
       Unit u2 = game.getUnitAt(new Position(0,2));
       Unit u3 = game.getUnitAt(new Position(1,2));
       
-      String _constant = GameConstants.ARCHER;
+      //String _constant = GameConstants.ARCHER;
       assertEquals("There should be an Archer at (1,1)", GameConstants.ARCHER, u.getTypeString());
       assertEquals("There should be an Archer at (0,1)", GameConstants.ARCHER, u1.getTypeString());
       assertEquals("There should be an Archer at (0,2)", GameConstants.ARCHER, u2.getTypeString());

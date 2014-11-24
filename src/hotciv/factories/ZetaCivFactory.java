@@ -9,29 +9,34 @@ import hotciv.framework.WorldLayoutStrategy;
 import hotciv.variants.AlphaCivAging;
 import hotciv.variants.AlphaCivUnitAction;
 import hotciv.variants.AlphaCivWorldLayout;
-import hotciv.variants.EpsilonAttacking;
-import hotciv.variants.EpsilonWinCondition;
 import hotciv.variants.SixSidedDie;
+import hotciv.variants.ZetaCivAttacks;
+import hotciv.variants.ZetaCivWinCondition;
 
-public class EpsilonCivFactory implements CivFactory {
+public class ZetaCivFactory implements CivFactory {
 
 	public AgingStrategy createAging() {
 		return new AlphaCivAging();
 	}
-	
+
+	@Override
+	public WinStrategy createWinner() {
+		return new ZetaCivWinCondition();
+	}
+
+	@Override
 	public UnitActionStrategy createUnitAction() {
 		return new AlphaCivUnitAction();
 	}
 
+	@Override
 	public WorldLayoutStrategy createLayout() {
 		return new AlphaCivWorldLayout();
 	}
 
-	public WinStrategy createWinner() {
-		return new EpsilonWinCondition();
+	@Override
+	public AttackStrategy createAttack() {
+		return new ZetaCivAttacks(new SixSidedDie());
 	}
 
-	public AttackStrategy createAttack() {
-		return new EpsilonAttacking(new SixSidedDie());
-	}
 }

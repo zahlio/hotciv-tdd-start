@@ -1,12 +1,8 @@
 package hotciv.teststubs;
 
 import static org.junit.Assert.*;
-
-import java.util.HashMap;
-
 import hotciv.common.CityImpl;
 import hotciv.common.UnitImpl;
-import hotciv.framework.AttackStrategy;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.Player;
@@ -14,8 +10,9 @@ import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
 import hotciv.framework.WinStrategy;
-import hotciv.variants.ZetaCivAttacks;
 import hotciv.variants.ZetaCivWinCondition;
+
+import java.util.HashMap;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,31 +22,62 @@ public class TestZetaCivWinStrategy {
 	private Game game;
 	private Game game2;
 	private WinStrategy zetaWin;
-	private AttackStrategy zetaAttack;
 	private HashMap<Position, CityImpl> cities = new HashMap<Position, CityImpl>();
 	
 	@Before
 	public void SetUp(){
-		zetaAttack = new ZetaCivAttacks();
 		zetaWin = new ZetaCivWinCondition();
 		game = new GameStubZetaCiv(-3000, cities);
-		game2 = new GameStubZetaCiv(-3000, cities);
+		game2 = new GameStubZetaCiv(-1000, cities);
 	}
 	
 	@Test
 	public void RedShouldHaveWonBetaCiv(){
 		game.getCities().put(new Position(1,1), new CityImpl(Player.RED));
-		assertEquals("Red should have been winner", Player.RED, zetaWin.getWinner(game));
+		assertEquals("Red should have won BetaCiv", Player.RED, zetaWin.getWinner(game));
+	}
+	
+	@Test
+	public void BlueShouldHaveWonBetaCiv(){
+		game.getCities().put(new Position(4,1), new CityImpl(Player.BLUE));
+		assertEquals("Blue should have won BetaCiv", Player.BLUE, zetaWin.getWinner(game));
+	}
+	
+	@Test
+	public void NoOneHasWonBetaCiv(){
+		game.getCities().put(new Position(1,1), new CityImpl(Player.RED));
+		game.getCities().put(new Position(4,1), new CityImpl(Player.BLUE));
+		assertNull("No one should have won BetaCiv", zetaWin.getWinner(game));
 	}
 	
 	@Test
 	public void RedShouldHaveWonEpsilonCiv(){
-		
+		zetaWin.setAttackCount(game2);
+		zetaWin.setAttackCount(game2);
+		zetaWin.setAttackCount(game2);
+		assertEquals("Red should have won EpsilonCiv", Player.RED, zetaWin.getWinner(game2));
+	}
+	
+	@Test
+	public void BlueShouldHaveWonEpsilonCiv(){
+		game2.endOfTurn();
+		zetaWin.setAttackCount(game2);
+		zetaWin.setAttackCount(game2);
+		zetaWin.setAttackCount(game2);
+		assertEquals("Blue should have won EpsilonCiv", Player.BLUE, zetaWin.getWinner(game2));
+	}
+	
+	@Test
+	public void NoShouldHaveWonEpsilonCiv(){
+		zetaWin.setAttackCount(game2);
+		zetaWin.setAttackCount(game2);
+		assertNull("No one should have won EpsilonCiv", zetaWin.getWinner(game2));
 	}
 }
 
 class GameStubZetaCiv implements Game{
 	
+	private Player currentPlayer = Player.RED;
 	private int age;
 	private HashMap<Position, CityImpl> cities = new HashMap<Position, CityImpl>();
 
@@ -78,8 +106,7 @@ class GameStubZetaCiv implements Game{
 
 	@Override
 	public Player getPlayerInTurn() {
-		// TODO Auto-generated method stub
-		return null;
+		return currentPlayer;
 	}
 
 	@Override
@@ -101,7 +128,11 @@ class GameStubZetaCiv implements Game{
 
 	@Override
 	public void endOfTurn() {
-		// TODO Auto-generated method stub
+		if(currentPlayer==Player.RED){
+			currentPlayer = Player.BLUE;
+		}else if(currentPlayer==Player.BLUE){
+			currentPlayer = Player.RED;
+		}
 
 	}
 

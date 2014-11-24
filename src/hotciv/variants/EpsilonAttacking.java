@@ -1,6 +1,7 @@
 package hotciv.variants;
 
 import hotciv.framework.AttackStrategy;
+import hotciv.framework.DieStrategy;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
@@ -10,30 +11,32 @@ import hotciv.framework.Unit;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Random;
 
 public class EpsilonAttacking implements AttackStrategy{
+	
+	private DieStrategy die;
+	
+	public EpsilonAttacking(DieStrategy die) {
+		this.die = die;
+	}
 
 	//Attack win = 1, DefenceWin = 2, Equal Outcome = 0;
-	public int performAttack(Game game, Position from, Position to) {
+	public boolean performAttack(Game game, Position from, Position to) {
 		Unit attackingUnit = game.getUnitAt(from);
 		Unit defendingUnit = game.getUnitAt(to);
-		Random r = new Random();
 		int defensiveStrength = defendingUnit.getDefensiveStrength() + getFriendlySupport(game, to, defendingUnit.getOwner()) 
-				* getTerrainFactor(game, to) * 1+r.nextInt(5);
+				* getTerrainFactor(game, to) * die.dieValue();
 		int attackingStrength = attackingUnit.getAttackingStrength() + getFriendlySupport(game, from, attackingUnit.getOwner()) 
-				* getTerrainFactor(game, from) * 1+r.nextInt(5);
+				* getTerrainFactor(game, from) * die.dieValue();
 		//System.out.println("The Defender has the strength of: " + defensiveStrength);
 		//System.out.println("The Attacker has the strength of: " + attackingStrength);
 
 		//This defines the outcome
 		if(defensiveStrength<attackingStrength){
-			return 1;
+			return true;
 		}
-		else if(defensiveStrength>attackingStrength){
-			return 2;
-		}else{
-			return 0;
+		else{
+			return false;
 		}
 
 	}

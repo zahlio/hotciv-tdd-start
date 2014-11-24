@@ -3,6 +3,7 @@ package hotciv.common;
 import hotciv.framework.AgingStrategy;
 import hotciv.framework.AttackStrategy;
 import hotciv.framework.City;
+import hotciv.framework.CivFactory;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
 import hotciv.framework.Player;
@@ -10,13 +11,10 @@ import hotciv.framework.Position;
 import hotciv.framework.Tile;
 import hotciv.framework.Unit;
 import hotciv.framework.UnitActionStrategy;
-import hotciv.framework.CivFactory;
 import hotciv.framework.WinStrategy;
 import hotciv.framework.WorldLayoutStrategy;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 
 /** Skeleton implementation of HotCiv.
 
@@ -105,7 +103,9 @@ public class GameImpl implements Game {
 
 	//NEEDS METHOD WHEN YOU ATTACK ON A CITY THAT THE CITY SHOULD CHANGE ASWELL
 	public boolean moveUnit(Position from, Position to) {
-		int outcome = 0;
+		//CANT INITIALIZE THIS WAY
+		boolean outcomeIsinitialized = false;;
+		boolean outcome = false;
 		
 		if ( getUnitAt(from) == null ) { return false; }
 		if ( getUnitAt(from).getOwner() != getPlayerInTurn() ) { return false; }
@@ -115,14 +115,16 @@ public class GameImpl implements Game {
 		if (!canMoveDistance(from, to)) { return false; }
 
 		if(getUnitAt(to) != null && getUnitAt(to).getOwner() != currentPlayer){
+			outcomeIsinitialized = true;
 			outcome = attackAndDefenceStrategy.performAttack(this, from, to);
 		}
 		
-		if(outcome==1){
+		if(outcome && outcomeIsinitialized){
 			winner.setAttackCount(this);
 			moveToTile(from, to, "unit");
 			return true;
-		}else if(outcome == 2){
+			//This method will be changed
+		}else if(!outcome && outcomeIsinitialized){
 			units.remove(from);
 			return true;
 		}else if(getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
@@ -135,7 +137,7 @@ public class GameImpl implements Game {
 		return false;
 	}
 
-	//MOVE TO OBJECT?
+	//MOVE TO OBJECT? THIS METHOD LOOKS UGLY
 	public void moveToTile(Position current, Position other, String moveToType){
 		if(moveToType.equals("unit")){
 			units.remove(other);
