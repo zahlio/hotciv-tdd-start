@@ -9,8 +9,15 @@ import hotciv.framework.common.Tile;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class AlphaCivWorldLayout implements WorldLayoutStrategy {
+	
+	private Map<Position,Tile> world; 
+	
+	public AlphaCivWorldLayout(String[] layout){
+		world = defineWorld(layout);
+	}
 		
 	public void putCities(HashMap<Position, CityImpl> cities) {
 		cities.put(new Position(1,1), new CityImpl(Player.RED));
@@ -29,5 +36,11 @@ public class AlphaCivWorldLayout implements WorldLayoutStrategy {
 				t = new TileImpl(GameConstants.PLAINS);
 		}
 		return t;
+	}
+
+	@Override
+	public Map<Position, Tile> defineWorld(String[] layout) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -7,6 +7,7 @@ import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
+import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.AlphaCivWorldLayout;
 
@@ -22,7 +23,7 @@ public class TestAlphaCivWorldLayout {
 
 	@Before
 	public void SetUp(){
-		worldLayoutStrategy = new AlphaCivWorldLayout();
+		worldLayoutStrategy = new AlphaCivWorldLayout(Worlds.WORLD_ALPHA);
 		worldLayoutStrategy.putCities(cities);
 	}
 

@@ -11,6 +11,7 @@ import hotciv.variants.AlphaCivAttacking;
 import hotciv.variants.AlphaCivUnitAction;
 import hotciv.variants.AlphaCivWinCondition;
 import hotciv.variants.DeltaCivWorldLayout;
+import hotciv.framework.common.Worlds;
 
 public class DeltaCivFactory implements CivFactory {
 
@@ -22,8 +23,8 @@ public class DeltaCivFactory implements CivFactory {
 		return new AlphaCivUnitAction();
 	}
 
-	public WorldLayoutStrategy createLayout() {
-		return new DeltaCivWorldLayout();
+	public WorldLayoutStrategy createLayout(String[] layout) {
+		return new DeltaCivWorldLayout(layout);
 	}
 
 	@Override

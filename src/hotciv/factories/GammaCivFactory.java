@@ -22,8 +22,8 @@ public class GammaCivFactory implements CivFactory {
 		return new GammaCivUnitAction();
 	}
 
-	public WorldLayoutStrategy createLayout() {
-		return new AlphaCivWorldLayout();
+	public WorldLayoutStrategy createLayout(String[] l) {
+		return new AlphaCivWorldLayout(l);
 	}
 
 	public AttackStrategy createAttack() {

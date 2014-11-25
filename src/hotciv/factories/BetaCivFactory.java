@@ -22,8 +22,8 @@ public class BetaCivFactory implements CivFactory{
 		return new AlphaCivUnitAction();
 	}
 
-	public WorldLayoutStrategy createLayout() {
-		return new AlphaCivWorldLayout();
+	public WorldLayoutStrategy createLayout(String[] layout) {
+		return new AlphaCivWorldLayout(layout);
 	}
 
 	public AttackStrategy createAttack() {

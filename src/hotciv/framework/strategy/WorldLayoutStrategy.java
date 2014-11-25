@@ -5,6 +5,7 @@ import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public interface WorldLayoutStrategy {
 	
@@ -19,4 +20,6 @@ public interface WorldLayoutStrategy {
 	   * @return the tile at position p.
 	   */
 	public Tile getTileAt(Position p);
+	
+	public Map<Position,Tile> defineWorld(String[] layout);
 }

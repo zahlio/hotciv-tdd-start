@@ -37,8 +37,8 @@ public class ZetaCivFactory implements CivFactory {
 	}
 
 	@Override
-	public WorldLayoutStrategy createLayout() {
-		return new AlphaCivWorldLayout();
+	public WorldLayoutStrategy createLayout(String[] l) {
+		return new AlphaCivWorldLayout(l);
 	}
 
 	@Override

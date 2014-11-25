@@ -10,6 +10,7 @@ import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Unit;
+import hotciv.framework.common.Worlds;
 import hotciv.variants.OneSidedDie;
 
 import org.junit.Before;
@@ -20,7 +21,7 @@ public class TestEpsilonCiv {
 	Game game;
 	@Before 
 	public void setUp() {
-		game = new GameImpl(new EpsilonCivFactory(new OneSidedDie()));
+		game = new GameImpl(new EpsilonCivFactory(new OneSidedDie()), Worlds.WORLD_ALPHA);
 	}
 
 	@Test
