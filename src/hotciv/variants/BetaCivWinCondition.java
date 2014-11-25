@@ -17,10 +17,10 @@ public class BetaCivWinCondition implements WinStrategy {
 	private int blueAttacks = 0;
 	
 	public Player getWinner(Game game){
-		return BetaCivWinStrategy(game.getCities());
+		return betaCivWinStrategy(game.getCities());
 	}
 
-	public Player BetaCivWinStrategy(HashMap<Position, CityImpl> cities){
+	public Player betaCivWinStrategy(HashMap<Position, CityImpl> cities){
 		boolean redHasCity = false;
 		boolean blueHasCity = false;
 		Iterator<Entry<Position, CityImpl>> it = cities.entrySet().iterator();
