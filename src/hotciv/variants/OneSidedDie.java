@@ -4,7 +4,7 @@ import hotciv.framework.strategy.DieStrategy;
 
 public class OneSidedDie implements DieStrategy {
 
-	public int dieValue() {
+	public int getDieValue() {
 		return 1;
 	}
 

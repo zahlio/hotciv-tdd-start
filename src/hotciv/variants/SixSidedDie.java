@@ -8,7 +8,7 @@ public class SixSidedDie implements DieStrategy {
 
 	Random r = new Random();
 	
-	public int dieValue() {
+	public int getDieValue() {
 		return 1+r.nextInt(6);
 	}
 

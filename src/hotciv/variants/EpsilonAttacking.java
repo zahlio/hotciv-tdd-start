@@ -25,9 +25,9 @@ public class EpsilonAttacking implements AttackStrategy{
 		Unit attackingUnit = game.getUnitAt(from);
 		Unit defendingUnit = game.getUnitAt(to);
 		int defensiveStrength = defendingUnit.getDefensiveStrength() + getFriendlySupport(game, to, defendingUnit.getOwner()) 
-				* getTerrainFactor(game, to) * die.dieValue();
+				* getTerrainFactor(game, to) * die.getDieValue();
 		int attackingStrength = attackingUnit.getAttackingStrength() + getFriendlySupport(game, from, attackingUnit.getOwner()) 
-				* getTerrainFactor(game, from) * die.dieValue();
+				* getTerrainFactor(game, from) * die.getDieValue();
 		//System.out.println("The Defender has the strength of: " + defensiveStrength);
 		//System.out.println("The Attacker has the strength of: " + attackingStrength);
 

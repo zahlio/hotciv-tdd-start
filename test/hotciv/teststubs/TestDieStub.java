@@ -29,12 +29,12 @@ public class TestDieStub {
 	
 	@Test
 	public void oneSideDieShouldAlwaysReturn1(){
-		assertEquals("This test should fail if die is not 1 every time", 1, staticDie.dieValue());
+		assertEquals("This test should fail if die is not 1 every time", 1, staticDie.getDieValue());
 	}
 	
 	@Test
 	public void dieShouldHitBetween1InclusiveAnd6Inclusive(){
-		assertTrue("if die is between 1 and 6, this will never return false", isBetween0And6Inclusive(intervalDie.dieValue()));
+		assertTrue("if die is between 1 and 6, this will never return false", isBetween0And6Inclusive(intervalDie.getDieValue()));
 	}
 	
 }
