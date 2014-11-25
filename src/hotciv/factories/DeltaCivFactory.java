@@ -11,7 +11,6 @@ import hotciv.variants.AlphaCivAttacking;
 import hotciv.variants.AlphaCivUnitAction;
 import hotciv.variants.AlphaCivWinCondition;
 import hotciv.variants.DeltaCivWorldLayout;
-import hotciv.framework.common.Worlds;
 
 public class DeltaCivFactory implements CivFactory {
 

@@ -166,11 +166,6 @@ public class TestAlphaCiv {
   public void ShouldNotBeAbleToMoveOnMountains(){
 	  assertFalse("you cannot move on mountains", game.moveUnit(new Position(2,0), new Position(2, 2)));
   }
-    
-  @Test
-  public void ToShouldbeInsideWorld(){
-	  assertFalse("To should be inside world", game.moveUnit(new Position(2,0), new Position(17, 5)));
-  }
   
   @Test
   public void ShouldBeValidMove(){
