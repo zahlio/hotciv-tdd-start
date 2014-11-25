@@ -2,7 +2,8 @@ package hotciv.framework.common;
 
 public class Worlds {
 
-	public static final String[] WORLD_1 = new String[] {
+	// DeltaCiv
+	public static final String[] WORLD_DELTA = new String[] {
 		"...ooMooooo.....",
 		"..ohhoooofffoo..",
 		".oooooMooo...oo.",
@@ -19,5 +20,24 @@ public class Worlds {
 		"....ooooooooo...",
 		"..ooohhoo.......",
 		".....ooooooooo..",
+	};
+	
+	public static final String[] WORLD_ALPHA = new String[] {
+		"o.oooooooooooooo",
+		"hooooooooooooooo",
+		"ooMoooooooooooooo",
+		".ooooooooooooooo",
+		"oooooooooooooooo",
+		"oooooooooooooooo",
+		"oooooooooooooooo",
+		".ooooooooooooooo",
+		"ooooooooohoooooo",
+		"oooooooooooooooo",
+		"oooooooooooooooo",
+		"oooooooooooooooo",
+		"oooooooooooooooo",
+		"oooooooooooooooo",
+		"oooooooooooooooo",
+		"oooooooooooooooo",
 	};
 }

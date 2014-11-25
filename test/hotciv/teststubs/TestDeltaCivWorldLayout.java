@@ -23,7 +23,7 @@ public class TestDeltaCivWorldLayout {
 
 	@Before
 	public void SetUp(){
-		worldLayoutStrategy = new DeltaCivWorldLayout(Worlds.WORLD_1);
+		worldLayoutStrategy = new DeltaCivWorldLayout(Worlds.WORLD_DELTA);
 		worldLayoutStrategy.putCities(cities);
 	}
 

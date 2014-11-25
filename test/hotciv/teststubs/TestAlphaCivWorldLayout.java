@@ -23,7 +23,7 @@ public class TestAlphaCivWorldLayout {
 
 	@Before
 	public void SetUp(){
-		worldLayoutStrategy = new AlphaCivWorldLayout(Worlds.WORLD_1);
+		worldLayoutStrategy = new AlphaCivWorldLayout(Worlds.WORLD_ALPHA);
 		worldLayoutStrategy.putCities(cities);
 	}
 

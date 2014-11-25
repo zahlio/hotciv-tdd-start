@@ -53,7 +53,7 @@ public class TestAlphaCiv {
   
   @Before
   public void setUp() {
-    game = new GameImpl(new AlphaCivFactory(), Worlds.WORLD_1);
+    game = new GameImpl(new AlphaCivFactory(), Worlds.WORLD_ALPHA);
     redCity = new Position(1,1);
     //blueCity = new Position(4,1);
     //redArcher = new Position(2,0);

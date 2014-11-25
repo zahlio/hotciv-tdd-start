@@ -20,7 +20,7 @@ public class TestDeltaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new DeltaCivFactory(), Worlds.WORLD_1);
+		game = new GameImpl(new DeltaCivFactory(), Worlds.WORLD_DELTA);
 	}
 	
 	@Test
