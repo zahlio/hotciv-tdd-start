@@ -26,14 +26,11 @@ public class AlphaCivFactory implements CivFactory {
 		return new AlphaCivUnitAction();
 	}
 
-	public WorldLayoutStrategy createLayout() {
-		return new AlphaCivWorldLayout();
+	public WorldLayoutStrategy createLayout(String[] layout) {
+		return new AlphaCivWorldLayout(layout);
 	}
 
 	public AttackStrategy createAttack() {
 		return new AlphaCivAttacking();
 	}
-
-	
-
 }

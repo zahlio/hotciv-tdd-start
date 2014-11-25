@@ -14,7 +14,7 @@ public interface CivFactory {
 	
 	public UnitActionStrategy createUnitAction();
 	
-	public WorldLayoutStrategy createLayout();
+	public WorldLayoutStrategy createLayout(String[] layout);
 	
 	public AttackStrategy createAttack();
 }

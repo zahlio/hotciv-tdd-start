@@ -9,6 +9,7 @@ import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
+import hotciv.framework.common.Worlds;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class TestDeltaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new DeltaCivFactory());
+		game = new GameImpl(new DeltaCivFactory(), Worlds.WORLD_1);
 	}
 	
 	@Test

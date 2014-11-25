@@ -15,6 +15,7 @@ import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
+import hotciv.framework.common.Worlds;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class TestAlphaCiv {
   
   @Before
   public void setUp() {
-    game = new GameImpl(new AlphaCivFactory());
+    game = new GameImpl(new AlphaCivFactory(), Worlds.WORLD_1);
     redCity = new Position(1,1);
     //blueCity = new Position(4,1);
     //redArcher = new Position(2,0);

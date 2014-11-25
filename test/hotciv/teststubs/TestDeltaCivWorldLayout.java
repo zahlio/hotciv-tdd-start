@@ -7,6 +7,7 @@ import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
+import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.DeltaCivWorldLayout;
 
@@ -22,7 +23,7 @@ public class TestDeltaCivWorldLayout {
 
 	@Before
 	public void SetUp(){
-		worldLayoutStrategy = new DeltaCivWorldLayout();
+		worldLayoutStrategy = new DeltaCivWorldLayout(Worlds.WORLD_1);
 		worldLayoutStrategy.putCities(cities);
 	}
 

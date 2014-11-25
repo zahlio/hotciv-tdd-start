@@ -30,8 +30,8 @@ public class EpsilonCivFactory implements CivFactory {
 		return new AlphaCivUnitAction();
 	}
 
-	public WorldLayoutStrategy createLayout() {
-		return new AlphaCivWorldLayout();
+	public WorldLayoutStrategy createLayout(String[] l) {
+		return new AlphaCivWorldLayout(l);
 	}
 
 	public WinStrategy createWinner() {

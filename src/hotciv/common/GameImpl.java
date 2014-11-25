@@ -57,10 +57,10 @@ public class GameImpl implements Game {
 	private HashMap<Position, UnitImpl> units = new HashMap<Position, UnitImpl>();
 	private HashMap<Position, CityImpl> cities = new HashMap<Position, CityImpl>();
 
-	public GameImpl(CivFactory civFactory) {
+	public GameImpl(CivFactory civFactory, String[] world) {
 		ageStrategy = civFactory.createAging();
 		actionStrategy = civFactory.createUnitAction();
-		layoutStrategy = civFactory.createLayout();
+		layoutStrategy = civFactory.createLayout(world);
 		winner = civFactory.createWinner();
 		attackAndDefenceStrategy = civFactory.createAttack();
 		units.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));

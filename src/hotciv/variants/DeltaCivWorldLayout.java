@@ -15,8 +15,8 @@ public class DeltaCivWorldLayout implements WorldLayoutStrategy {
 
 	private Map<Position,Tile> world; 
 
-	public DeltaCivWorldLayout() {
-		world = defineWorld();
+	public DeltaCivWorldLayout(String[] layout) {
+		world = defineWorld(layout);
 	}
 	
 	public void putCities(HashMap<Position, CityImpl> cities) {
@@ -27,30 +27,8 @@ public class DeltaCivWorldLayout implements WorldLayoutStrategy {
 	public Tile getTileAt( Position p ) { return world.get(p); }
 
 	/** Define the world as the DeltaCiv layout */
-	private Map<Position,Tile> defineWorld() {
-		// Basically we use a 'data driven' approach - code the
-		// layout in a simple semi-visual representation, and
-		// convert it to the actual Game representation.
-		//This is a 16x16 version of the world
-		String[] layout =
-				new String[] {
-				"...ooMooooo.....",
-				"..ohhoooofffoo..",
-				".oooooMooo...oo.",
-				".ooMMMoooo..oooo",
-				"...ofooohhoooo..",
-				".ofoofooooohhoo.",
-				"...ooo..........",
-				".ooooo.ooohooM..",
-				".ooooo.oohooof..",
-				"offfoooo.offoooo",
-				"oooooooo...ooooo",
-				".ooMMMoooo......",
-				"..ooooooffoooo..",
-				"....ooooooooo...",
-				"..ooohhoo.......",
-				".....ooooooooo..",
-		};
+	public Map<Position,Tile> defineWorld(String[] layout) {
+		
 		// Conversion...
 		Map<Position,Tile> theWorld = new HashMap<Position,Tile>();
 		String line;
