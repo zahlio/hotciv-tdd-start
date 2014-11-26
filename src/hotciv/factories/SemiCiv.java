@@ -7,31 +7,33 @@ import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
-import hotciv.variants.aging.AlphaCivAging;
-import hotciv.variants.attacks.AlphaCivAttacking;
-import hotciv.variants.unitaction.AlphaCivUnitAction;
-import hotciv.variants.wincondition.AlphaCivWinCondition;
-import hotciv.variants.worldlayout.AlphaCivWorldLayout;
+import hotciv.variants.aging.BetaCivAging;
+import hotciv.variants.attacks.EpsilonAttacking;
+import hotciv.variants.die.SixSidedDie;
+import hotciv.variants.unitaction.GammaCivUnitAction;
+import hotciv.variants.wincondition.EpsilonWinCondition;
+import hotciv.variants.worldlayout.DeltaCivWorldLayout;
 
-public class AlphaCivFactory implements CivFactory {
+public class SemiCiv implements CivFactory {
 
 	public AgingStrategy createAging() {
-		return new AlphaCivAging();
+		return new BetaCivAging();
 	}
-	
+
 	public WinStrategy createWinner() {
-		return new AlphaCivWinCondition();
+		return new EpsilonWinCondition();
 	}
-	
+
 	public UnitActionStrategy createUnitAction() {
-		return new AlphaCivUnitAction();
+		return new GammaCivUnitAction();
 	}
 
 	public WorldLayoutStrategy createLayout() {
-		return new AlphaCivWorldLayout(Worlds.WORLD_ALPHA);
+		return new DeltaCivWorldLayout(Worlds.WORLD_DELTA);
 	}
 
 	public AttackStrategy createAttack() {
-		return new AlphaCivAttacking();
+		return new EpsilonAttacking(new SixSidedDie());
 	}
+
 }

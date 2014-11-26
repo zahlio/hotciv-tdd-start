@@ -11,6 +11,7 @@ import hotciv.framework.common.Unit;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.UnitActionStrategy;
+import hotciv.framework.strategy.UnitStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 
@@ -53,19 +54,21 @@ public class GameImpl implements Game {
 	private UnitActionStrategy actionStrategy;
 	private WorldLayoutStrategy layoutStrategy;
 	private AttackStrategy attackAndDefenceStrategy;
+	private UnitStrategy unitStrategy;
 
 	private HashMap<Position, UnitImpl> units = new HashMap<Position, UnitImpl>();
 	private HashMap<Position, CityImpl> cities = new HashMap<Position, CityImpl>();
 
-	public GameImpl(CivFactory civFactory, String[] world) {
+	public GameImpl(CivFactory civFactory, UnitStrategy unitStrategy) {
 		ageStrategy = civFactory.createAging();
 		actionStrategy = civFactory.createUnitAction();
-		layoutStrategy = civFactory.createLayout(world);
+		layoutStrategy = civFactory.createLayout();
 		winner = civFactory.createWinner();
 		attackAndDefenceStrategy = civFactory.createAttack();
-		units.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED));
-		units.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE));
-		units.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED));
+		this.unitStrategy = unitStrategy;
+		units.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED, unitStrategy));
+		units.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE, unitStrategy));
+		units.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED, unitStrategy));
 		layoutStrategy.putCities(cities);
 	}
 
@@ -126,7 +129,6 @@ public class GameImpl implements Game {
 			winner.setAttackCount(this);
 			moveToTile(from, to, "unit");
 			return true;
-			//This method will be changed
 		}
 		if(!outcome && outcomeIsinitialized){
 			units.remove(from);
@@ -175,7 +177,7 @@ public class GameImpl implements Game {
 	}
 
 	public void produceUnitAt(String unit, Position p){
-		units.put(getNextSpawnPositionAtCity(p), new UnitImpl(unit, currentPlayer));
+		units.put(getNextSpawnPositionAtCity(p), new UnitImpl(unit, currentPlayer, unitStrategy));
 	}
 
 	public Position getNextSpawnPositionAtCity(Position p){
@@ -223,7 +225,6 @@ public class GameImpl implements Game {
 		}
 	}
 
-	//METHOD NAME TOO LONG, THATS WHAT SHE SAID!
 	private void setResourcesForEachCityAndProduceUnitIfCan(){
 		for(Position p : cities.keySet()){
 			CityImpl c = (CityImpl) getCityAt(p);

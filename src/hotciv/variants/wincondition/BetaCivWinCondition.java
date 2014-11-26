@@ -1,4 +1,4 @@
-package hotciv.variants;
+package hotciv.variants.wincondition;
 
 import hotciv.common.CityImpl;
 import hotciv.framework.common.City;

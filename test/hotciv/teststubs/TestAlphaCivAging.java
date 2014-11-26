@@ -2,7 +2,7 @@ package hotciv.teststubs;
 
 import static org.junit.Assert.assertEquals;
 import hotciv.framework.strategy.AgingStrategy;
-import hotciv.variants.AlphaCivAging;
+import hotciv.variants.aging.AlphaCivAging;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -48,4 +48,5 @@ public class GameConstants {
 	//UnitActions
 	public static final String BUILDCITY = "buildcity";
 	public static final String FORTIFY = "fortify";
+	public static final Object CHARIOT = "chariot";
 }

@@ -10,7 +10,7 @@ import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
 import hotciv.framework.strategy.WinStrategy;
-import hotciv.variants.EpsilonWinCondition;
+import hotciv.variants.wincondition.EpsilonWinCondition;
 
 import java.util.HashMap;
 

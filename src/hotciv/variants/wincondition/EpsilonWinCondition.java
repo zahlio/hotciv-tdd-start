@@ -1,4 +1,4 @@
-package hotciv.variants;
+package hotciv.variants.wincondition;
 
 import hotciv.framework.common.Game;
 import hotciv.framework.common.Player;

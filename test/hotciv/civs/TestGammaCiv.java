@@ -7,7 +7,7 @@ import hotciv.framework.common.Game;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Unit;
-import hotciv.framework.common.Worlds;
+import hotciv.variants.AlphaCivUnits;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +18,7 @@ public class TestGammaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new GammaCivFactory(), Worlds.WORLD_ALPHA);
+		game = new GameImpl(new GammaCivFactory(), new AlphaCivUnits());
 	}
 	
 	@Test

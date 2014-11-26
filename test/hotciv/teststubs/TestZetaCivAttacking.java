@@ -14,8 +14,11 @@ import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
 import hotciv.framework.strategy.AttackStrategy;
-import hotciv.variants.OneSidedDie;
-import hotciv.variants.ZetaCivAttacks;
+import hotciv.variants.AlphaCivUnits;
+import hotciv.variants.attacks.AlphaCivAttacking;
+import hotciv.variants.attacks.EpsilonAttacking;
+import hotciv.variants.attacks.ZetaCivAttacks;
+import hotciv.variants.die.OneSidedDie;
 
 import java.util.HashMap;
 
@@ -30,7 +33,7 @@ public class TestZetaCivAttacking {
 
 	@Before
 	public void SetUp(){
-		zetaAttack = new ZetaCivAttacks(new OneSidedDie());
+		zetaAttack = new ZetaCivAttacks(new AlphaCivAttacking(), new EpsilonAttacking(new OneSidedDie()));
 		game = new GameStubZetaCivAttacking(-3000);
 		game2 = new GameStubZetaCivAttacking(-1000);
 	}
@@ -42,11 +45,11 @@ public class TestZetaCivAttacking {
 
 	//THIS COULD BE TESTED ANOTHER WAY
 	@Test public void AttackerShouldWin(){
-		game2.getUnits().put(new Position(1,1), new UnitImpl(GameConstants.LEGION, Player.RED));
-		game2.getUnits().put(new Position(2,1), new UnitImpl(GameConstants.LEGION, Player.BLUE));
+		game2.getUnits().put(new Position(1,1), new UnitImpl(GameConstants.LEGION, Player.RED, new AlphaCivUnits()));
+		game2.getUnits().put(new Position(2,1), new UnitImpl(GameConstants.LEGION, Player.BLUE, new AlphaCivUnits()));
 		
-		game2.getUnits().put(new Position(4,4), new UnitImpl(GameConstants.ARCHER, Player.RED));
-		game2.getUnits().put(new Position(5,4), new UnitImpl(GameConstants.ARCHER, Player.BLUE));
+		game2.getUnits().put(new Position(4,4), new UnitImpl(GameConstants.ARCHER, Player.RED, new AlphaCivUnits()));
+		game2.getUnits().put(new Position(5,4), new UnitImpl(GameConstants.ARCHER, Player.BLUE, new AlphaCivUnits()));
 		
 		boolean redLegionShouldWin = zetaAttack.performAttack(game2, new Position(1,1), new Position(2,1));
 		assertTrue("Attacker Won", redLegionShouldWin);

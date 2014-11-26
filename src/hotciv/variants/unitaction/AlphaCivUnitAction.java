@@ -1,4 +1,4 @@
-package hotciv.variants;
+package hotciv.variants.unitaction;
 
 import hotciv.framework.common.Game;
 import hotciv.framework.common.Position;

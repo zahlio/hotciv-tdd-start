@@ -15,7 +15,7 @@ import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
-import hotciv.framework.common.Worlds;
+import hotciv.variants.AlphaCivUnits;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +53,7 @@ public class TestAlphaCiv {
   
   @Before
   public void setUp() {
-    game = new GameImpl(new AlphaCivFactory(), Worlds.WORLD_ALPHA);
+    game = new GameImpl(new AlphaCivFactory(), new AlphaCivUnits());
     redCity = new Position(1,1);
     //blueCity = new Position(4,1);
     //redArcher = new Position(2,0);
@@ -191,7 +191,7 @@ public class TestAlphaCiv {
   @Test
   public void AttackerShouldWinAndMoveToLocation(){
 	  Position red = new Position(2,0);
-	  game.getUnits().put(new Position(3,1), new UnitImpl(GameConstants.LEGION, Player.BLUE));
+	  game.getUnits().put(new Position(3,1), new UnitImpl(GameConstants.LEGION, Player.BLUE, new AlphaCivUnits()));
 	  Position blue = new Position(3,1);
 	  game.moveUnit(red, blue);
 	  Unit u = game.getUnitAt(blue);
@@ -202,8 +202,8 @@ public class TestAlphaCiv {
   public void RedLegionHasKilledBlueLegionAndConqueredBlueCity(){
 	  Position redLegion = new Position(3,1);
 	  Position blueLegion = new Position(4,1);
-	  game.getUnits().put(redLegion, new UnitImpl(GameConstants.LEGION, Player.RED));
-	  game.getUnits().put(blueLegion, new UnitImpl(GameConstants.LEGION, Player.BLUE));
+	  game.getUnits().put(redLegion, new UnitImpl(GameConstants.LEGION, Player.RED, new AlphaCivUnits()));
+	  game.getUnits().put(blueLegion, new UnitImpl(GameConstants.LEGION, Player.BLUE, new AlphaCivUnits()));
 	  
 	  game.moveUnit(redLegion, blueLegion);
 	  Unit u = game.getUnitAt(blueLegion);

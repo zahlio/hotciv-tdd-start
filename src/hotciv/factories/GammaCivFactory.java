@@ -1,16 +1,17 @@
 package hotciv.factories;
 
 import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
-import hotciv.variants.AlphaCivAging;
-import hotciv.variants.AlphaCivAttacking;
-import hotciv.variants.AlphaCivWinCondition;
-import hotciv.variants.AlphaCivWorldLayout;
-import hotciv.variants.GammaCivUnitAction;
+import hotciv.variants.aging.AlphaCivAging;
+import hotciv.variants.attacks.AlphaCivAttacking;
+import hotciv.variants.unitaction.GammaCivUnitAction;
+import hotciv.variants.wincondition.AlphaCivWinCondition;
+import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
 public class GammaCivFactory implements CivFactory {
 
@@ -22,8 +23,8 @@ public class GammaCivFactory implements CivFactory {
 		return new GammaCivUnitAction();
 	}
 
-	public WorldLayoutStrategy createLayout(String[] l) {
-		return new AlphaCivWorldLayout(l);
+	public WorldLayoutStrategy createLayout() {
+		return new AlphaCivWorldLayout(Worlds.WORLD_ALPHA);
 	}
 
 	public AttackStrategy createAttack() {

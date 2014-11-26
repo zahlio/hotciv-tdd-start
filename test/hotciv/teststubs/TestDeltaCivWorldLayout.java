@@ -9,7 +9,7 @@ import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.WorldLayoutStrategy;
-import hotciv.variants.DeltaCivWorldLayout;
+import hotciv.variants.worldlayout.DeltaCivWorldLayout;
 
 import java.util.HashMap;
 

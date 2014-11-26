@@ -1,4 +1,4 @@
-package hotciv.variants;
+package hotciv.variants.worldlayout;
 
 import hotciv.common.CityImpl;
 import hotciv.framework.common.Player;

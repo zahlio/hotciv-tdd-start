@@ -9,7 +9,7 @@ import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.WorldLayoutStrategy;
-import hotciv.variants.AlphaCivWorldLayout;
+import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
 import java.util.HashMap;
 
@@ -23,6 +23,7 @@ public class TestAlphaCivWorldLayout {
 
 	@Before
 	public void SetUp(){
+		//Here we can change the parameter, to test controlled if the strategy does the required behavior
 		worldLayoutStrategy = new AlphaCivWorldLayout(Worlds.WORLD_ALPHA);
 		worldLayoutStrategy.putCities(cities);
 	}

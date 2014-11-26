@@ -27,7 +27,7 @@ public class CityImpl implements City {
 	public String getProduction() {
 		return production;
 	}
-	
+
 	public void changeOwner(){
 		if(getOwner()==Player.RED){
 			p = Player.BLUE;
@@ -39,15 +39,15 @@ public class CityImpl implements City {
 	public void setProduction(String set) {
 		production = set;
 	}
-	
+
 	public int getResources(){
 		return resources;
 	}
-	
+
 	public void setResourcesPerRound(){
 		resources += 6;
 	}
-	
+
 	public boolean canDeductResources(String type){
 		boolean canDeduct = false;
 		if(type.equals(GameConstants.ARCHER) && getResources()>=10){
@@ -56,10 +56,12 @@ public class CityImpl implements City {
 			canDeduct = true;
 		}else if(type.equals(GameConstants.SETTLER) && getResources()>=30){
 			canDeduct = true;
+		}else if(type.equals(GameConstants.CHARIOT) && getResources()>=20){
+			canDeduct = true;
 		}
 		return canDeduct;
 	}
-	
+
 	public void deductResources(String type){
 		if(type.equals(GameConstants.ARCHER)){
 			resources -= 10;
@@ -67,6 +69,8 @@ public class CityImpl implements City {
 			resources -= 15;
 		}else if(type.equals(GameConstants.SETTLER)){
 			resources -= 30;
+		}else if(type.equals(GameConstants.CHARIOT)){
+			resources -= 20;
 		}
 	}
 

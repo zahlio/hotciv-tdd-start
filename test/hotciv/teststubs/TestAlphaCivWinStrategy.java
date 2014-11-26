@@ -11,7 +11,7 @@ import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
 import hotciv.framework.strategy.WinStrategy;
-import hotciv.variants.AlphaCivWinCondition;
+import hotciv.variants.wincondition.AlphaCivWinCondition;
 
 import java.util.HashMap;
 

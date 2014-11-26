@@ -1,17 +1,18 @@
 package hotciv.factories;
 
 import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.DieStrategy;
 import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
-import hotciv.variants.AlphaCivAging;
-import hotciv.variants.AlphaCivUnitAction;
-import hotciv.variants.AlphaCivWorldLayout;
-import hotciv.variants.EpsilonAttacking;
-import hotciv.variants.EpsilonWinCondition;
+import hotciv.variants.aging.AlphaCivAging;
+import hotciv.variants.attacks.EpsilonAttacking;
+import hotciv.variants.unitaction.AlphaCivUnitAction;
+import hotciv.variants.wincondition.EpsilonWinCondition;
+import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
 public class EpsilonCivFactory implements CivFactory {
 	
@@ -30,8 +31,8 @@ public class EpsilonCivFactory implements CivFactory {
 		return new AlphaCivUnitAction();
 	}
 
-	public WorldLayoutStrategy createLayout(String[] l) {
-		return new AlphaCivWorldLayout(l);
+	public WorldLayoutStrategy createLayout() {
+		return new AlphaCivWorldLayout(Worlds.WORLD_ALPHA);
 	}
 
 	public WinStrategy createWinner() {

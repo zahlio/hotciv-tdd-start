@@ -1,4 +1,4 @@
-package hotciv.variants;
+package hotciv.variants.wincondition;
 
 import hotciv.framework.common.Game;
 import hotciv.framework.common.Player;
@@ -8,24 +8,32 @@ public class ZetaCivWinCondition implements WinStrategy {
 
 	private int totalRedAttacks;
 	private int totalBlueAttacks;
+	
+	
+	WinStrategy winStrat1;
+	WinStrategy winStrat2;
+	
+	public ZetaCivWinCondition(WinStrategy winStrat1, WinStrategy winStrat2) {
+		this.winStrat1 = winStrat1;
+		this.winStrat2 = winStrat2;
+	}
 
-	BetaCivWinCondition betaWin = new BetaCivWinCondition();
-	EpsilonWinCondition epsilonWin = new EpsilonWinCondition();
-
+	
+//NOT DONE
 	public Player getWinner(Game game) {
 		if(game.getAge()<-2000){
-			return betaWin.getWinner(game);
+			return winStrat1.getWinner(game);
 		}else{
-			return epsilonWin.getWinner(game);
+			return winStrat2.getWinner(game);
 		}
 	}
 
 	//purely for statistical use
 	public void setAttackCount(Game game) {
 		if(game.getAge()<-2000){
-			betaWin.setAttackCount(game);
+			winStrat1.setAttackCount(game);
 		}else if(game.getAge()>=-2000){
-			epsilonWin.setAttackCount(game);
+			winStrat2.setAttackCount(game);
 		}
 		
 		if(game.getPlayerInTurn()==Player.RED){

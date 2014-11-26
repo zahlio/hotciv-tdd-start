@@ -10,7 +10,9 @@ import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
 import hotciv.framework.strategy.WinStrategy;
-import hotciv.variants.ZetaCivWinCondition;
+import hotciv.variants.wincondition.BetaCivWinCondition;
+import hotciv.variants.wincondition.EpsilonWinCondition;
+import hotciv.variants.wincondition.ZetaCivWinCondition;
 
 import java.util.HashMap;
 
@@ -26,7 +28,7 @@ public class TestZetaCivWinStrategy {
 	
 	@Before
 	public void SetUp(){
-		zetaWin = new ZetaCivWinCondition();
+		zetaWin = new ZetaCivWinCondition(new BetaCivWinCondition(), new EpsilonWinCondition());
 		game = new GameStubZetaCiv(-3000, cities);
 		game2 = new GameStubZetaCiv(-1000, cities);
 	}

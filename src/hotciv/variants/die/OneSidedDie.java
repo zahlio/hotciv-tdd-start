@@ -1,4 +1,4 @@
-package hotciv.variants;
+package hotciv.variants.die;
 
 import hotciv.framework.strategy.DieStrategy;
 

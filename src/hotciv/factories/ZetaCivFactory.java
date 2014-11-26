@@ -1,17 +1,22 @@
 package hotciv.factories;
 
 import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.DieStrategy;
 import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
-import hotciv.variants.AlphaCivAging;
-import hotciv.variants.AlphaCivUnitAction;
-import hotciv.variants.AlphaCivWorldLayout;
-import hotciv.variants.ZetaCivAttacks;
-import hotciv.variants.ZetaCivWinCondition;
+import hotciv.variants.aging.AlphaCivAging;
+import hotciv.variants.attacks.AlphaCivAttacking;
+import hotciv.variants.attacks.EpsilonAttacking;
+import hotciv.variants.attacks.ZetaCivAttacks;
+import hotciv.variants.unitaction.AlphaCivUnitAction;
+import hotciv.variants.wincondition.BetaCivWinCondition;
+import hotciv.variants.wincondition.EpsilonWinCondition;
+import hotciv.variants.wincondition.ZetaCivWinCondition;
+import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
 public class ZetaCivFactory implements CivFactory {
 	
@@ -28,7 +33,7 @@ public class ZetaCivFactory implements CivFactory {
 
 	@Override
 	public WinStrategy createWinner() {
-		return new ZetaCivWinCondition();
+		return new ZetaCivWinCondition(new BetaCivWinCondition(), new EpsilonWinCondition());
 	}
 
 	@Override
@@ -37,13 +42,13 @@ public class ZetaCivFactory implements CivFactory {
 	}
 
 	@Override
-	public WorldLayoutStrategy createLayout(String[] l) {
-		return new AlphaCivWorldLayout(l);
+	public WorldLayoutStrategy createLayout() {
+		return new AlphaCivWorldLayout(Worlds.WORLD_ALPHA);
 	}
 
 	@Override
 	public AttackStrategy createAttack() {
-		return new ZetaCivAttacks(die);
+		return new ZetaCivAttacks(new AlphaCivAttacking(), new EpsilonAttacking(die));
 	}
 
 }

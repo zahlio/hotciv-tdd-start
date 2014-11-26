@@ -2,8 +2,8 @@ package hotciv.teststubs;
 
 import static org.junit.Assert.*;
 import hotciv.framework.strategy.DieStrategy;
-import hotciv.variants.OneSidedDie;
-import hotciv.variants.SixSidedDie;
+import hotciv.variants.die.OneSidedDie;
+import hotciv.variants.die.SixSidedDie;
 
 import org.junit.Before;
 import org.junit.Test;

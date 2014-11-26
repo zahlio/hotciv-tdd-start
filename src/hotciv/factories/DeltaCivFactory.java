@@ -1,19 +1,20 @@
 package hotciv.factories;
 
 import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
-import hotciv.variants.AlphaCivAging;
-import hotciv.variants.AlphaCivAttacking;
-import hotciv.variants.AlphaCivUnitAction;
-import hotciv.variants.AlphaCivWinCondition;
-import hotciv.variants.DeltaCivWorldLayout;
+import hotciv.variants.aging.AlphaCivAging;
+import hotciv.variants.attacks.AlphaCivAttacking;
+import hotciv.variants.unitaction.AlphaCivUnitAction;
+import hotciv.variants.wincondition.AlphaCivWinCondition;
+import hotciv.variants.worldlayout.DeltaCivWorldLayout;
 
 public class DeltaCivFactory implements CivFactory {
-
+	
 	public AgingStrategy createAging() {
 		return new AlphaCivAging();
 	}
@@ -22,8 +23,8 @@ public class DeltaCivFactory implements CivFactory {
 		return new AlphaCivUnitAction();
 	}
 
-	public WorldLayoutStrategy createLayout(String[] layout) {
-		return new DeltaCivWorldLayout(layout);
+	public WorldLayoutStrategy createLayout() {
+		return new DeltaCivWorldLayout(Worlds.WORLD_DELTA);
 	}
 
 	@Override

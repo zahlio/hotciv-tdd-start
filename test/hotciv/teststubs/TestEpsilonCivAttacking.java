@@ -13,8 +13,8 @@ import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
 import hotciv.framework.strategy.AttackStrategy;
-import hotciv.variants.EpsilonAttacking;
-import hotciv.variants.OneSidedDie;
+import hotciv.variants.attacks.EpsilonAttacking;
+import hotciv.variants.die.OneSidedDie;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,10 +49,12 @@ public class TestEpsilonCivAttacking {
 		return neighborhood;
 	}
 
-	//THIS COULD BE TESTED ANOTHER WAY
 	@Test public void AttackerShouldWin(){
 		boolean redLegionShouldWin = attackStrategy.performAttack(game, new Position(1,1), new Position(2,1));
 		assertTrue("Attacker Won", redLegionShouldWin);
+	}
+	
+	@Test public void DefenderShouldWin(){
 		boolean blueArcherShouldHaveDefended = attackStrategy.performAttack(game, new Position(5,4), new Position(4,4));
 		assertFalse("Defender Won", blueArcherShouldHaveDefended);
 	}
@@ -139,7 +141,7 @@ public class TestEpsilonCivAttacking {
 				+2, EpsilonAttacking.getFriendlySupport( game, new Position(2,4), Player.RED));
 	}
 	@Test public void shouldGiveSum3ForRedAtP2_2() {
-		assertEquals("Red unit at (2,2) should get +3 support",
+		assertEquals("Red unit at (2,2) should get +4 support",
 				+4, EpsilonAttacking.getFriendlySupport( game, new Position(2,2), Player.RED));
 	}
 }
