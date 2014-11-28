@@ -5,12 +5,12 @@ import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.DieStrategy;
-import hotciv.framework.strategy.UnitActionStrategy;
+import hotciv.framework.strategy.UnitStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.aging.AlphaCivAging;
 import hotciv.variants.attacks.EpsilonAttacking;
-import hotciv.variants.unitaction.AlphaCivUnitAction;
+import hotciv.variants.units.AlphaCivUnits;
 import hotciv.variants.wincondition.EpsilonWinCondition;
 import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
@@ -27,8 +27,8 @@ public class EpsilonCivFactory implements CivFactory {
 		return new AlphaCivAging();
 	}
 	
-	public UnitActionStrategy createUnitAction() {
-		return new AlphaCivUnitAction();
+	public UnitStrategy createUnit() {
+		return new AlphaCivUnits();
 	}
 
 	public WorldLayoutStrategy createLayout() {

@@ -7,7 +7,6 @@ import hotciv.factories.BetaCivFactory;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
-import hotciv.variants.AlphaCivUnits;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,7 @@ public class TestBetaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new BetaCivFactory(), new AlphaCivUnits());
+		game = new GameImpl(new BetaCivFactory());
 	}
 
 	@Test

@@ -4,12 +4,12 @@ import hotciv.framework.abstractfactory.CivFactory;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
-import hotciv.framework.strategy.UnitActionStrategy;
+import hotciv.framework.strategy.UnitStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.aging.AlphaCivAging;
 import hotciv.variants.attacks.AlphaCivAttacking;
-import hotciv.variants.unitaction.ThetaCivUnitAction;
+import hotciv.variants.units.ThetaCivUnits;
 import hotciv.variants.wincondition.AlphaCivWinCondition;
 import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
@@ -23,8 +23,8 @@ public class ThetaCivFactory implements CivFactory {
 		return new AlphaCivWinCondition();
 	}
 
-	public UnitActionStrategy createUnitAction() {
-		return new ThetaCivUnitAction();
+	public UnitStrategy createUnit() {
+		return new ThetaCivUnits();
 	}
 
 	public WorldLayoutStrategy createLayout() {

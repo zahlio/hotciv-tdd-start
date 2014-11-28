@@ -31,7 +31,7 @@ Responsibilities:
    limitations under the License.
 
 */
-public interface Unit {
+public interface Unit extends UnitAction {
 
   /** return the type of the unit
    * @return unit type as a string, valid values are at

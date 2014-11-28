@@ -2,12 +2,11 @@ package hotciv.civs;
 
 import static org.junit.Assert.assertEquals;
 import hotciv.common.GameImpl;
+import hotciv.common.UnitImpl;
 import hotciv.factories.GammaCivFactory;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
-import hotciv.framework.common.Unit;
-import hotciv.variants.AlphaCivUnits;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,7 @@ public class TestGammaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new GammaCivFactory(), new AlphaCivUnits());
+		game = new GameImpl(new GammaCivFactory());
 	}
 	
 	@Test
@@ -38,7 +37,7 @@ public class TestGammaCiv {
 	@Test
 	public void ArcherShouldBeFortified(){
 		game.performUnitActionAt(new Position(2,0));
-		Unit u = game.getUnitAt(new Position(2, 0));
+		UnitImpl u = (UnitImpl) game.getUnitAt(new Position(2, 0));
 		assertEquals("Archers Defensive strength should now be 6", 6 ,u.getDefensiveStrength());
 		game.performUnitActionAt(new Position(2,0));
 		assertEquals("Archers Defensive strength should now be 3", 3 ,u.getDefensiveStrength());
@@ -47,7 +46,7 @@ public class TestGammaCiv {
 	@Test
 	public void ArcherMoveCountShouldBe0(){
 		game.performUnitActionAt(new Position(2, 0));
-		Unit u = game.getUnitAt(new Position(2, 0));
+		UnitImpl u = (UnitImpl) game.getUnitAt(new Position(2, 0));
 		assertEquals("Archer Should have 0 movecount", 0 ,u.getMoveCount());
 	}
 }

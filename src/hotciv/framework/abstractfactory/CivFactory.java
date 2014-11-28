@@ -2,7 +2,7 @@ package hotciv.framework.abstractfactory;
 
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
-import hotciv.framework.strategy.UnitActionStrategy;
+import hotciv.framework.strategy.UnitStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 
@@ -12,7 +12,7 @@ public interface CivFactory {
 
 	public WinStrategy createWinner();
 	
-	public UnitActionStrategy createUnitAction();
+	public UnitStrategy createUnit();
 	
 	public WorldLayoutStrategy createLayout();
 	

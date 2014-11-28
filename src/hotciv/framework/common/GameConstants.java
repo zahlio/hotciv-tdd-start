@@ -45,8 +45,4 @@ public class GameConstants {
 	// Valid production balance types
 	public static final String productionFocus = "hammer";
 	public static final String foodFocus = "apple";
-	//UnitActions
-	public static final String BUILDCITY = "buildcity";
-	public static final String FORTIFY = "fortify";
-	public static final Object CHARIOT = "chariot";
 }

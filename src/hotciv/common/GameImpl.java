@@ -10,10 +10,10 @@ import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
-import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.UnitStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
+import hotciv.throwable.NotAUnitException;
 
 import java.util.HashMap;
 
@@ -51,7 +51,6 @@ public class GameImpl implements Game {
 
 	private AgingStrategy ageStrategy;
 	private WinStrategy winner;
-	private UnitActionStrategy actionStrategy;
 	private WorldLayoutStrategy layoutStrategy;
 	private AttackStrategy attackAndDefenceStrategy;
 	private UnitStrategy unitStrategy;
@@ -59,16 +58,17 @@ public class GameImpl implements Game {
 	private HashMap<Position, UnitImpl> units = new HashMap<Position, UnitImpl>();
 	private HashMap<Position, CityImpl> cities = new HashMap<Position, CityImpl>();
 
-	public GameImpl(CivFactory civFactory, UnitStrategy unitStrategy) {
+	public GameImpl(CivFactory civFactory) {
 		ageStrategy = civFactory.createAging();
-		actionStrategy = civFactory.createUnitAction();
+		unitStrategy = civFactory.createUnit();
 		layoutStrategy = civFactory.createLayout();
 		winner = civFactory.createWinner();
 		attackAndDefenceStrategy = civFactory.createAttack();
-		this.unitStrategy = unitStrategy;
-		units.put(new Position(2,0), new UnitImpl(GameConstants.ARCHER, Player.RED, unitStrategy));
-		units.put(new Position(3,2), new UnitImpl(GameConstants.LEGION, Player.BLUE, unitStrategy));
-		units.put(new Position(4,3), new UnitImpl(GameConstants.SETTLER, Player.RED, unitStrategy));
+
+		units.put(new Position(2,0), (UnitImpl) unitStrategy.produceUnit(GameConstants.ARCHER, Player.RED));
+		units.put(new Position(3,2), (UnitImpl) unitStrategy.produceUnit(GameConstants.LEGION, Player.BLUE));
+		units.put(new Position(4,3), (UnitImpl) unitStrategy.produceUnit(GameConstants.SETTLER, Player.RED));
+
 		layoutStrategy.putCities(cities);
 	}
 
@@ -161,9 +161,10 @@ public class GameImpl implements Game {
 		}
 		if(moveToType.equals("tile")){
 		}
+		//TODO: UNIT IS NOT THE IMPLEMENTATION THEFORE HAS NO setHasMoved Method
 		units.put(other, (UnitImpl) getUnitAt(current));
 		units.remove(current);
-		((UnitImpl) getUnitAt(other)).setHasMoved(true);
+		getUnitAt(other).setHasMoved(true);
 	}
 
 	public boolean canMoveDistance(Position from, Position to){
@@ -176,8 +177,8 @@ public class GameImpl implements Game {
 		}
 	}
 
-	public void produceUnitAt(String unit, Position p){
-		units.put(getNextSpawnPositionAtCity(p), new UnitImpl(unit, currentPlayer, unitStrategy));
+	public void produceUnitAt(String unit, Position p) {
+		units.put(getNextSpawnPositionAtCity(p), (UnitImpl) unitStrategy.produceUnit(unit, currentPlayer));
 	}
 
 	public Position getNextSpawnPositionAtCity(Position p){
@@ -221,7 +222,7 @@ public class GameImpl implements Game {
 
 	private void resetUnitMoveCount(){
 		for(Position p : units.keySet()){
-			((UnitImpl) getUnitAt(p)).setHasMoved(false);
+			getUnitAt(p).setHasMoved(false);
 		}
 	}
 
@@ -229,8 +230,7 @@ public class GameImpl implements Game {
 		for(Position p : cities.keySet()){
 			CityImpl c = (CityImpl) getCityAt(p);
 			c.setResourcesPerRound();
-			if(c.canDeductResources(c.getProduction()) && 
-					getNextSpawnPositionAtCity(p) != null){
+			if(c.canDeductResources(c.getProduction()) && getNextSpawnPositionAtCity(p) != null){
 				produceUnitAt(c.getProduction(), getNextSpawnPositionAtCity(p));
 				c.deductResources(c.getProduction());
 				produceUnitAt(c.getProduction(), p);
@@ -240,13 +240,17 @@ public class GameImpl implements Game {
 	}
 
 	public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
-	public void changeProductionInCityAt( Position p, String unitType ) {
-		CityImpl c = (CityImpl) getCityAt(p);
-		c.setProduction(unitType);
+	public void changeProductionInCityAt( Position p, String unitType ) throws NotAUnitException {
+		if(unitStrategy.hasUnit(unitType)){
+			CityImpl c = (CityImpl) getCityAt(p);
+			c.setProduction(unitType);
+		}else{
+			throw new NotAUnitException(unitType);
+		}
 	}
 
 	public void performUnitActionAt(Position p) {
-		actionStrategy.performUnitAction(p, this);
+		unitStrategy.performUnitAction(this, p);
 	}
 
 }

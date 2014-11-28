@@ -177,6 +177,20 @@ class StubUnit implements Unit {
 			return 4;
 		}
 	}
+	@Override
+	public boolean getIsSkillInUse() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public void setHasMoved(boolean moved) {
+		// TODO Auto-generated method stub
+	}
+	@Override
+	public void setSkillInUse() {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 

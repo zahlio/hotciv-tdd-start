@@ -15,7 +15,9 @@ import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
-import hotciv.variants.AlphaCivUnits;
+import hotciv.throwable.NotAUnitException;
+import hotciv.variants.unitimpl.AlphaCivUnitImpl;
+import hotciv.variants.units.ThetaCivUnits;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -53,7 +55,7 @@ public class TestAlphaCiv {
   
   @Before
   public void setUp() {
-    game = new GameImpl(new AlphaCivFactory(), new AlphaCivUnits());
+    game = new GameImpl(new AlphaCivFactory());
     redCity = new Position(1,1);
     //blueCity = new Position(4,1);
     //redArcher = new Position(2,0);
@@ -180,7 +182,7 @@ public class TestAlphaCiv {
   @Test
   public void UnitHasMovedAndReset(){
 	  game.moveUnit(new Position(2,0), new Position(2,1));
-	  Unit u = game.getUnitAt(new Position(2,1));
+	  UnitImpl u = (UnitImpl) game.getUnitAt(new Position(2,1));
 	  assertEquals("Unit moveCount should be 0", 0, u.getMoveCount());
 	  assertFalse("This unit cannot move", game.moveUnit(new Position(2,1), new Position(3,1)));
 	  Utility.playRounds(game,1);
@@ -191,7 +193,7 @@ public class TestAlphaCiv {
   @Test
   public void AttackerShouldWinAndMoveToLocation(){
 	  Position red = new Position(2,0);
-	  game.getUnits().put(new Position(3,1), new UnitImpl(GameConstants.LEGION, Player.BLUE, new AlphaCivUnits()));
+	  game.getUnits().put(new Position(3,1), new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.BLUE)));
 	  Position blue = new Position(3,1);
 	  game.moveUnit(red, blue);
 	  Unit u = game.getUnitAt(blue);
@@ -202,8 +204,8 @@ public class TestAlphaCiv {
   public void RedLegionHasKilledBlueLegionAndConqueredBlueCity(){
 	  Position redLegion = new Position(3,1);
 	  Position blueLegion = new Position(4,1);
-	  game.getUnits().put(redLegion, new UnitImpl(GameConstants.LEGION, Player.RED, new AlphaCivUnits()));
-	  game.getUnits().put(blueLegion, new UnitImpl(GameConstants.LEGION, Player.BLUE, new AlphaCivUnits()));
+	  game.getUnits().put(redLegion, new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.RED)));
+	  game.getUnits().put(blueLegion, new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.BLUE)));
 	  
 	  game.moveUnit(redLegion, blueLegion);
 	  Unit u = game.getUnitAt(blueLegion);
@@ -272,7 +274,7 @@ public class TestAlphaCiv {
   }
   
   @Test
-  public void ShouldProduceArcher(){
+  public void ShouldProduceArcher() throws NotAUnitException{
       game.changeProductionInCityAt(redCity, GameConstants.ARCHER);
       Utility.playRounds(game, 2);
       Unit u = game.getUnitAt(redCity);
@@ -280,7 +282,7 @@ public class TestAlphaCiv {
   }
   
   @Test
-  public void ShouldProduceLegion(){
+  public void ShouldProduceLegion() throws NotAUnitException{
       game.changeProductionInCityAt(redCity, GameConstants.LEGION);
       Utility.playRounds(game, 3);
       Unit u = game.getUnitAt(redCity);
@@ -288,15 +290,20 @@ public class TestAlphaCiv {
   }
   
   @Test
-  public void ShouldProduceSettler(){
+  public void ShouldProduceSettler() throws NotAUnitException{
       game.changeProductionInCityAt(redCity, GameConstants.SETTLER);
       Utility.playRounds(game, 5);
       Unit u = game.getUnitAt(redCity);
       shouldProduceX(u, GameConstants.SETTLER, redCity);
   }
   
+  @Test(expected=NotAUnitException.class)
+  public void ShouldNotProduceChariot() throws NotAUnitException{
+      game.changeProductionInCityAt(redCity, ThetaCivUnits.CHARIOT);
+  }
+  
   @Test
-  public void AccumulatedEnoughToMake4ArchersAroundCity(){
+  public void AccumulatedEnoughToMake4ArchersAroundCity() throws NotAUnitException{
       Utility.playRounds(game, 4);
       CityImpl c = (CityImpl) game.getCityAt(redCity);
       assertEquals("The production should be 24", 24, c.getResources());

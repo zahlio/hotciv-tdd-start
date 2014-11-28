@@ -2,6 +2,7 @@ package hotciv.framework.common;
 
 import hotciv.common.CityImpl;
 import hotciv.common.UnitImpl;
+import hotciv.throwable.NotAUnitException;
 
 import java.util.HashMap;
 
@@ -133,8 +134,9 @@ public interface Game {
    * should be changed. 
    * @param unitType a string defining the type of unit that the
    * city should produce next.
+ * @throws NotAUnitException 
    */
-  public void changeProductionInCityAt( Position p, String unitType );
+  public void changeProductionInCityAt( Position p, String unitType ) throws NotAUnitException;
   
   /** perform the action associated with the unit at position p.
    * Example: a settler unit may create a new city at its location.

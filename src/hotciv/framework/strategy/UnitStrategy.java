@@ -1,13 +1,15 @@
 package hotciv.framework.strategy;
 
+import hotciv.framework.common.Game;
+import hotciv.framework.common.Player;
+import hotciv.framework.common.Position;
+import hotciv.framework.common.Unit;
+
 public interface UnitStrategy {
 	
-	public boolean getArcher();
+	public Unit produceUnit(String unitType, Player p);
 	
-	public boolean getLegion();
+	public void performUnitAction(Game game, Position p);
 	
-	public boolean getSettler();
-	
-	public boolean getChariot();
-
+	public boolean hasUnit(String unitType);
 }

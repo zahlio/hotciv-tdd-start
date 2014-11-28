@@ -3,6 +3,7 @@ package hotciv.common;
 import hotciv.framework.common.City;
 import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Player;
+import hotciv.variants.units.ThetaCivUnits;
 
 public class CityImpl implements City {
 
@@ -56,7 +57,7 @@ public class CityImpl implements City {
 			canDeduct = true;
 		}else if(type.equals(GameConstants.SETTLER) && getResources()>=30){
 			canDeduct = true;
-		}else if(type.equals(GameConstants.CHARIOT) && getResources()>=20){
+		}else if(type.equals(ThetaCivUnits.CHARIOT) && getResources()>=20){
 			canDeduct = true;
 		}
 		return canDeduct;
@@ -69,7 +70,7 @@ public class CityImpl implements City {
 			resources -= 15;
 		}else if(type.equals(GameConstants.SETTLER)){
 			resources -= 30;
-		}else if(type.equals(GameConstants.CHARIOT)){
+		}else if(type.equals(ThetaCivUnits.CHARIOT)){
 			resources -= 20;
 		}
 	}

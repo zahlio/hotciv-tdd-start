@@ -5,6 +5,7 @@ import hotciv.common.TileImpl;
 import java.util.HashMap;
 import java.util.Map;
 
+//JAVADOC
 public class Worlds {
 	
 	public static Map<Position, Tile> defineWorld(String[] layout) {
