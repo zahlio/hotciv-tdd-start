@@ -3,8 +3,8 @@ package hotciv.framework.strategy;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.Position;
 
-//TODO: THIS METHOD WILL BE DELETED
-public interface UnitActionStrategy {
+//FIND OUT WHAT PATTERN THIS IS
+public interface UnitActionPattern {
 
 	/**
 	 * this method performs the units action

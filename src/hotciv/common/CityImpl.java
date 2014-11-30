@@ -77,7 +77,6 @@ public class CityImpl implements City {
 
 	@Override
 	public String getWorkforceFocus() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

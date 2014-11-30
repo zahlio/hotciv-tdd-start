@@ -88,7 +88,6 @@ class GameStubZetaCivAttacking implements Game{
 
 	@Override
 	public City getCityAt(Position p) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -99,7 +98,6 @@ class GameStubZetaCivAttacking implements Game{
 
 	@Override
 	public Player getWinner() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -110,7 +108,6 @@ class GameStubZetaCivAttacking implements Game{
 
 	@Override
 	public boolean moveUnit(Position from, Position to) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -125,20 +122,14 @@ class GameStubZetaCivAttacking implements Game{
 
 	@Override
 	public void changeWorkForceFocusInCityAt(Position p, String balance) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void changeProductionInCityAt(Position p, String unitType) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void performUnitActionAt(Position p) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

@@ -69,50 +69,41 @@ class GameStubBetaCiv implements Game{
 
 	@Override
 	public Tile getTileAt(Position p) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Unit getUnitAt(Position p) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public City getCityAt(Position p) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Player getPlayerInTurn() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Player getWinner() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int getAge() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public boolean moveUnit(Position from, Position to) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void endOfTurn() {
-		// TODO Auto-generated method stub
-
 	}
 
 	public HashMap<Position, CityImpl> getCities(){
@@ -121,25 +112,19 @@ class GameStubBetaCiv implements Game{
 
 	@Override
 	public void changeWorkForceFocusInCityAt(Position p, String balance) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void changeProductionInCityAt(Position p, String unitType) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void performUnitActionAt(Position p) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public HashMap<Position, UnitImpl> getUnits() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

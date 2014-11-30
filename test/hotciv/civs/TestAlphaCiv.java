@@ -49,7 +49,9 @@ import org.junit.Test;
 
 */
 public class TestAlphaCiv {
-  private Game game;
+  
+	private Game game;
+  
   private Position redCity; //blueCity, redArcher, redSettler, blueLegion;
   /** Fixture for alphaciv testing. */
   

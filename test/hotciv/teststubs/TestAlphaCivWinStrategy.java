@@ -55,91 +55,22 @@ public class TestAlphaCivWinStrategy {
 class GameStub implements Game {
 	private int age;
 
-	public GameStub(int age) {
-		// TODO Auto-generated constructor stub
-		this.age = age;
-	}
+	public GameStub(int age) { this.age = age; }
 
-	@Override
-	public Tile getTileAt(Position p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public Tile getTileAt(Position p) { return null; }
+	public Unit getUnitAt(Position p) {	return null; }
+	public City getCityAt(Position p) {	return null; }
+	public Player getPlayerInTurn() { return null; }
+	public Player getWinner() {	return null; }
+	public int getAge() { return age; }
+	public int setAge(int setAge) { return age = setAge; }
+	public boolean moveUnit(Position from, Position to) { return false; }
 
-	@Override
-	public Unit getUnitAt(Position p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public City getCityAt(Position p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Player getPlayerInTurn() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Player getWinner() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getAge() {
-		// TODO Auto-generated method stub
-		return age;
-	}
-
-	public int setAge(int setAge) {
-		return age = setAge;
-	}
-
-	@Override
-	public boolean moveUnit(Position from, Position to) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void endOfTurn() {
-		// TODO Auto-generated method stub
-		age += 100;
-	}
-
-	@Override
-	public void changeWorkForceFocusInCityAt(Position p, String balance) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void changeProductionInCityAt(Position p, String unitType) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void performUnitActionAt(Position p) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public HashMap<Position, UnitImpl> getUnits() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public HashMap<Position, CityImpl> getCities() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	public void endOfTurn() { age += 100; }
+	
+	public void changeWorkForceFocusInCityAt(Position p, String balance) {}
+	public void changeProductionInCityAt(Position p, String unitType) {}
+	public void performUnitActionAt(Position p) {}
+	public HashMap<Position, UnitImpl> getUnits() {	return null; }
+	public HashMap<Position, CityImpl> getCities() { return null; }
 }

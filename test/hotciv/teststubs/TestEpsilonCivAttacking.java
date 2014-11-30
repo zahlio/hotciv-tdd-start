@@ -179,16 +179,13 @@ class StubUnit implements Unit {
 	}
 	@Override
 	public boolean getIsSkillInUse() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public void setHasMoved(boolean moved) {
-		// TODO Auto-generated method stub
 	}
 	@Override
 	public void setSkillInUse() {
-		// TODO Auto-generated method stub
 		
 	}
 }
@@ -259,13 +256,11 @@ class GameStubForBattleTesting implements Game {
 
 	@Override
 	public HashMap<Position, UnitImpl> getUnits() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public HashMap<Position, CityImpl> getCities() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

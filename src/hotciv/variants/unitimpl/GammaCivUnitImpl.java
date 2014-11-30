@@ -4,7 +4,7 @@ import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Unit;
 
-//TODO: FIGURE OUT HOW TO DO TIGHT COUPLING
+
 public class GammaCivUnitImpl implements Unit {
 
 	String type;

@@ -161,7 +161,7 @@ public class GameImpl implements Game {
 		}
 		if(moveToType.equals("tile")){
 		}
-		//TODO: UNIT IS NOT THE IMPLEMENTATION THEFORE HAS NO setHasMoved Method
+		
 		units.put(other, (UnitImpl) getUnitAt(current));
 		units.remove(current);
 		getUnitAt(other).setHasMoved(true);
@@ -240,6 +240,8 @@ public class GameImpl implements Game {
 	}
 
 	public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
+	
+	
 	public void changeProductionInCityAt( Position p, String unitType ) throws NotAUnitException {
 		if(unitStrategy.hasUnit(unitType)){
 			CityImpl c = (CityImpl) getCityAt(p);

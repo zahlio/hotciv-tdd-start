@@ -4,9 +4,9 @@ import hotciv.common.CityImpl;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Unit;
-import hotciv.framework.strategy.UnitActionStrategy;
+import hotciv.framework.strategy.UnitActionPattern;
 
-public class BuildCityAction implements UnitActionStrategy {
+public class BuildCityAction implements UnitActionPattern {
 
 	public void performUnitAction(Position p, Game game) {
 		Unit u = game.getUnitAt(p);
