@@ -1,12 +1,10 @@
 package hotciv.teststubs;
 
-import static org.junit.Assert.assertEquals;
+import hotciv.civs.Utility;
 import hotciv.common.CityImpl;
-import hotciv.framework.common.City;
 import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
-import hotciv.framework.common.Tile;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.worldlayout.AlphaCivWorldLayout;
@@ -30,33 +28,26 @@ public class TestAlphaCivWorldLayout {
 
 	@Test
 	public void shouldHaveOceans(){
-		Tile t = worldLayoutStrategy.getTileAt(new Position(0,1));
-		assertEquals("Should have oceans at (0,1)", GameConstants.OCEANS, t.getTypeString());
+		Utility.shouldHaveTileatXY(worldLayoutStrategy, GameConstants.OCEANS, new Position(0,1));
 	}
 
 	@Test
 	public void shouldHaveHills(){
-		Tile t = worldLayoutStrategy.getTileAt(new Position(1,0));
-		assertEquals("Should have Hills at (1,0)", GameConstants.HILLS, t.getTypeString());
+		Utility.shouldHaveTileatXY(worldLayoutStrategy, GameConstants.HILLS, new Position(1,0));
 	}
 
 	@Test
 	public void shouldHaveMountains(){
-		Tile t = worldLayoutStrategy.getTileAt(new Position(2,2));
-		assertEquals("Should have mountains at (2,2)", GameConstants.MOUNTAINS, t.getTypeString());
+		Utility.shouldHaveTileatXY(worldLayoutStrategy, GameConstants.MOUNTAINS, new Position(2,2));
 	}
 
 	@Test
-	public void thereShouldBeARedCityAt1_1(){
-		Position p = new Position(1,1);
-		City c = cities.get(p);
-		assertEquals("There should be a Red city at (1,1)", Player.RED, c.getOwner());
+	public void ThereShouldBeARedCityAt(){
+		Utility.thereShouldBeCityAtXY(cities, Player.RED, new Position(1,1));
 	}
 
 	@Test
-	public void thereShouldBeABlueCityAt4_1(){
-		Position p = new Position(4,1);
-		City c = cities.get(p);
-		assertEquals("There should be a Blue city at (4,1)", Player.BLUE, c.getOwner());
+	public void ThereShouldABlueCityAt(){
+		Utility.thereShouldBeCityAtXY(cities, Player.BLUE, new Position(4,1));
 	}
 }

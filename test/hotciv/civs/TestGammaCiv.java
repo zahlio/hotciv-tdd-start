@@ -11,6 +11,7 @@ import hotciv.framework.common.Position;
 import org.junit.Before;
 import org.junit.Test;
 
+//CLASS PROBABLY USELESS
 public class TestGammaCiv {
 
 	private Game game;

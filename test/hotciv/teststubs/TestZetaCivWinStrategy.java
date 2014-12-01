@@ -100,7 +100,7 @@ class GameStubZetaCiv implements Game{
 
 	@Override
 	public City getCityAt(Position p) {
-		return null;
+		return cities.get(p);
 	}
 
 	@Override

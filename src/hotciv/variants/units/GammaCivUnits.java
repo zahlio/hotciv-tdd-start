@@ -14,7 +14,7 @@ import hotciv.variants.unitimpl.GammaCivUnitImpl;
 
 public class GammaCivUnits implements UnitStrategy {
 
-	public UnitImpl produceUnit(String unitType, Player p) {
+	public Unit produceUnit(String unitType, Player p) {
 		return new UnitImpl(new GammaCivUnitImpl(unitType, p));
 	}
 

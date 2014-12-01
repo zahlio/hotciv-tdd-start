@@ -16,7 +16,7 @@ public class ThetaCivUnits implements UnitStrategy {
 
 	public static final String CHARIOT = "chariot";
 	
-	public UnitImpl produceUnit(String unitType, Player p){
+	public Unit produceUnit(String unitType, Player p){
 		return new UnitImpl(new ThetaCivUnitImpl(unitType, p));
 	}
 

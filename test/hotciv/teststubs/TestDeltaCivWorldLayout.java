@@ -1,12 +1,10 @@
 package hotciv.teststubs;
 
-import static org.junit.Assert.assertEquals;
+import hotciv.civs.Utility;
 import hotciv.common.CityImpl;
-import hotciv.framework.common.City;
 import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
-import hotciv.framework.common.Tile;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.worldlayout.DeltaCivWorldLayout;
@@ -26,48 +24,39 @@ public class TestDeltaCivWorldLayout {
 		worldLayoutStrategy = new DeltaCivWorldLayout(Worlds.WORLD_DELTA);
 		worldLayoutStrategy.putCities(cities);
 	}
-
+	
 	@Test
 	public void shouldHaveOceansAt15_15(){
-		Tile t = worldLayoutStrategy.getTileAt(new Position(15,15));
-		assertEquals("Should have oceans at (15,15)", GameConstants.OCEANS, t.getTypeString());
+		Utility.shouldHaveTileatXY(worldLayoutStrategy, GameConstants.OCEANS, new Position(15,15));
 	}
 
 	@Test
 	public void shouldHaveHillsAt1_3(){
-		Tile t = worldLayoutStrategy.getTileAt(new Position(1,3));
-		assertEquals("Should have Hills at (1,3)", GameConstants.HILLS, t.getTypeString());
+		Utility.shouldHaveTileatXY(worldLayoutStrategy, GameConstants.HILLS, new Position(1,3));
 	}
-	
+
 	@Test
 	public void shouldHaveForestAt4_4(){
-		Tile t = worldLayoutStrategy.getTileAt(new Position(4,4));
-		assertEquals("Should have Forest at (4,4)", GameConstants.FOREST, t.getTypeString());
-	}
-
-	@Test
-	public void shouldHaveMountainsAt11_5(){
-		Tile t = worldLayoutStrategy.getTileAt(new Position(11,5));
-		assertEquals("Should have mountains at (2,2)", GameConstants.MOUNTAINS, t.getTypeString());
+		Utility.shouldHaveTileatXY(worldLayoutStrategy, GameConstants.FOREST, new Position(4,4));
 	}
 	
 	@Test
-	public void shouldHavePlainsAt0_3(){
-		Tile t = worldLayoutStrategy.getTileAt(new Position(0,3));
-		assertEquals("Should have mountains at (0,3)", GameConstants.PLAINS, t.getTypeString());
+	public void shouldHaveMountainsAt11_5(){
+		Utility.shouldHaveTileatXY(worldLayoutStrategy, GameConstants.MOUNTAINS, new Position(11,5));
 	}
 
 	@Test
-	public void thereShouldBeARedCityAt8_12(){
-		Position p = new Position(8,12);
-		City c = cities.get(p);
-		assertEquals("There should be a Red city at (8,12)", Player.RED, c.getOwner());
+	public void shouldHavePlainsAt8_12(){
+		Utility.shouldHaveTileatXY(worldLayoutStrategy, GameConstants.PLAINS, new Position(8,12));
+	}
+	
+	@Test
+	public void ThereShouldBeARedCityAt(){
+		Utility.thereShouldBeCityAtXY(cities, Player.RED, new Position(8,12));
 	}
 
 	@Test
-	public void thereShouldBeABlueCityAt4_5(){
-		Position p = new Position(4,5);
-		City c = cities.get(p);
-		assertEquals("There should be a Blue city at (4,5)", Player.BLUE, c.getOwner());
+	public void ThereShouldABlueCityAt(){
+		Utility.thereShouldBeCityAtXY(cities, Player.BLUE, new Position(4,5));
 	}
 }

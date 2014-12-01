@@ -2,6 +2,7 @@ package hotciv.teststubs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import hotciv.civs.Utility;
 import hotciv.common.CityImpl;
 import hotciv.common.UnitImpl;
 import hotciv.framework.common.City;
@@ -58,6 +59,12 @@ public class TestBetaCivWinStrategy {
 	public void thereShouldBeNoWinner(){
 		assertNull("Red and Blue have cities,no winner", winStrategy.getWinner(gameStubTest3));
 	}
+	
+	@Test
+	public void redShouldHaveTakenBlueCityAndWon(){
+		Utility.changeOwnerOfCity(gameStubTest3, new Position(2,2));
+		assertEquals("Blue city is now red, and red should have won", Player.RED, winStrategy.getWinner(gameStubTest3));
+	}
 }
 
 class GameStubBetaCiv implements Game{
@@ -79,7 +86,7 @@ class GameStubBetaCiv implements Game{
 
 	@Override
 	public City getCityAt(Position p) {
-		return null;
+		return cities.get(p);
 	}
 
 	@Override

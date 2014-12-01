@@ -13,7 +13,6 @@ import hotciv.framework.common.Game;
 import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
-import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
 import hotciv.throwable.NotAUnitException;
 import hotciv.variants.unitimpl.AlphaCivUnitImpl;
@@ -83,33 +82,6 @@ public class TestAlphaCiv {
 	  
   }
   
-  /*
-   * Dynamic test for tile.
-   */
-  public void shouldHaveTileatXY(String constant, Position p){
-	  Tile t = game.getTileAt(p);
-	  assertEquals(
-		  String.format("Should have %s at (%d, %d)", constant, p.getRow(), p.getColumn()), 
-		  constant, 
-		  t.getTypeString()
-	  );
-  }
-  
-  @Test
-  public void shouldHaveOceans(){
-	  shouldHaveTileatXY(GameConstants.OCEANS, new Position(0,1));
-  }
-  
-  @Test
-  public void shouldHaveHills(){
-	  shouldHaveTileatXY(GameConstants.HILLS, new Position(1,0));
-  }
-  
-  @Test
-  public void shouldHaveMountains(){
-	  shouldHaveTileatXY(GameConstants.MOUNTAINS, new Position(2,2));
-  }
-
   /*
    * Dynamic test for unit.
    * Returns the unit for further testing
@@ -224,33 +196,6 @@ public class TestAlphaCiv {
   }
   
   /*
-   * Dynamic test for city at pos.
-   */
-  public void thereShouldBeCityAtXY(Player player, Position p){
-	  City c = game.getCityAt(p);
-	  assertEquals(
-			  String.format(
-					  "There should be a %s city at (%d,%d)", 
-					  c, 
-					  p.getRow(), 
-					  p.getColumn()
-			  ), 
-			  player, 
-			  c.getOwner()
-	  );
-  }
-  
-  @Test
-  public void ThereShouldBeARedCityAt(){
-	  thereShouldBeCityAtXY(Player.RED, new Position(1,1));
-  }
-  
-  @Test
-  public void ThereShouldABlueCityAt(){
-	  thereShouldBeCityAtXY(Player.BLUE, new Position(4,1));
-  }
-  
-  /*
    * Dynamic test for production.
    */
   public void shouldProduceX(Unit _u, String _unitConstant, Position p){
@@ -329,12 +274,6 @@ public class TestAlphaCiv {
   @Test
   public void StartAgeShouldbe4000BC(){
 	  assertEquals("Starting age should be -4000", -4000, game.getAge());
-  }
-  
-  @Test
-  public void RedShouldTheBeWinnerByYear3000BC(){
-	  Utility.playRounds(game,10);
-	  assertEquals("Red should have won by now", Player.RED, game.getWinner());
   }
     
 }

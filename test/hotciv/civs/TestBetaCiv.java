@@ -75,18 +75,13 @@ public class TestBetaCiv {
 	}
 
 	@Test
-	public void RedShouldbeWinner(){
-		Utility.changeOwnerOfCity(game,new Position(4,1));
-		assertEquals("Red should have won", Player.RED, game.getWinner());
+	public void RedArcherShouldHaveConquredBlueCityAndWonTheGame(){
+		game.moveUnit(new Position(2,0), new Position(3,1));
+		Utility.playRounds(game, 1);
+		game.moveUnit(new Position(3,1), new Position(4,1));
+		assertEquals("(4,1) should be owned by Red", Player.RED, game.getCityAt(new Position(4,1)).getOwner());
+		assertEquals("Red Player should have won", Player.RED, game.getWinner());
 	}
-	
-	@Test
-	public void BlueShouldbeWinner(){
-		Utility.changeOwnerOfCity(game,new Position(1,1));
-		assertEquals("Blue should have won", Player.BLUE, game.getWinner());
-	}
-	
-	//TEST IF YOU MOVE ON BLUE CITY
 	
 	@Test
 	public void ThereShouldbeNoWinner(){
