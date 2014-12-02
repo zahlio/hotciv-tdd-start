@@ -1,6 +1,5 @@
 package hotciv.common;
 
-import hotciv.command.WriteCommand;
 import hotciv.framework.abstractfactory.CivFactory;
 import hotciv.framework.command.Command;
 import hotciv.framework.common.City;
