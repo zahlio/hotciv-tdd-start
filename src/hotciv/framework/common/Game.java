@@ -34,7 +34,7 @@ import java.util.HashMap;
 
 */
 
-public interface Game {
+public interface Game extends TranscribedGame {
   // === Accessor methods ===================================
   
   /** return a specific tile.

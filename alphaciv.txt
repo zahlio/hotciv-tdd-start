@@ -1,0 +1,100 @@
+RED ends turn.
+
+BLUE ends turn.
+
+Resources for all cities have increased
+
+All unit MoveCount has been reset
+
+The year is -3900
+
+RED ends turn.
+
+BLUE ends turn.
+
+Resources for all cities have increased
+
+All unit MoveCount has been reset
+
+The year is -3800
+
+RED ends turn.
+
+BLUE ends turn.
+
+Resources for all cities have increased
+
+All unit MoveCount has been reset
+
+The year is -3700
+
+RED ends turn.
+
+BLUE ends turn.
+
+Resources for all cities have increased
+
+All unit MoveCount has been reset
+
+The year is -3600
+
+RED city at [1,1] changed it's production to: archer
+
+RED ends turn.
+
+BLUE ends turn.
+
+Resources for all cities have increased
+
+RED city at [1,1] has had his resources deducted 
+archer has been produced at [0,2]
+
+All unit MoveCount has been reset
+
+The year is -3500
+
+RED city at [1,1] changed it's production to: archer
+
+RED ends turn.
+
+BLUE ends turn.
+
+Resources for all cities have increased
+
+RED city at [1,1] has had his resources deducted 
+archer has been produced at [1,2]
+
+All unit MoveCount has been reset
+
+The year is -3400
+
+RED city at [1,1] changed it's production to: archer
+
+RED ends turn.
+
+BLUE ends turn.
+
+Resources for all cities have increased
+
+RED city at [1,1] has had his resources deducted 
+archer has been produced at [2,1]
+
+All unit MoveCount has been reset
+
+The year is -3300
+
+RED city at [1,1] changed it's production to: archer
+
+RED ends turn.
+
+BLUE ends turn.
+
+Resources for all cities have increased
+
+RED city at [1,1] has had his resources deducted 
+archer has been produced at [1,0]
+
+All unit MoveCount has been reset
+
+The year is -3200
+

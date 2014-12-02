@@ -153,4 +153,16 @@ class GameStubZetaCiv implements Game{
 	public HashMap<Position, UnitImpl> getUnits() {
 		return null;
 	}
+
+	@Override
+	public void setTranscription(boolean toggle) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void closeTranscription() {
+		// TODO Auto-generated method stub
+		
+	}
 }

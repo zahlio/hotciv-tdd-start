@@ -18,6 +18,7 @@ import hotciv.throwable.NotAUnitException;
 import hotciv.variants.unitimpl.AlphaCivUnitImpl;
 import hotciv.variants.units.ThetaCivUnits;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,6 +59,7 @@ public class TestAlphaCiv {
   public void setUp() {
     game = new GameImpl(new AlphaCivFactory("alphaciv.txt"));
     redCity = new Position(1,1);
+    game.setTranscription(true);
     //blueCity = new Position(4,1);
     //redArcher = new Position(2,0);
     //redSettler = new Position(4,3);
@@ -274,6 +276,11 @@ public class TestAlphaCiv {
   @Test
   public void StartAgeShouldbe4000BC(){
 	  assertEquals("Starting age should be -4000", -4000, game.getAge());
+  }
+  
+  @After
+  public void closeTranscription(){
+	  game.closeTranscription();
   }
     
 }

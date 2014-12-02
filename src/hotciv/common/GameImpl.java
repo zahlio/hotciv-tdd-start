@@ -49,8 +49,8 @@ public class GameImpl implements Game {
 
 	private Player currentPlayer = Player.RED;
 	private int age = -4000;
-	
-	
+
+
 	private Command command;
 	private AgingStrategy ageStrategy;
 	private WinStrategy winner;
@@ -74,8 +74,8 @@ public class GameImpl implements Game {
 		units.put(new Position(4,3), (UnitImpl) unitStrategy.produceUnit(GameConstants.SETTLER, Player.RED));
 
 		layoutStrategy.putCities(cities);
-		
-		
+
+
 	}
 
 	public Tile getTileAt(Position p) {
@@ -129,25 +129,30 @@ public class GameImpl implements Game {
 		}
 		if(outcome && outcomeIsinitialized && getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
 			command.writeTranscript(getPlayerInTurn() + " moves " + getUnitAt(from).getTypeString() + " from " + from.toString() + " to " + to.toString());
-			command.writeTranscript("and kills " + getUnitAt(to).getOwner() + " " + getUnitAt(to).getTypeString());
-			command.writeTranscript("and conquers city at " + to.toString() + " owned by " + getCityAt(to).getOwner());
+			command.writeTranscript(" and kills " + getUnitAt(to).getOwner() + " " + getUnitAt(to).getTypeString());
+			command.writeTranscript(" and conquers city at " + to.toString() + " owned by " + getCityAt(to).getOwner() + "\n");
 			moveToTile(from, to, "cityAndUnit");
 			return true;
 		}
 		if(outcome && outcomeIsinitialized){
+			command.writeTranscript(getPlayerInTurn() + " moves " + getUnitAt(from).toString() + " from " + from.toString() + " to " + to.toString());
+			command.writeTranscript("and kills " + getUnitAt(to).getOwner() + " " + getUnitAt(to).getTypeString() + "\n");
 			winner.setAttackCount(this);
 			moveToTile(from, to, "unit");
 			return true;
 		}
 		if(!outcome && outcomeIsinitialized){
+			command.writeTranscript(getUnitAt(from).getOwner() + " " + getUnitAt(from).getTypeString() + " has lost the battle.\n");
 			units.remove(from);
 			return true;
 		}
 		if(getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
+			command.writeTranscript(currentPlayer + " " + getUnitAt(from).getTypeString() + " has conqured the city at " + to.toString() + " owned by " + getCityAt(to).getOwner() + "\n");
 			moveToTile(from, to, "city");
 			return true;
 		}
 		if(getTileAt(to).getTypeString().equals(GameConstants.PLAINS) && getUnitAt(to)==null || getTileAt(to).getTypeString().equals(GameConstants.HILLS) && getUnitAt(to)==null){
+			command.writeTranscript(getUnitAt(from).getOwner() + " " + getUnitAt(from).getTypeString() + " has moved from" + from.toString() + " to a new position at " + to.toString() + "\n");
 			moveToTile(from, to, "tile");
 			return true; 
 		}
@@ -170,7 +175,7 @@ public class GameImpl implements Game {
 		}
 		if(moveToType.equals("tile")){
 		}
-		
+
 		units.put(other, (UnitImpl) getUnitAt(current));
 		units.remove(current);
 		getUnitAt(other).setHasMoved(true);
@@ -220,12 +225,15 @@ public class GameImpl implements Game {
 
 	public void endOfTurn() {
 		if(currentPlayer == Player.RED){
+			command.writeTranscript(currentPlayer + " ends turn.\n");
 			currentPlayer = Player.BLUE;
 		}else if(currentPlayer == Player.BLUE){
+			command.writeTranscript(currentPlayer + " ends turn.\n");
 			currentPlayer = Player.RED;
 			setResourcesForEachCityAndProduceUnitIfCan();
 			resetUnitMoveCount();
 			age = ageStrategy.getNewAge(age);
+			command.writeTranscript("The year is " + age + "\n");
 		}
 	}
 
@@ -233,9 +241,11 @@ public class GameImpl implements Game {
 		for(Position p : units.keySet()){
 			getUnitAt(p).setHasMoved(false);
 		}
+		command.writeTranscript("All unit MoveCount has been reset\n");
 	}
 
 	private void setResourcesForEachCityAndProduceUnitIfCan(){
+		command.writeTranscript("Resources for all cities have increased\n");
 		for(Position p : cities.keySet()){
 			CityImpl c = (CityImpl) getCityAt(p);
 			c.setResourcesPerRound();
@@ -243,25 +253,42 @@ public class GameImpl implements Game {
 				produceUnitAt(c.getProduction(), getNextSpawnPositionAtCity(p));
 				c.deductResources(c.getProduction());
 				produceUnitAt(c.getProduction(), p);
+				//TODO: eventually say how much
+				command.writeTranscript(c.getOwner() + " city at " + p.toString() + " has had his resources deducted ");
+				command.writeTranscript(c.getProduction() + " has been produced at " + getNextSpawnPositionAtCity(p).toString() + "\n");
 				c.setProduction("");
 			}
 		}
 	}
 
 	public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
-	
-	
+
+
 	public void changeProductionInCityAt( Position p, String unitType ) throws NotAUnitException {
 		if(unitStrategy.hasUnit(unitType)){
 			CityImpl c = (CityImpl) getCityAt(p);
 			c.setProduction(unitType);
+			command.writeTranscript(getCityAt(p).getOwner() + " city at " + p.toString() + " changed it's production to: " + unitType + "\n");
 		}else{
+			command.writeTranscript(getCityAt(p).getOwner() + " city at" + p.toString() + " tried to produce" + unitType + " which does not exiest in this game\n");
 			throw new NotAUnitException(unitType);
 		}
 	}
 
 	public void performUnitActionAt(Position p) {
 		unitStrategy.performUnitAction(this, p);
+		if(getUnitAt(p)!=null){
+			command.writeTranscript(getUnitAt(p).getOwner() + " " + getUnitAt(p).getTypeString() + " has performed it's action.\n");
+		}
+	}
+
+	public void setTranscription(boolean toggle) {
+		command.setTranscription(toggle);
+	}
+
+	@Override
+	public void closeTranscription() {
+		command.closeTranscript();
 	}
 
 }

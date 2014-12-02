@@ -28,7 +28,7 @@ public class WriteCommand implements Command {
 	public void writeTranscript(String action) {
 		try {
 			if(toggleTranscription){
-				bufferWriter.write(action);
+				bufferWriter.write(action + "\n");
 			}else{
 
 			}

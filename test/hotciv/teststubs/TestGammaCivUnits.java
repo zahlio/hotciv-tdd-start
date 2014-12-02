@@ -128,4 +128,16 @@ class GammaCivGameStub implements Game {
 	public void changeWorkForceFocusInCityAt(Position p, String balance) {}
 	public void changeProductionInCityAt(Position p, String unitType) throws NotAUnitException {}
 	public void performUnitActionAt(Position p) {}
+
+	@Override
+	public void setTranscription(boolean toggle) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void closeTranscription() {
+		// TODO Auto-generated method stub
+		
+	}
 }
