@@ -21,7 +21,7 @@ public class TestEpsilonCiv {
 	Game game;
 	@Before 
 	public void setUp() {
-		game = new GameImpl(new EpsilonCivFactory(new OneSidedDie()));
+		game = new GameImpl(new EpsilonCivFactory("EpsilonCiv.txt", new OneSidedDie()));
 	}
 
 	@Test

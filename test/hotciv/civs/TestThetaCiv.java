@@ -21,7 +21,7 @@ public class TestThetaCiv {
 	
 	@Before
 	public void SetUp(){
-		game = new GameImpl(new ThetaCivFactory());
+		game = new GameImpl(new ThetaCivFactory("ThetaCiv.txt"));
 		game.getUnits().put(new Position(3,3), new UnitImpl(new ThetaCivUnitImpl(ThetaCivUnits.CHARIOT, Player.RED)));
 	}
 	

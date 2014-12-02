@@ -1,6 +1,8 @@
 package hotciv.factories;
 
+import hotciv.command.WriteCommand;
 import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.command.Command;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
@@ -16,9 +18,11 @@ import hotciv.variants.worldlayout.DeltaCivWorldLayout;
 
 public class SemiCivFactory implements CivFactory {
 
+	private String fileName;
 	private DieStrategy die;
 	
-	public SemiCivFactory(DieStrategy die) {
+	public SemiCivFactory(String fileName, DieStrategy die) {
+		this.fileName = fileName;
 		this.die = die;
 	}
 	
@@ -40,6 +44,10 @@ public class SemiCivFactory implements CivFactory {
 
 	public AttackStrategy createAttack() {
 		return new EpsilonAttacking(die);
+	}
+	
+	public Command createCommand() {
+		return new WriteCommand(fileName);
 	}
 
 }

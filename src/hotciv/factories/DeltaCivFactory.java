@@ -1,6 +1,8 @@
 package hotciv.factories;
 
+import hotciv.command.WriteCommand;
 import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.command.Command;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
@@ -15,6 +17,12 @@ import hotciv.variants.worldlayout.DeltaCivWorldLayout;
 
 public class DeltaCivFactory implements CivFactory {
 	
+	private String fileName;
+	
+	public DeltaCivFactory(String fileName) {
+		this.fileName = fileName;
+	}
+	
 	public AgingStrategy createAging() {
 		return new AlphaCivAging();
 	}
@@ -27,13 +35,15 @@ public class DeltaCivFactory implements CivFactory {
 		return new DeltaCivWorldLayout(Worlds.WORLD_DELTA);
 	}
 
-	@Override
 	public WinStrategy createWinner() {
 		return new AlphaCivWinCondition();
 	}
 
-	@Override
 	public AttackStrategy createAttack() {
 		return new AlphaCivAttacking();
+	}
+	
+	public Command createCommand(){
+		return new WriteCommand(fileName);
 	}
 }

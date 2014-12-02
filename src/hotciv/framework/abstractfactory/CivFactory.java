@@ -1,5 +1,6 @@
 package hotciv.framework.abstractfactory;
 
+import hotciv.framework.command.Command;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.UnitStrategy;
@@ -17,4 +18,6 @@ public interface CivFactory {
 	public WorldLayoutStrategy createLayout();
 	
 	public AttackStrategy createAttack();
+	
+	public Command createCommand();
 }

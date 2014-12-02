@@ -1,6 +1,8 @@
 package hotciv.common;
 
+import hotciv.command.WriteCommand;
 import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.command.Command;
 import hotciv.framework.common.City;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.GameConstants;
@@ -48,7 +50,9 @@ public class GameImpl implements Game {
 
 	private Player currentPlayer = Player.RED;
 	private int age = -4000;
-
+	
+	
+	private Command command;
 	private AgingStrategy ageStrategy;
 	private WinStrategy winner;
 	private WorldLayoutStrategy layoutStrategy;
@@ -64,12 +68,15 @@ public class GameImpl implements Game {
 		layoutStrategy = civFactory.createLayout();
 		winner = civFactory.createWinner();
 		attackAndDefenceStrategy = civFactory.createAttack();
+		command = civFactory.createCommand();
 
 		units.put(new Position(2,0), (UnitImpl) unitStrategy.produceUnit(GameConstants.ARCHER, Player.RED));
 		units.put(new Position(3,2), (UnitImpl) unitStrategy.produceUnit(GameConstants.LEGION, Player.BLUE));
 		units.put(new Position(4,3), (UnitImpl) unitStrategy.produceUnit(GameConstants.SETTLER, Player.RED));
 
 		layoutStrategy.putCities(cities);
+		
+		
 	}
 
 	public Tile getTileAt(Position p) {
@@ -122,6 +129,9 @@ public class GameImpl implements Game {
 			outcome = attackAndDefenceStrategy.performAttack(this, from, to);
 		}
 		if(outcome && outcomeIsinitialized && getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
+			command.writeTranscript(getPlayerInTurn() + " moves " + getUnitAt(from).getTypeString() + " from " + from.toString() + " to " + to.toString());
+			command.writeTranscript("and kills " + getUnitAt(to).getOwner() + " " + getUnitAt(to).getTypeString());
+			command.writeTranscript("and conquers city at " + to.toString() + " owned by " + getCityAt(to).getOwner());
 			moveToTile(from, to, "cityAndUnit");
 			return true;
 		}

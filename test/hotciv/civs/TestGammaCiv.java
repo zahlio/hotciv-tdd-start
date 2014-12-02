@@ -18,7 +18,7 @@ public class TestGammaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new GammaCivFactory());
+		game = new GameImpl(new GammaCivFactory("GammeCiv.txt"));
 	}
 	
 	@Test

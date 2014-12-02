@@ -1,6 +1,8 @@
 package hotciv.factories;
 
+import hotciv.command.WriteCommand;
 import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.command.Command;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
@@ -14,6 +16,12 @@ import hotciv.variants.wincondition.BetaCivWinCondition;
 import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
 public class BetaCivFactory implements CivFactory{
+	
+	private String fileName;
+	
+	public BetaCivFactory(String fileName) {
+		this.fileName = fileName;
+	}
 
 	public AgingStrategy createAging() {
 		return new BetaCivAging();
@@ -33,5 +41,9 @@ public class BetaCivFactory implements CivFactory{
 
 	public WinStrategy createWinner() {
 		return new BetaCivWinCondition();
+	}
+
+	public Command createCommand() {
+		return new WriteCommand(fileName);
 	}
 }

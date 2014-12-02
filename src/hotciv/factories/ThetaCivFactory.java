@@ -1,6 +1,8 @@
 package hotciv.factories;
 
+import hotciv.command.WriteCommand;
 import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.command.Command;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
@@ -15,6 +17,12 @@ import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
 public class ThetaCivFactory implements CivFactory {
 
+	private String fileName;
+	
+	public ThetaCivFactory(String fileName) {
+		this.fileName = fileName;
+	}
+	
 	public AgingStrategy createAging() {
 		return new AlphaCivAging();
 	}
@@ -35,4 +43,7 @@ public class ThetaCivFactory implements CivFactory {
 		return new AlphaCivAttacking();
 	}
 
+	public Command createCommand() {
+		return new WriteCommand(fileName);
+	}
 }

@@ -1,6 +1,8 @@
 package hotciv.factories;
 
+import hotciv.command.WriteCommand;
 import hotciv.framework.abstractfactory.CivFactory;
+import hotciv.framework.command.Command;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
@@ -20,10 +22,12 @@ import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
 public class ZetaCivFactory implements CivFactory {
 	
+	private String fileName;
 	private DieStrategy die;
 	
 	//Needs to know if the AttackStrategy is played with 1 sided die for testing, or 6 sided for playing
-	public ZetaCivFactory(DieStrategy die) {
+	public ZetaCivFactory(String fileName, DieStrategy die) {
+		this.fileName = fileName;
 		this.die = die;
 	}
 
@@ -49,6 +53,10 @@ public class ZetaCivFactory implements CivFactory {
 	@Override
 	public AttackStrategy createAttack() {
 		return new ZetaCivAttacks(new AlphaCivAttacking(), new EpsilonAttacking(die));
+	}
+	
+	public Command createCommand() {
+		return new WriteCommand(fileName);
 	}
 
 }
