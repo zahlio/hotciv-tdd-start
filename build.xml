@@ -119,7 +119,7 @@ HotCiv build management for dSoftArk
   <!-- JUnit testing -->
   <target name="test"  depends="build-all">
     <java classname="org.junit.runner.JUnitCore">
-      <arg value="hotciv.standard.TestAll"/>
+      <arg value="hotciv.civs.TestAll"/>
       <classpath refid="class-path"/>
     </java>
   </target>

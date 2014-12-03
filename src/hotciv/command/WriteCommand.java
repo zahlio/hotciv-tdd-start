@@ -15,8 +15,16 @@ public class WriteCommand implements Command {
 
 	public WriteCommand(String name) {
 		toggleTranscription = false;
+		
 		try{
 			File file = new File(name);
+			
+			/* if we dont want to override a file.
+			if (!file.exists()) {
+				file.createNewFile();
+			}
+			*/
+			
 			fileWriter = new FileWriter(file);
 			bufferWriter = new BufferedWriter(fileWriter);
 		}
@@ -48,10 +56,9 @@ public class WriteCommand implements Command {
 		}
 	}
 
-	@Override
 	public void setTranscription(boolean transcripe) {
 		toggleTranscription = transcripe;
-
 	}
 
 }
+
