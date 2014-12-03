@@ -12,7 +12,7 @@ import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.aging.BetaCivAging;
 import hotciv.variants.attacks.EpsilonAttacking;
-import hotciv.variants.unitaction.GammaCivUnitAction;
+import hotciv.variants.unitaction.SemiCivUnitAction;
 import hotciv.variants.wincondition.EpsilonWinCondition;
 import hotciv.variants.worldlayout.DeltaCivWorldLayout;
 
@@ -25,15 +25,12 @@ public class SemiCivFactory implements CivFactory {
 	public SemiCivFactory(DieStrategy die) {
 		this.die = die;
 	}
-	
 	public AgingStrategy createAging() {
 		return new BetaCivAging();
 	}
-
 	public WinStrategy createWinner() {
 		return new EpsilonWinCondition();
 	}
-
 	public HashMap<String, UnitInfo> createUnit() {
 		HashMap<String, UnitInfo> unitInfo = new HashMap<String, UnitInfo>();
 		unitInfo.put(GameConstants.ARCHER, new UnitInfo(10,3,2));
@@ -41,17 +38,14 @@ public class SemiCivFactory implements CivFactory {
 		unitInfo.put(GameConstants.LEGION, new UnitInfo(15,2,4));
 		return unitInfo;
 	}
-
 	public WorldLayoutStrategy createLayout() {
 		return new DeltaCivWorldLayout(Worlds.WORLD_DELTA);
 	}
-
 	public AttackStrategy createAttack() {
 		return new EpsilonAttacking(die);
 	}
-	
 	public UnitActionStrategy createUnitAction() {
-		return new GammaCivUnitAction();
+		return new SemiCivUnitAction();
 	}
 }
 

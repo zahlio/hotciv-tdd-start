@@ -10,6 +10,7 @@ import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
 import hotciv.common.UnitInfo;
 import hotciv.factories.AlphaCivFactory;
+import hotciv.factories.SemiCivFactory;
 import hotciv.framework.ThetaCivUnit;
 import hotciv.framework.common.City;
 import hotciv.framework.common.Game;
@@ -18,6 +19,7 @@ import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Unit;
 import hotciv.throwable.NotAUnitException;
+import hotciv.variants.die.SixSidedDie;
 
 import org.junit.After;
 import org.junit.Before;
@@ -63,6 +65,7 @@ public class TestAlphaCiv {
     dec = new DecoratedGame((GameImpl) game);
     redCity = new Position(1,1);
     dec.setTranscription();
+    
     //blueCity = new Position(4,1);
     //redArcher = new Position(2,0);
     //redSettler = new Position(4,3);

@@ -13,22 +13,26 @@ public class WriteCommand {
 
 	public WriteCommand(String name) {
 		toggleTranscription = false;
-		
+
 		try{
 			File file = new File(name);
-			
+
 			/* if we dont want to override a file.
 			if (!file.exists()) {
 				file.createNewFile();
 			}
-			*/
-			
-			fileWriter = new FileWriter(file);
+			 */
+
+			fileWriter = new FileWriter(file, true);
 			bufferWriter = new BufferedWriter(fileWriter);
 		}
 		catch(IOException e ){
 
 		}
+	}
+
+	public boolean getToggle(){
+		return toggleTranscription;
 	}
 
 	public void writeTranscript(String action) {
@@ -54,9 +58,12 @@ public class WriteCommand {
 		}
 	}
 
-	public void setTranscription(boolean transcripe) {
-		toggleTranscription = transcripe;
+	public void setTranscription() {
+		if(toggleTranscription){
+			toggleTranscription = false;
+		}else{
+			toggleTranscription = true;
+		}
 	}
-
 }
 

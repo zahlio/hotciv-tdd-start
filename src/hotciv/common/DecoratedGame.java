@@ -54,10 +54,16 @@ public class DecoratedGame implements Game {
 	}
 
 	public boolean moveUnit(Position from, Position to) {
-		if(command.getToggle()){
-			command.writeTranscript(gameImpl.getPlayerInTurn() + " moves " + gameImpl.getUnitAt(from).getTypeString() + " from " + from.toString() + " to " + to.toString());		
+		//TODO: NOT A GOOD WAY TO IMPLEMENT THIS
+		Unit u = null;
+		if(gameImpl.getUnitAt(from) !=null){
+			u = gameImpl.getUnitAt(from);
 		}
-		return gameImpl.moveUnit(from, to);
+		if(command.getToggle() && gameImpl.moveUnit(from, to)){
+			command.writeTranscript(gameImpl.getPlayerInTurn() + " moves " + u.getTypeString() + " from " + from.toString() + " to " + to.toString());
+			return true;
+		}
+		return false;
 	}
 
 	public void endOfTurn() {
