@@ -7,7 +7,9 @@ import static org.junit.Assert.assertTrue;
 import hotciv.common.CityImpl;
 import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
+import hotciv.common.UnitInfo;
 import hotciv.factories.AlphaCivFactory;
+import hotciv.framework.ThetaCivUnit;
 import hotciv.framework.common.City;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.GameConstants;
@@ -15,8 +17,6 @@ import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Unit;
 import hotciv.throwable.NotAUnitException;
-import hotciv.variants.unitimpl.AlphaCivUnitImpl;
-import hotciv.variants.units.ThetaCivUnits;
 
 import org.junit.After;
 import org.junit.Before;
@@ -57,9 +57,8 @@ public class TestAlphaCiv {
   
   @Before
   public void setUp() {
-    game = new GameImpl(new AlphaCivFactory("alphaciv.txt"));
+    game = new GameImpl(new AlphaCivFactory());
     redCity = new Position(1,1);
-    game.setTranscription(true);
     //blueCity = new Position(4,1);
     //redArcher = new Position(2,0);
     //redSettler = new Position(4,3);
@@ -169,7 +168,7 @@ public class TestAlphaCiv {
   @Test
   public void AttackerShouldWinAndMoveToLocation(){
 	  Position red = new Position(2,0);
-	  game.getUnits().put(new Position(3,1), new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.BLUE)));
+	  game.getUnits().put(new Position(3,1), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
 	  Position blue = new Position(3,1);
 	  game.moveUnit(red, blue);
 	  Unit u = game.getUnitAt(blue);
@@ -180,8 +179,8 @@ public class TestAlphaCiv {
   public void RedLegionHasKilledBlueLegionAndConqueredBlueCity(){
 	  Position redLegion = new Position(3,1);
 	  Position blueLegion = new Position(4,1);
-	  game.getUnits().put(redLegion, new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.RED)));
-	  game.getUnits().put(blueLegion, new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.BLUE)));
+	  game.getUnits().put(redLegion, new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.RED));
+	  game.getUnits().put(blueLegion, new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
 	  
 	  game.moveUnit(redLegion, blueLegion);
 	  Unit u = game.getUnitAt(blueLegion);
@@ -248,7 +247,7 @@ public class TestAlphaCiv {
   
   @Test(expected=NotAUnitException.class)
   public void ShouldNotProduceChariot() throws NotAUnitException{
-      game.changeProductionInCityAt(redCity, ThetaCivUnits.CHARIOT);
+      game.changeProductionInCityAt(redCity, ThetaCivUnit.CHARIOT);
   }
   
   @Test
@@ -280,7 +279,6 @@ public class TestAlphaCiv {
   
   @After
   public void closeTranscription(){
-	  game.closeTranscription();
   }
     
 }

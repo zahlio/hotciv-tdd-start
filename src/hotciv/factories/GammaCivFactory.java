@@ -6,10 +6,12 @@ import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
+import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.aging.AlphaCivAging;
 import hotciv.variants.attacks.AlphaCivAttacking;
+import hotciv.variants.unitaction.GammaCivUnitAction;
 import hotciv.variants.wincondition.AlphaCivWinCondition;
 import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
@@ -39,5 +41,9 @@ public class GammaCivFactory implements CivFactory {
 
 	public WinStrategy createWinner() {
 		return new AlphaCivWinCondition();
-	}	
+	}
+	
+	public UnitActionStrategy createUnitAction() {
+		return new GammaCivUnitAction();
+	}
 }

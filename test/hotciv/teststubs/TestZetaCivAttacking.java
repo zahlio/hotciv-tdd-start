@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import hotciv.common.CityImpl;
 import hotciv.common.TileImpl;
 import hotciv.common.UnitImpl;
+import hotciv.common.UnitInfo;
 import hotciv.framework.common.City;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.GameConstants;
@@ -18,7 +19,6 @@ import hotciv.variants.attacks.AlphaCivAttacking;
 import hotciv.variants.attacks.EpsilonAttacking;
 import hotciv.variants.attacks.ZetaCivAttacks;
 import hotciv.variants.die.OneSidedDie;
-import hotciv.variants.unitimpl.AlphaCivUnitImpl;
 
 import java.util.HashMap;
 
@@ -45,11 +45,11 @@ public class TestZetaCivAttacking {
 
 	//THIS COULD BE TESTED ANOTHER WAY
 	@Test public void AttackerShouldWin(){
-		game2.getUnits().put(new Position(1,1),new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.RED)));
-		game2.getUnits().put(new Position(2,1), new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.BLUE)));
+		game2.getUnits().put(new Position(1,1),new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.RED));
+		game2.getUnits().put(new Position(2,1), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
 		
-		game2.getUnits().put(new Position(4,4), new UnitImpl(new AlphaCivUnitImpl(GameConstants.ARCHER, Player.RED)));
-		game2.getUnits().put(new Position(5,4), new UnitImpl(new AlphaCivUnitImpl(GameConstants.ARCHER, Player.BLUE)));
+		game2.getUnits().put(new Position(4,4), new UnitImpl(new UnitInfo(15,3,2),GameConstants.ARCHER, Player.RED));
+		game2.getUnits().put(new Position(5,4), new UnitImpl(new UnitInfo(15,3,2),GameConstants.ARCHER, Player.BLUE));
 		
 		boolean redLegionShouldWin = zetaAttack.performAttack(game2, new Position(1,1), new Position(2,1));
 		assertTrue("Attacker Won", redLegionShouldWin);
@@ -135,17 +135,5 @@ class GameStubZetaCivAttacking implements Game{
 	@Override
 	public HashMap<Position, UnitImpl> getUnits() {
 		return units;
-	}
-
-	@Override
-	public void setTranscription(boolean toggle) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void closeTranscription() {
-		// TODO Auto-generated method stub
-		
 	}
 }

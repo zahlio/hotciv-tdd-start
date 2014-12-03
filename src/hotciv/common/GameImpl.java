@@ -1,7 +1,6 @@
 package hotciv.common;
 
 import hotciv.framework.abstractfactory.CivFactory;
-import hotciv.framework.command.Command;
 import hotciv.framework.common.City;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.GameConstants;
@@ -11,7 +10,7 @@ import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
-import hotciv.framework.strategy.UnitStrategy;
+import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.throwable.NotAUnitException;
@@ -51,28 +50,29 @@ public class GameImpl implements Game {
 	private int age = -4000;
 
 
-	private Command command;
 	private AgingStrategy ageStrategy;
 	private WinStrategy winner;
 	private WorldLayoutStrategy layoutStrategy;
 	private AttackStrategy attackAndDefenceStrategy;
-	private UnitStrategy unitStrategy;
+	private UnitActionStrategy unitActionStrategy;
 
 	private HashMap<Position, UnitImpl> units = new HashMap<Position, UnitImpl>();
 	private HashMap<Position, CityImpl> cities = new HashMap<Position, CityImpl>();
+	private HashMap<String, UnitInfo> unitsInGame;
 
 	public GameImpl(CivFactory civFactory) {
 		ageStrategy = civFactory.createAging();
-		unitStrategy = civFactory.createUnit();
+		unitsInGame = civFactory.createUnit();
 		layoutStrategy = civFactory.createLayout();
 		winner = civFactory.createWinner();
 		attackAndDefenceStrategy = civFactory.createAttack();
-		command = civFactory.createCommand();
+		unitActionStrategy = civFactory.createUnitAction();
 
-		units.put(new Position(2,0), (UnitImpl) unitStrategy.produceUnit(GameConstants.ARCHER, Player.RED));
-		units.put(new Position(3,2), (UnitImpl) unitStrategy.produceUnit(GameConstants.LEGION, Player.BLUE));
-		units.put(new Position(4,3), (UnitImpl) unitStrategy.produceUnit(GameConstants.SETTLER, Player.RED));
-
+		if(unitsInGame.containsKey(GameConstants.ARCHER) && unitsInGame.containsKey(GameConstants.LEGION) && unitsInGame.containsKey(GameConstants.SETTLER)){
+			units.put(new Position(2,0), new UnitImpl(unitsInGame.get(GameConstants.ARCHER),GameConstants.ARCHER, Player.RED));
+			units.put(new Position(3,2), new UnitImpl(unitsInGame.get(GameConstants.LEGION),GameConstants.LEGION, Player.BLUE));
+			units.put(new Position(4,3), new UnitImpl(unitsInGame.get(GameConstants.SETTLER), GameConstants.SETTLER, Player.RED));
+		}
 		layoutStrategy.putCities(cities);
 
 
@@ -128,31 +128,23 @@ public class GameImpl implements Game {
 			outcome = attackAndDefenceStrategy.performAttack(this, from, to);
 		}
 		if(outcome && outcomeIsinitialized && getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
-			command.writeTranscript(getPlayerInTurn() + " moves " + getUnitAt(from).getTypeString() + " from " + from.toString() + " to " + to.toString());
-			command.writeTranscript(" and kills " + getUnitAt(to).getOwner() + " " + getUnitAt(to).getTypeString());
-			command.writeTranscript(" and conquers city at " + to.toString() + " owned by " + getCityAt(to).getOwner() + "\n");
 			moveToTile(from, to, "cityAndUnit");
 			return true;
 		}
 		if(outcome && outcomeIsinitialized){
-			command.writeTranscript(getPlayerInTurn() + " moves " + getUnitAt(from).toString() + " from " + from.toString() + " to " + to.toString());
-			command.writeTranscript("and kills " + getUnitAt(to).getOwner() + " " + getUnitAt(to).getTypeString() + "\n");
 			winner.setAttackCount(this);
 			moveToTile(from, to, "unit");
 			return true;
 		}
 		if(!outcome && outcomeIsinitialized){
-			command.writeTranscript(getUnitAt(from).getOwner() + " " + getUnitAt(from).getTypeString() + " has lost the battle.\n");
 			units.remove(from);
 			return true;
 		}
 		if(getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
-			command.writeTranscript(currentPlayer + " " + getUnitAt(from).getTypeString() + " has conqured the city at " + to.toString() + " owned by " + getCityAt(to).getOwner() + "\n");
 			moveToTile(from, to, "city");
 			return true;
 		}
 		if(getTileAt(to).getTypeString().equals(GameConstants.PLAINS) && getUnitAt(to)==null || getTileAt(to).getTypeString().equals(GameConstants.HILLS) && getUnitAt(to)==null){
-			command.writeTranscript(getUnitAt(from).getOwner() + " " + getUnitAt(from).getTypeString() + " has moved from" + from.toString() + " to a new position at " + to.toString() + "\n");
 			moveToTile(from, to, "tile");
 			return true; 
 		}
@@ -191,8 +183,8 @@ public class GameImpl implements Game {
 		}
 	}
 
-	public void produceUnitAt(String unit, Position p) {
-		units.put(getNextSpawnPositionAtCity(p), (UnitImpl) unitStrategy.produceUnit(unit, currentPlayer));
+	public void produceUnitAt(Position p, UnitInfo info, String unit, Player owner) {
+		units.put(getNextSpawnPositionAtCity(p), new UnitImpl(unitsInGame.get(unit), unit, owner));
 	}
 
 	public Position getNextSpawnPositionAtCity(Position p){
@@ -225,15 +217,12 @@ public class GameImpl implements Game {
 
 	public void endOfTurn() {
 		if(currentPlayer == Player.RED){
-			command.writeTranscript(currentPlayer + " ends turn.\n");
 			currentPlayer = Player.BLUE;
 		}else if(currentPlayer == Player.BLUE){
-			command.writeTranscript(currentPlayer + " ends turn.\n");
 			currentPlayer = Player.RED;
 			setResourcesForEachCityAndProduceUnitIfCan();
 			resetUnitMoveCount();
 			age = ageStrategy.getNewAge(age);
-			command.writeTranscript("The year is " + age + "\n");
 		}
 	}
 
@@ -241,21 +230,17 @@ public class GameImpl implements Game {
 		for(Position p : units.keySet()){
 			getUnitAt(p).setHasMoved(false);
 		}
-		command.writeTranscript("All unit MoveCount has been reset\n");
 	}
 
 	private void setResourcesForEachCityAndProduceUnitIfCan(){
-		command.writeTranscript("Resources for all cities have increased\n");
 		for(Position p : cities.keySet()){
 			CityImpl c = (CityImpl) getCityAt(p);
 			c.setResourcesPerRound();
 			if(c.canDeductResources(c.getProduction()) && getNextSpawnPositionAtCity(p) != null){
-				produceUnitAt(c.getProduction(), getNextSpawnPositionAtCity(p));
+				produceUnitAt(getNextSpawnPositionAtCity(p),unitsInGame.get(c.getProduction()),c.getProduction(), c.getOwner());
 				c.deductResources(c.getProduction());
-				produceUnitAt(c.getProduction(), p);
+				produceUnitAt(p,unitsInGame.get(c.getProduction()),c.getProduction(), c.getOwner());
 				//TODO: eventually say how much
-				command.writeTranscript(c.getOwner() + " city at " + p.toString() + " has had his resources deducted ");
-				command.writeTranscript(c.getProduction() + " has been produced at " + getNextSpawnPositionAtCity(p).toString() + "\n");
 				c.setProduction("");
 			}
 		}
@@ -265,30 +250,15 @@ public class GameImpl implements Game {
 
 
 	public void changeProductionInCityAt( Position p, String unitType ) throws NotAUnitException {
-		if(unitStrategy.hasUnit(unitType)){
+		if(unitsInGame.containsKey(unitType)){
 			CityImpl c = (CityImpl) getCityAt(p);
 			c.setProduction(unitType);
-			command.writeTranscript(getCityAt(p).getOwner() + " city at " + p.toString() + " changed it's production to: " + unitType + "\n");
 		}else{
-			command.writeTranscript(getCityAt(p).getOwner() + " city at" + p.toString() + " tried to produce" + unitType + " which does not exiest in this game\n");
 			throw new NotAUnitException(unitType);
 		}
 	}
 
 	public void performUnitActionAt(Position p) {
-		unitStrategy.performUnitAction(this, p);
-		if(getUnitAt(p)!=null){
-			command.writeTranscript(getUnitAt(p).getOwner() + " " + getUnitAt(p).getTypeString() + " has performed it's action.\n");
-		}
+		unitActionStrategy.performUnitAction(p, this);
 	}
-
-	public void setTranscription(boolean toggle) {
-		command.setTranscription(toggle);
-	}
-
-	@Override
-	public void closeTranscription() {
-		command.closeTranscript();
-	}
-
 }

@@ -4,7 +4,7 @@ import hotciv.framework.common.Game;
 import hotciv.framework.common.Position;
 
 //FIND OUT WHAT PATTERN THIS IS
-public interface UnitActionPattern {
+public interface UnitActionStrategy {
 
 	/**
 	 * this method performs the units action

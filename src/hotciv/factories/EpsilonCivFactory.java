@@ -7,10 +7,12 @@ import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.DieStrategy;
+import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.aging.AlphaCivAging;
 import hotciv.variants.attacks.EpsilonAttacking;
+import hotciv.variants.unitaction.AlphaCivUnitAction;
 import hotciv.variants.wincondition.EpsilonWinCondition;
 import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
@@ -47,5 +49,9 @@ public class EpsilonCivFactory implements CivFactory {
 
 	public AttackStrategy createAttack() {
 		return new EpsilonAttacking(die);
+	}
+	
+	public UnitActionStrategy createUnitAction() {
+		return new AlphaCivUnitAction();
 	}
 }

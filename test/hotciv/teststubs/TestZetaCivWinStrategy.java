@@ -130,7 +130,6 @@ class GameStubZetaCiv implements Game{
 		}else if(currentPlayer==Player.BLUE){
 			currentPlayer = Player.RED;
 		}
-
 	}
 
 	public HashMap<Position, CityImpl> getCities(){
@@ -152,17 +151,5 @@ class GameStubZetaCiv implements Game{
 	@Override
 	public HashMap<Position, UnitImpl> getUnits() {
 		return null;
-	}
-
-	@Override
-	public void setTranscription(boolean toggle) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void closeTranscription() {
-		// TODO Auto-generated method stub
-		
 	}
 }

@@ -122,17 +122,4 @@ class EpsilonWinStub implements Game {
 	@Override
 	public void performUnitActionAt(Position p) {
 	}
-
-	@Override
-	public void setTranscription(boolean toggle) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void closeTranscription() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

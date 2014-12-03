@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
+import hotciv.common.UnitInfo;
 import hotciv.factories.EpsilonCivFactory;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.GameConstants;
@@ -11,7 +12,6 @@ import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Unit;
 import hotciv.variants.die.OneSidedDie;
-import hotciv.variants.unitimpl.AlphaCivUnitImpl;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,16 +21,16 @@ public class TestEpsilonCiv {
 	Game game;
 	@Before 
 	public void setUp() {
-		game = new GameImpl(new EpsilonCivFactory("EpsilonCiv.txt", new OneSidedDie()));
+		game = new GameImpl(new EpsilonCivFactory(new OneSidedDie()));
 	}
 
 	@Test
 	public void RedShouldBeWinnerIfHeWins3Times(){
 		
-		game.getUnits().put(new Position(9,0), new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.RED)));
-		game.getUnits().put(new Position(9,1), new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.BLUE)));
-		game.getUnits().put(new Position(9,3), new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.BLUE)));
-		game.getUnits().put(new Position(9,5), new UnitImpl(new AlphaCivUnitImpl(GameConstants.LEGION, Player.BLUE)));
+		game.getUnits().put(new Position(9,0), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.RED));
+		game.getUnits().put(new Position(9,1), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
+		game.getUnits().put(new Position(9,3), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
+		game.getUnits().put(new Position(9,5), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
 
 		game.moveUnit(new Position(9,0), new Position(9,1));
 		Utility.playRounds(game,1);

@@ -263,15 +263,4 @@ class GameStubForBattleTesting implements Game {
 	public HashMap<Position, CityImpl> getCities() {
 		return null;
 	}
-	@Override
-	public void setTranscription(boolean toggle) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void closeTranscription() {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

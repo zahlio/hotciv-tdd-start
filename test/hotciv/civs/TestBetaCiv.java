@@ -17,7 +17,7 @@ public class TestBetaCiv {
 	/** Fixture for alphaciv testing. */
 	@Before
 	public void setUp() {
-		game = new GameImpl(new BetaCivFactory("BetaCiv.txt"));
+		game = new GameImpl(new BetaCivFactory());
 	}
 
 	@Test

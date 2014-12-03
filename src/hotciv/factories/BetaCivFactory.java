@@ -6,10 +6,12 @@ import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
+import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.aging.BetaCivAging;
 import hotciv.variants.attacks.AlphaCivAttacking;
+import hotciv.variants.unitaction.AlphaCivUnitAction;
 import hotciv.variants.wincondition.BetaCivWinCondition;
 import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
@@ -39,5 +41,9 @@ public class BetaCivFactory implements CivFactory{
 
 	public WinStrategy createWinner() {
 		return new BetaCivWinCondition();
+	}
+	
+	public UnitActionStrategy createUnitAction() {
+		return new AlphaCivUnitAction();
 	}
 }

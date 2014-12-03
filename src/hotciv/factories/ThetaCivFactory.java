@@ -1,16 +1,18 @@
 package hotciv.factories;
 
 import hotciv.common.UnitInfo;
+import hotciv.framework.ThetaCivUnit;
 import hotciv.framework.abstractfactory.CivFactory;
 import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
+import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.aging.AlphaCivAging;
 import hotciv.variants.attacks.AlphaCivAttacking;
-import hotciv.variants.units.ThetaCivUnits;
+import hotciv.variants.unitaction.GammaCivUnitAction;
 import hotciv.variants.wincondition.AlphaCivWinCondition;
 import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
@@ -31,7 +33,7 @@ public class ThetaCivFactory implements CivFactory {
 		unitInfo.put(GameConstants.ARCHER, new UnitInfo(10,3,2));
 		unitInfo.put(GameConstants.SETTLER, new UnitInfo(30,3,0));
 		unitInfo.put(GameConstants.LEGION, new UnitInfo(15,2,4));
-		unitInfo.put(ThetaCivUnits.CHARIOT, new UnitInfo(20,1,3));
+		unitInfo.put(ThetaCivUnit.CHARIOT, new UnitInfo(20,1,3));
 		return unitInfo;
 	}
 
@@ -41,5 +43,9 @@ public class ThetaCivFactory implements CivFactory {
 
 	public AttackStrategy createAttack() {
 		return new AlphaCivAttacking();
+	}
+	
+	public UnitActionStrategy createUnitAction() {
+		return new GammaCivUnitAction();
 	}
 }

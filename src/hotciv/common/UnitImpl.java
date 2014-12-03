@@ -5,25 +5,41 @@ import hotciv.framework.common.Unit;
 
 public class UnitImpl implements Unit {
 
-	private Unit unit;
+	private UnitInfo unit;
+	private String type;
+	private Player owner;
+	private boolean hasMoved, skillInUse;
 
-	public UnitImpl(Unit unit) {
+	public UnitImpl(UnitInfo unit, String type, Player owner) {
 		this.unit = unit;
+		this.type = type;
+		this.owner = owner;
 	}
 
 	public String getTypeString() {
-		return unit.getTypeString();
+		return type;
 	}
 
 	public Player getOwner() {
-		return unit.getOwner();
+		return owner;
+	}
+	
+	public int getPrice(){
+		return unit.getPrice(); 
 	}
 
 	public int getMoveCount() {
-		return unit.getMoveCount();
+		if(skillInUse || hasMoved){
+			return 0;
+		}else{
+			return 1;
+		}
 	}
 
 	public int getDefensiveStrength() {
+		if(skillInUse){
+			return unit.getDefensiveStrength() * 2;
+		}
 		return unit.getDefensiveStrength();
 	}
 
@@ -32,14 +48,18 @@ public class UnitImpl implements Unit {
 	}
 
 	public boolean getIsSkillInUse() {
-		return unit.getIsSkillInUse();
+		return skillInUse;
 	}
 
 	public void setHasMoved(boolean moved) {
-		unit.setHasMoved(moved);
+		hasMoved = moved;
 	}
 
 	public void setSkillInUse() {
-		unit.setSkillInUse();
+		if(skillInUse){
+			skillInUse = false;
+		}else{
+			skillInUse = true;
+		}
 	}
 }

@@ -3,14 +3,14 @@ package hotciv.civs;
 import static org.junit.Assert.assertEquals;
 import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
+import hotciv.common.UnitInfo;
 import hotciv.factories.ThetaCivFactory;
+import hotciv.framework.ThetaCivUnit;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Unit;
 import hotciv.throwable.NotAUnitException;
-import hotciv.variants.unitimpl.ThetaCivUnitImpl;
-import hotciv.variants.units.ThetaCivUnits;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,16 +21,16 @@ public class TestThetaCiv {
 	
 	@Before
 	public void SetUp(){
-		game = new GameImpl(new ThetaCivFactory("ThetaCiv.txt"));
-		game.getUnits().put(new Position(3,3), new UnitImpl(new ThetaCivUnitImpl(ThetaCivUnits.CHARIOT, Player.RED)));
+		game = new GameImpl(new ThetaCivFactory());
+		game.getUnits().put(new Position(3,3), new UnitImpl(new UnitInfo(20,1,2),ThetaCivUnit.CHARIOT, Player.RED));
 	}
 	
 	@Test
 	public void ChariotShouldHaveBeenProduced() throws NotAUnitException{
-		game.changeProductionInCityAt(new Position(1,1), ThetaCivUnits.CHARIOT);
+		game.changeProductionInCityAt(new Position(1,1), ThetaCivUnit.CHARIOT);
 		Utility.playRounds(game, 4);
 		Unit u = game.getUnitAt(new Position(1,1));
-		assertEquals("There should be a Chariot on (1,1)", ThetaCivUnits.CHARIOT, u.getTypeString());
+		assertEquals("There should be a Chariot on (1,1)", ThetaCivUnit.CHARIOT, u.getTypeString());
 	}
 
 	@Test
