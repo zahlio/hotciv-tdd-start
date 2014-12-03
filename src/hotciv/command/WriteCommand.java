@@ -1,13 +1,11 @@
 package hotciv.command;
 
-import hotciv.framework.command.Command;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class WriteCommand implements Command {
+public class WriteCommand {
 
 	private FileWriter fileWriter;
 	private BufferedWriter bufferWriter;

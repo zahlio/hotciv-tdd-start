@@ -1,28 +1,26 @@
 package hotciv.factories;
 
-import hotciv.command.WriteCommand;
+import hotciv.common.UnitInfo;
 import hotciv.framework.abstractfactory.CivFactory;
-import hotciv.framework.command.Command;
+import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.DieStrategy;
-import hotciv.framework.strategy.UnitStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.aging.BetaCivAging;
 import hotciv.variants.attacks.EpsilonAttacking;
-import hotciv.variants.units.SemiCivUnits;
 import hotciv.variants.wincondition.EpsilonWinCondition;
 import hotciv.variants.worldlayout.DeltaCivWorldLayout;
 
+import java.util.HashMap;
+
 public class SemiCivFactory implements CivFactory {
 
-	private String fileName;
 	private DieStrategy die;
 	
-	public SemiCivFactory(String fileName, DieStrategy die) {
-		this.fileName = fileName;
+	public SemiCivFactory(DieStrategy die) {
 		this.die = die;
 	}
 	
@@ -34,8 +32,12 @@ public class SemiCivFactory implements CivFactory {
 		return new EpsilonWinCondition();
 	}
 
-	public UnitStrategy createUnit() {
-		return new SemiCivUnits();
+	public HashMap<String, UnitInfo> createUnit() {
+		HashMap<String, UnitInfo> unitInfo = new HashMap<String, UnitInfo>();
+		unitInfo.put(GameConstants.ARCHER, new UnitInfo(10,3,2));
+		unitInfo.put(GameConstants.SETTLER, new UnitInfo(30,3,0));
+		unitInfo.put(GameConstants.LEGION, new UnitInfo(15,2,4));
+		return unitInfo;
 	}
 
 	public WorldLayoutStrategy createLayout() {
@@ -45,11 +47,6 @@ public class SemiCivFactory implements CivFactory {
 	public AttackStrategy createAttack() {
 		return new EpsilonAttacking(die);
 	}
-	
-	public Command createCommand() {
-		return new WriteCommand(fileName);
-	}
-
 }
 
 
