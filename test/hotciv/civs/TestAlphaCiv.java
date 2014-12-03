@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import hotciv.common.CityImpl;
+import hotciv.common.DecoratedGame;
 import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
 import hotciv.common.UnitInfo;
@@ -51,6 +52,7 @@ import org.junit.Test;
 public class TestAlphaCiv {
   
 	private Game game;
+	private DecoratedGame dec;
   
   private Position redCity; //blueCity, redArcher, redSettler, blueLegion;
   /** Fixture for alphaciv testing. */
@@ -58,7 +60,9 @@ public class TestAlphaCiv {
   @Before
   public void setUp() {
     game = new GameImpl(new AlphaCivFactory());
+    dec = new DecoratedGame((GameImpl) game);
     redCity = new Position(1,1);
+    dec.setTranscription();
     //blueCity = new Position(4,1);
     //redArcher = new Position(2,0);
     //redSettler = new Position(4,3);
@@ -67,18 +71,18 @@ public class TestAlphaCiv {
   
   @Test
   public void redShouldStart(){
-	Player p = game.getPlayerInTurn();
+	Player p = dec.getPlayerInTurn();
 	assertEquals("Red player should start", Player.RED, p);
 	assertNotNull("Red player should never be null at start", p);
   }
   
   @Test
   public void endTurnShouldChangePlayer(){
-	  game.endOfTurn();
-	  Player p = game.getPlayerInTurn();
+	  dec.endOfTurn();
+	  Player p = dec.getPlayerInTurn();
 	  assertEquals("Player should now be blue", Player.BLUE, p);
-	  game.endOfTurn();
-	  Player p2 = game.getPlayerInTurn();
+	  dec.endOfTurn();
+	  Player p2 = dec.getPlayerInTurn();
 	  assertEquals("Player should now be red again", Player.RED, p2);
 	  
   }
@@ -88,7 +92,7 @@ public class TestAlphaCiv {
    * Returns the unit for further testing
    */
   public Unit shouldHaveUnitatXY(String constant, Position p){
-	  Unit u = game.getUnitAt(p);
+	  Unit u = dec.getUnitAt(p);
 	  assertEquals(
 		  String.format("There should be an %s at (%d, %d)", constant, p.getRow(), p.getColumn()), 
 		  constant, 
@@ -103,7 +107,7 @@ public class TestAlphaCiv {
 	  assertEquals(
 			  "Archer should be owned by Red",
 			  Player.RED,
-			  shouldHaveUnitatXY(GameConstants.ARCHER, p).getOwner()); // To fluer med et sm¾k
+			  shouldHaveUnitatXY(GameConstants.ARCHER, p).getOwner()); // To fluer med et smæk
   }
   
   @Test
@@ -112,7 +116,7 @@ public class TestAlphaCiv {
 	  assertEquals(
 			  "Archer should be owned by Blue",
 			  Player.BLUE,
-			  shouldHaveUnitatXY(GameConstants.LEGION, p).getOwner()); // To fluer med et sm¾k
+			  shouldHaveUnitatXY(GameConstants.LEGION, p).getOwner()); // To fluer med et smæk
   }
   
   @Test
@@ -121,27 +125,22 @@ public class TestAlphaCiv {
 	  assertEquals(
 			  "Archer should be owned by Red",
 			  Player.RED,
-			  shouldHaveUnitatXY(GameConstants.SETTLER, p).getOwner()); // To fluer med et sm¾k
-  }
-  
-  @Test
-  public void noUnitIshere(){
-	  assertFalse("There is no unit to move here", game.moveUnit(new Position(7,6), new Position(6, 7)));
+			  shouldHaveUnitatXY(GameConstants.SETTLER, p).getOwner()); // To fluer med et smæk
   }
   
   @Test
   public void unitShouldBeOwnedByCurrentPlayer(){
-	  assertFalse("Cannot move blue unit", game.moveUnit(new Position(3,2), new Position(6, 7)));
+	  assertFalse("Cannot move blue unit", dec.moveUnit(new Position(3,2), new Position(6, 7)));
   }
   
   @Test
   public void ShouldNotBeAbleToMoveOnOcean(){
-	  assertFalse("You cannot move on oceans", game.moveUnit(new Position(2,0), new Position(0, 1)));
+	  assertFalse("You cannot move on oceans", dec.moveUnit(new Position(2,0), new Position(0, 1)));
   }
   
   @Test
   public void ShouldNotBeAbleToMoveOnMountains(){
-	  assertFalse("you cannot move on mountains", game.moveUnit(new Position(2,0), new Position(2, 2)));
+	  assertFalse("you cannot move on mountains", dec.moveUnit(new Position(2,0), new Position(2, 2)));
   }
   
   @Test
@@ -156,11 +155,11 @@ public class TestAlphaCiv {
   
   @Test
   public void UnitHasMovedAndReset(){
-	  game.moveUnit(new Position(2,0), new Position(2,1));
-	  UnitImpl u = (UnitImpl) game.getUnitAt(new Position(2,1));
+	  dec.moveUnit(new Position(2,0), new Position(2,1));
+	  UnitImpl u = (UnitImpl) dec.getUnitAt(new Position(2,1));
 	  assertEquals("Unit moveCount should be 0", 0, u.getMoveCount());
-	  assertFalse("This unit cannot move", game.moveUnit(new Position(2,1), new Position(3,1)));
-	  Utility.playRounds(game,1);
+	  assertFalse("This unit cannot move", dec.moveUnit(new Position(2,1), new Position(3,1)));
+	  Utility.playRounds(dec,1);
 	  assertEquals("Unit moveCount should be 1 again", 1, u.getMoveCount());
 	  
   }
@@ -168,10 +167,10 @@ public class TestAlphaCiv {
   @Test
   public void AttackerShouldWinAndMoveToLocation(){
 	  Position red = new Position(2,0);
-	  game.getUnits().put(new Position(3,1), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
+	  dec.getUnits().put(new Position(3,1), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
 	  Position blue = new Position(3,1);
-	  game.moveUnit(red, blue);
-	  Unit u = game.getUnitAt(blue);
+	  dec.moveUnit(red, blue);
+	  Unit u = dec.getUnitAt(blue);
 	  assertEquals("3,2 should be owned by red now", Player.RED, u.getOwner());
   }
   
@@ -179,20 +178,20 @@ public class TestAlphaCiv {
   public void RedLegionHasKilledBlueLegionAndConqueredBlueCity(){
 	  Position redLegion = new Position(3,1);
 	  Position blueLegion = new Position(4,1);
-	  game.getUnits().put(redLegion, new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.RED));
-	  game.getUnits().put(blueLegion, new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
+	  dec.getUnits().put(redLegion, new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.RED));
+	  dec.getUnits().put(blueLegion, new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
 	  
-	  game.moveUnit(redLegion, blueLegion);
-	  Unit u = game.getUnitAt(blueLegion);
-	  City c = game.getCityAt(blueLegion);
+	  dec.moveUnit(redLegion, blueLegion);
+	  Unit u = dec.getUnitAt(blueLegion);
+	  City c = dec.getCityAt(blueLegion);
 	  assertEquals("unit at (4,1) should be owned by red now", Player.RED, u.getOwner());
 	  assertEquals("city at (4,1) should be owned by blue now", Player.RED, c.getOwner());
   }
   
   @Test
   public void TheRedProductionShouldBe6(){
-	  CityImpl c = (CityImpl) game.getCityAt(new Position(1,1));
-	  Utility.playRounds(game,1);
+	  CityImpl c = (CityImpl) dec.getCityAt(new Position(1,1));
+	  Utility.playRounds(dec,1);
 	  assertEquals("The production of the red city should be 6", 6, c.getResources());
   }
   
@@ -216,54 +215,54 @@ public class TestAlphaCiv {
     				  "The %s should be owned by the current player",
     				  _unitConstant
 			  ), 
-    		  game.getPlayerInTurn(),
+    		  dec.getPlayerInTurn(),
     		  _u.getOwner()
 	  );
   }
   
   @Test
   public void ShouldProduceArcher() throws NotAUnitException{
-      game.changeProductionInCityAt(redCity, GameConstants.ARCHER);
-      Utility.playRounds(game, 2);
-      Unit u = game.getUnitAt(redCity);
+      dec.changeProductionInCityAt(redCity, GameConstants.ARCHER);
+      Utility.playRounds(dec, 2);
+      Unit u = dec.getUnitAt(redCity);
       shouldProduceX(u, GameConstants.ARCHER, redCity);
   }
   
   @Test
   public void ShouldProduceLegion() throws NotAUnitException{
-      game.changeProductionInCityAt(redCity, GameConstants.LEGION);
-      Utility.playRounds(game, 3);
-      Unit u = game.getUnitAt(redCity);
+      dec.changeProductionInCityAt(redCity, GameConstants.LEGION);
+      Utility.playRounds(dec, 3);
+      Unit u = dec.getUnitAt(redCity);
       shouldProduceX(u, GameConstants.LEGION, redCity);
   }
   
   @Test
   public void ShouldProduceSettler() throws NotAUnitException{
-      game.changeProductionInCityAt(redCity, GameConstants.SETTLER);
-      Utility.playRounds(game, 5);
-      Unit u = game.getUnitAt(redCity);
+      dec.changeProductionInCityAt(redCity, GameConstants.SETTLER);
+      Utility.playRounds(dec, 5);
+      Unit u = dec.getUnitAt(redCity);
       shouldProduceX(u, GameConstants.SETTLER, redCity);
   }
   
   @Test(expected=NotAUnitException.class)
   public void ShouldNotProduceChariot() throws NotAUnitException{
-      game.changeProductionInCityAt(redCity, ThetaCivUnit.CHARIOT);
+      dec.changeProductionInCityAt(redCity, ThetaCivUnit.CHARIOT);
   }
   
   @Test
   public void AccumulatedEnoughToMake4ArchersAroundCity() throws NotAUnitException{
-      Utility.playRounds(game, 4);
-      CityImpl c = (CityImpl) game.getCityAt(redCity);
+      Utility.playRounds(dec, 4);
+      CityImpl c = (CityImpl) dec.getCityAt(redCity);
       assertEquals("The production should be 24", 24, c.getResources());
       for(int i=0;i<4;i++){
-          game.changeProductionInCityAt(redCity, GameConstants.ARCHER);
-          Utility.playRounds(game, 1);
+          dec.changeProductionInCityAt(redCity, GameConstants.ARCHER);
+          Utility.playRounds(dec, 1);
       }
      
-      Unit u = game.getUnitAt(new Position(1,1));
-      Unit u1 = game.getUnitAt(new Position(0,1));
-      Unit u2 = game.getUnitAt(new Position(0,2));
-      Unit u3 = game.getUnitAt(new Position(1,2));
+      Unit u = dec.getUnitAt(new Position(1,1));
+      Unit u1 = dec.getUnitAt(new Position(0,1));
+      Unit u2 = dec.getUnitAt(new Position(0,2));
+      Unit u3 = dec.getUnitAt(new Position(1,2));
       
       //String _constant = GameConstants.ARCHER;
       assertEquals("There should be an Archer at (1,1)", GameConstants.ARCHER, u.getTypeString());
@@ -274,11 +273,12 @@ public class TestAlphaCiv {
   
   @Test
   public void StartAgeShouldbe4000BC(){
-	  assertEquals("Starting age should be -4000", -4000, game.getAge());
+	  assertEquals("Starting age should be -4000", -4000, dec.getAge());
   }
   
   @After
   public void closeTranscription(){
+	  dec.closeTranscription();
   }
     
 }
