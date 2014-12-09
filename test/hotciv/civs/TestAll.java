@@ -29,11 +29,11 @@ import org.junit.runners.Suite;
 	TestEpsilonCivWinning.class,
 	TestEpsilonCiv.class,
 	TestGammaCiv.class,
+	TestSemiCiv.class,
 	TestThetaCiv.class,
 	TestZetaCivAttacking.class,
 	TestZetaCivWinStrategy.class,
 	TestDieStub.class
 })
 public class TestAll {
-
 }

@@ -31,27 +31,56 @@ public class Utility {
 	 */
 	public static void shouldHaveTileatXY(WorldLayoutStrategy layoutStratgey, String constant, Position p){
 		Tile t = layoutStratgey.getTileAt(p);
-				assertEquals(
-						String.format("Should have %s at (%d, %d)", constant, p.getRow(), p.getColumn()), 
-						constant, 
-						t.getTypeString()
-						);
+		assertEquals(
+				String.format("Should have %s at (%d, %d)", constant, p.getRow(), p.getColumn()), 
+				constant, 
+				t.getTypeString()
+				);
 	}
-	
+
 	/*
-	   * Dynamic test for city at position.
-	   */
-	  public static void thereShouldBeCityAtXY(HashMap<Position, CityImpl> cities, Player player, Position p){
-		  City c = cities.get(p);
-		  assertEquals(
-				  String.format(
-						  "There should be a %s city at (%d,%d)", 
-						  c, 
-						  p.getRow(), 
-						  p.getColumn()
-				  ), 
-				  player, 
-				  c.getOwner()
-		  );
-	  }
+	 * Dynamic test for tile.
+	 */
+	public static void civShouldHaveTileatXY(Game game, String constant, Position p){
+		Tile t = game.getTileAt(p);
+		assertEquals(
+				String.format("Should have %s at (%d, %d)", constant, p.getRow(), p.getColumn()), 
+				constant, 
+				t.getTypeString()
+				);
+	}
+
+	/*
+	 * Dynamic test for city at position.
+	 */
+	public static void thereShouldBeCityAtXY(HashMap<Position, CityImpl> cities, Player player, Position p){
+		City c = cities.get(p);
+		assertEquals(
+				String.format(
+						"There should be a %s city at (%d,%d)", 
+						c, 
+						p.getRow(), 
+						p.getColumn()
+						), 
+						player, 
+						c.getOwner()
+				);
+	}
+
+	/*
+	 * Dynamic test for city at position.
+	 */
+	public static void civThereShouldBeCityAtXY(Game game, Player player, Position p){
+		City c = game.getCities().get(p);
+		assertEquals(
+				String.format(
+						"There should be a %s city at (%d,%d)", 
+						c, 
+						p.getRow(), 
+						p.getColumn()
+						), 
+						player, 
+						c.getOwner()
+				);
+	}
 }

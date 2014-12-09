@@ -1,6 +1,8 @@
-package hotciv.common;
+package hotciv.decorator;
 
-import hotciv.command.WriteCommand;
+import hotciv.common.CityImpl;
+import hotciv.common.GameImpl;
+import hotciv.common.UnitImpl;
 import hotciv.framework.common.City;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.Player;
@@ -9,16 +11,17 @@ import hotciv.framework.common.Tile;
 import hotciv.framework.common.Unit;
 import hotciv.throwable.NotAUnitException;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class DecoratedGame implements Game {
 
-	private WriteCommand command;
+	private DecoratorWriter writer;
 	private GameImpl gameImpl;
 
-	public DecoratedGame(GameImpl gameImpl) {
+	public DecoratedGame(GameImpl gameImpl) throws IOException {
 		this.gameImpl = gameImpl;
-		command = new WriteCommand("Game Transcription.txt");
+		writer = new DecoratorWriter("Game Transcription.txt");
 	}
 
 	public Tile getTileAt(Position p) {
@@ -59,16 +62,16 @@ public class DecoratedGame implements Game {
 		if(gameImpl.getUnitAt(from) !=null){
 			u = gameImpl.getUnitAt(from);
 		}
-		if(command.getToggle() && gameImpl.moveUnit(from, to)){
-			command.writeTranscript(gameImpl.getPlayerInTurn() + " moves " + u.getTypeString() + " from " + from.toString() + " to " + to.toString());
+		if(writer.getToggle() && gameImpl.moveUnit(from, to)){
+			writer.writeTranscript(gameImpl.getPlayerInTurn() + " moves " + u.getTypeString() + " from " + from.toString() + " to " + to.toString());
 			return true;
 		}
 		return false;
 	}
 
 	public void endOfTurn() {
-		if(command.getToggle()){
-				command.writeTranscript(gameImpl.getPlayerInTurn() + " ends turn.\n");
+		if(writer.getToggle()){
+				writer.writeTranscript(gameImpl.getPlayerInTurn() + " ends turn.\n");
 		}
 		gameImpl.endOfTurn();
 
@@ -77,25 +80,25 @@ public class DecoratedGame implements Game {
 	public void changeWorkForceFocusInCityAt(Position p, String balance) {}
 
 	public void changeProductionInCityAt(Position p, String unitType) throws NotAUnitException {
-		if(command.getToggle()){
-			command.writeTranscript(getCityAt(p).getOwner() + " city at " + p.toString() + " changed it's production to: " + unitType + "\n");
+		if(writer.getToggle()){
+			writer.writeTranscript(getCityAt(p).getOwner() + " city at " + p.toString() + " changed it's production to: " + unitType + "\n");
 		}
 		gameImpl.changeProductionInCityAt(p, unitType);
 	}
 
 	public void performUnitActionAt(Position p) {
-		if(command.getToggle() && getUnitAt(p)!=null){
-			command.writeTranscript(getUnitAt(p).getOwner() + " " + getUnitAt(p).getTypeString() + " has performed it's action.\n");
+		if(writer.getToggle() && getUnitAt(p)!=null){
+			writer.writeTranscript(getUnitAt(p).getOwner() + " " + getUnitAt(p).getTypeString() + " has performed it's action.\n");
 		}
 		gameImpl.performUnitActionAt(p);
 	}
 
 	public void setTranscription() {
-		command.setTranscription();
+		writer.setTranscription();
 	}
 
-	public void closeTranscription() {
-		command.closeTranscript();
+	public void closeTranscription() throws IOException {
+		writer.closeTranscript();
 	}
 
 }

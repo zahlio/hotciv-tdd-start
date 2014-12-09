@@ -1,6 +1,7 @@
 package hotciv.variants.unitaction;
 
 import hotciv.common.CityImpl;
+import hotciv.common.UnitImpl;
 import hotciv.framework.ThetaCivUnit;
 import hotciv.framework.common.Game;
 import hotciv.framework.common.GameConstants;
@@ -16,7 +17,7 @@ public class GammaCivUnitAction implements UnitActionStrategy {
 			game.getUnits().remove(p);
 		}else if(game.getUnitAt(p).getTypeString().equals(GameConstants.ARCHER) || game.getUnitAt(p).getTypeString().equals(ThetaCivUnit.CHARIOT)){
 			Unit u = game.getUnitAt(p);
-			u.setSkillInUse();
+			((UnitImpl) u).setSkillInUse();
 		}
 	}
 }

@@ -177,17 +177,6 @@ class StubUnit implements Unit {
 			return 4;
 		}
 	}
-	@Override
-	public boolean getIsSkillInUse() {
-		return false;
-	}
-	@Override
-	public void setHasMoved(boolean moved) {
-	}
-	@Override
-	public void setSkillInUse() {
-		
-	}
 }
 
 

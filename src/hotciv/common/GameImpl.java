@@ -170,7 +170,7 @@ public class GameImpl implements Game {
 
 		units.put(other, (UnitImpl) getUnitAt(current));
 		units.remove(current);
-		getUnitAt(other).setHasMoved(true);
+		((UnitImpl)getUnitAt(other)).setHasMoved(true);
 	}
 
 	public boolean canMoveDistance(Position from, Position to){
@@ -228,7 +228,7 @@ public class GameImpl implements Game {
 
 	private void resetUnitMoveCount(){
 		for(Position p : units.keySet()){
-			getUnitAt(p).setHasMoved(false);
+			((UnitImpl)getUnitAt(p)).setHasMoved(false);
 		}
 	}
 
