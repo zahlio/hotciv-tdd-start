@@ -127,11 +127,12 @@ public class TestAlphaCiv {
 
 	@Test
 	public void unitShouldBeOwnedByCurrentPlayer(){
-		assertFalse("Cannot move blue unit", game.moveUnit(new Position(3,2), new Position(6, 7)));
+		assertFalse("Cannot move blue unit", game.moveUnit(new Position(3,2), new Position(4, 2)));
 	}
 
 	@Test
 	public void ShouldNotBeAbleToMoveOnOcean(){
+		//game.moveUnit(new Position(2,0), new Position(1,0));
 		assertFalse("You cannot move on oceans", game.moveUnit(new Position(2,0), new Position(0, 1)));
 	}
 

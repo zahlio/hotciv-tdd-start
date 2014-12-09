@@ -116,12 +116,9 @@ public class GameImpl implements Game {
 		//BAD WAY TO USE OUTCOME
 		boolean outcome = false;
 
-		if ( getUnitAt(from) == null ) { return false; }
-		if ( getUnitAt(from).getOwner() != getPlayerInTurn() ) { return false; }
-		if ( getTileAt(to).getTypeString().equals(GameConstants.OCEANS) ) { return false; }
-		if ( getTileAt(to).getTypeString().equals(GameConstants.MOUNTAINS) ) { return false; }
-		if (getUnitAt(from).getMoveCount()==0){ return false; }
-		if (!canMoveDistance(from, to)) { return false; }
+		if (getUnitAt(from) == null || getUnitAt(from).getOwner() != getPlayerInTurn() ) { return false; }
+		if (getTileAt(to).getTypeString().equals(GameConstants.OCEANS) || getTileAt(to).getTypeString().equals(GameConstants.MOUNTAINS) ) { return false; }
+		if (getUnitAt(from).getMoveCount()==0 || !canMoveDistance(from, to)) { return false; }
 
 		if(getUnitAt(to) != null && getUnitAt(to).getOwner() != currentPlayer){
 			outcomeIsinitialized = true;
