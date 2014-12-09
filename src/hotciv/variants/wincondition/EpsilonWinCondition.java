@@ -21,7 +21,7 @@ public class EpsilonWinCondition implements WinStrategy {
 	public void setAttackCount(Game game) {
 		if(game.getPlayerInTurn()==Player.RED){
 			redAttacks++;
-		}else{
+		}else if(game.getPlayerInTurn()==Player.BLUE){
 			blueAttacks++;
 		}
 	}

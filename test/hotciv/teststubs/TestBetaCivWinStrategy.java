@@ -32,14 +32,14 @@ public class TestBetaCivWinStrategy {
 	@Before
 	public void setUp(){
 		winStrategy = new BetaCivWinCondition();
-		
+
 		cities1.put(new Position(1,1), new CityImpl(Player.RED));
-		
+
 		cities2.put(new Position(2,2), new CityImpl(Player.BLUE));
-		
+
 		cities3.put(new Position(1,1), new CityImpl(Player.RED));
 		cities3.put(new Position(2,2), new CityImpl(Player.BLUE));
-		
+
 		gameStubTest1 = new GameStubBetaCiv(cities1);
 		gameStubTest2 = new GameStubBetaCiv(cities2);
 		gameStubTest3 = new GameStubBetaCiv(cities3);
@@ -59,16 +59,27 @@ public class TestBetaCivWinStrategy {
 	public void thereShouldBeNoWinner(){
 		assertNull("Red and Blue have cities,no winner", winStrategy.getWinner(gameStubTest3));
 	}
-	
+
 	@Test
 	public void redShouldHaveTakenBlueCityAndWon(){
 		Utility.changeOwnerOfCity(gameStubTest3, new Position(2,2));
 		assertEquals("Blue city is now red, and red should have won", Player.RED, winStrategy.getWinner(gameStubTest3));
 	}
+
+	@Test
+	public void AttacksExpected(){
+		Utility.attack(gameStubTest1, winStrategy, 3);
+		gameStubTest1.endOfTurn();
+		Utility.attack(gameStubTest1, winStrategy, 2);
+
+		assertEquals("Red attacks should be 3", 3, winStrategy.getRedAttacks());
+		assertEquals("Blue attacks should be 2", 2, winStrategy.getBlueAttacks());
+	}
 }
 
 class GameStubBetaCiv implements Game{
 	private HashMap<Position, CityImpl> cities = new HashMap<Position, CityImpl>();
+	private Player currentPlayer = Player.RED;
 
 	public GameStubBetaCiv(HashMap<Position, CityImpl> cities){
 		this.cities = cities;
@@ -91,7 +102,7 @@ class GameStubBetaCiv implements Game{
 
 	@Override
 	public Player getPlayerInTurn() {
-		return null;
+		return currentPlayer;
 	}
 
 	@Override
@@ -111,6 +122,11 @@ class GameStubBetaCiv implements Game{
 
 	@Override
 	public void endOfTurn() {
+		if(currentPlayer == Player.RED){
+			currentPlayer = Player.BLUE;
+		}else{
+			currentPlayer = Player.RED;
+		}
 	}
 
 	public HashMap<Position, CityImpl> getCities(){

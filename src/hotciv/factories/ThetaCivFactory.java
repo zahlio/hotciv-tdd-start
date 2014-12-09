@@ -12,7 +12,7 @@ import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.aging.AlphaCivAging;
 import hotciv.variants.attacks.AlphaCivAttacking;
-import hotciv.variants.unitaction.GammaCivUnitAction;
+import hotciv.variants.unitaction.ThetaCivUnitAction;
 import hotciv.variants.wincondition.AlphaCivWinCondition;
 import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 
@@ -46,6 +46,6 @@ public class ThetaCivFactory implements CivFactory {
 	}
 	
 	public UnitActionStrategy createUnitAction() {
-		return new GammaCivUnitAction();
+		return new ThetaCivUnitAction();
 	}
 }

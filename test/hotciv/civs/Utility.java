@@ -10,6 +10,7 @@ import hotciv.framework.common.Game;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
 import hotciv.framework.common.Tile;
+import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 
 public class Utility {
@@ -82,5 +83,11 @@ public class Utility {
 						player, 
 						c.getOwner()
 				);
+	}
+	
+	public static void attack(Game game, WinStrategy win, int attacks){
+		for(int i=0; i<attacks;i++){
+			win.setAttackCount(game);
+		}
 	}
 }

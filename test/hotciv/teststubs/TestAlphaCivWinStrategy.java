@@ -2,6 +2,7 @@ package hotciv.teststubs;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import hotciv.civs.Utility;
 import hotciv.common.CityImpl;
 import hotciv.common.UnitImpl;
 import hotciv.framework.common.City;
@@ -49,25 +50,43 @@ public class TestAlphaCivWinStrategy {
 		assertEquals("Red should for sure have won by now", Player.RED, winStrategy.getWinner(gameStubTest3));
 	}
 
+	@Test
+	public void AttacksExpected(){
+		Utility.attack(gameStubTest1, winStrategy, 3);
+		gameStubTest1.endOfTurn();
+		Utility.attack(gameStubTest1, winStrategy, 2);
+
+		assertEquals("Red attacks should be 3", 3, winStrategy.getRedAttacks());
+		assertEquals("Blue attacks should be 2", 2, winStrategy.getBlueAttacks());
+	}
+
 
 }
 
 class GameStub implements Game {
 	private int age;
+	private Player currentPlayer = Player.RED;
 
 	public GameStub(int age) { this.age = age; }
 
 	public Tile getTileAt(Position p) { return null; }
 	public Unit getUnitAt(Position p) {	return null; }
 	public City getCityAt(Position p) {	return null; }
-	public Player getPlayerInTurn() { return null; }
+	public Player getPlayerInTurn() { return currentPlayer; }
 	public Player getWinner() {	return null; }
 	public int getAge() { return age; }
 	public int setAge(int setAge) { return age = setAge; }
 	public boolean moveUnit(Position from, Position to) { return false; }
 
-	public void endOfTurn() { age += 100; }
-	
+	public void endOfTurn() {
+		if(currentPlayer == Player.RED){
+			currentPlayer = Player.BLUE;
+		}else{
+			currentPlayer = Player.RED;
+			age += 100;
+		}
+	}
+
 	public void changeWorkForceFocusInCityAt(Position p, String balance) {}
 	public void changeProductionInCityAt(Position p, String unitType) {}
 	public void performUnitActionAt(Position p) {}

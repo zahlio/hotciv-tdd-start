@@ -50,4 +50,11 @@ public class TestGammaCiv {
 		UnitImpl u = (UnitImpl) game.getUnitAt(new Position(2, 0));
 		assertEquals("Archer Should have 0 movecount", 0 ,u.getMoveCount());
 	}
+	
+	@Test
+	public void legionShouldNotHavePerformedAnAction(){
+		game.performUnitActionAt(new Position(3,2));
+		UnitImpl u = (UnitImpl) game.getUnitAt(new Position(3,2));
+		assertEquals("Legion", false, u.getIsSkillInUse());
+	}
 }

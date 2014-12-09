@@ -10,7 +10,6 @@ import hotciv.framework.common.Game;
 import hotciv.framework.common.GameConstants;
 import hotciv.framework.common.Player;
 import hotciv.framework.common.Position;
-import hotciv.framework.common.Unit;
 import hotciv.variants.die.OneSidedDie;
 
 import org.junit.Before;
@@ -26,7 +25,7 @@ public class TestEpsilonCiv {
 
 	@Test
 	public void RedShouldBeWinnerIfHeWins3Times(){
-		
+
 		game.getUnits().put(new Position(9,0), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.RED));
 		game.getUnits().put(new Position(9,1), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
 		game.getUnits().put(new Position(9,3), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
@@ -41,22 +40,35 @@ public class TestEpsilonCiv {
 		game.moveUnit(new Position(9,3), new Position(9,4));
 		Utility.playRounds(game,1);
 		game.moveUnit(new Position(9,4), new Position(9,5));
-		Unit u = game.getUnitAt(new Position(9,5));
 
-		if(u.getOwner()==Player.RED){
-			assertEquals("Red should be winner if he succeed all attacks", Player.RED, game.getWinner());
-		}else{
-			assertNull("There should be no winner", game.getWinner());
-		}
+		assertEquals("Red should be winner if he succeed all attacks", Player.RED, game.getWinner());
+	}
+
+	@Test
+	public void BlueshouldBeWinnerIfHeWins3Times(){
+
+		game.getUnits().put(new Position(10,0), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.BLUE));
+		game.getUnits().put(new Position(10,1), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.RED));
+		game.getUnits().put(new Position(10,3), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.RED));
+		game.getUnits().put(new Position(10,5), new UnitImpl(new UnitInfo(15,2,4),GameConstants.LEGION, Player.RED));
+		
+		game.endOfTurn();
+
+		game.moveUnit(new Position(10,0), new Position(10,1));
+		Utility.playRounds(game,1);
+		game.moveUnit(new Position(10,1), new Position(10,2));
+		Utility.playRounds(game,1);
+		game.moveUnit(new Position(10,2), new Position(10,3));
+		Utility.playRounds(game,1);
+		game.moveUnit(new Position(10,3), new Position(10,4));
+		Utility.playRounds(game,1);
+		game.moveUnit(new Position(10,4), new Position(10,5));
+
+		assertEquals("blue should be winner if he succeed all attacks", Player.BLUE, game.getWinner());
 	}
 	
 	@Test
-	public void RedLegionShouldHaveKilledBlueArcherAndMovedToPosition(){
-		
-	}
-	
-	@Test
-	public void BlueArcherShouldRemainInPositionAndRedArcherRemoved(){
-		
+	public void thereShouldBeNoWinner(){
+		assertNull("No one should have won", game.getWinner());
 	}
 }

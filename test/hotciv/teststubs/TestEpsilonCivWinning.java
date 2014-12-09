@@ -1,6 +1,7 @@
 package hotciv.teststubs;
 
 import static org.junit.Assert.*;
+import hotciv.civs.Utility;
 import hotciv.common.CityImpl;
 import hotciv.common.UnitImpl;
 import hotciv.framework.common.City;
@@ -27,29 +28,34 @@ public class TestEpsilonCivWinning {
 		game = new EpsilonWinStub();
 		epsilonWin = new EpsilonWinCondition();
 	}
-
+	
 	@Test 
 	public void RedShouldBeWinnerIfHeWins3Times(){
-		epsilonWin.setAttackCount(game);
-		epsilonWin.setAttackCount(game);
-		epsilonWin.setAttackCount(game);
+		Utility.attack(game, epsilonWin, 3);
 		assertEquals("Red should have won", Player.RED ,epsilonWin.getWinner(game));
 	}
 	
 	@Test 
 	public void BlueShouldBeWinnerIfHeWins3Times(){
 		game.endOfTurn();
-		epsilonWin.setAttackCount(game);
-		epsilonWin.setAttackCount(game);
-		epsilonWin.setAttackCount(game);
-		assertEquals("Red should have won", Player.BLUE ,epsilonWin.getWinner(game));
+		Utility.attack(game, epsilonWin, 3);
+		assertEquals("Blue should have won", Player.BLUE ,epsilonWin.getWinner(game));
 	}
 	
 	@Test
 	public void NoOneShouldHaveWon(){
-		epsilonWin.setAttackCount(game);
-		epsilonWin.setAttackCount(game);
+		Utility.attack(game, epsilonWin, 2);
 		assertNull("No one should have won", epsilonWin.getWinner(game));
+	}
+	
+	@Test
+	public void AttacksExpected(){
+		Utility.attack(game, epsilonWin, 3);
+		game.endOfTurn();
+		Utility.attack(game, epsilonWin, 2);
+		
+		assertEquals("Red attacks should be 3", 3, epsilonWin.getRedAttacks());
+		assertEquals("Blue attacks should be 2", 2, epsilonWin.getBlueAttacks());
 	}
 }
 
