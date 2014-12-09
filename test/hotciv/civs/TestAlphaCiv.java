@@ -244,7 +244,7 @@ public class TestAlphaCiv {
 	}
 
 	@Test(expected=NotAUnitException.class)
-	public void ShouldNotProduceChariot() throws NotAUnitException{
+	public void 	roduceChariot() throws NotAUnitException{
 		game.changeProductionInCityAt(redCity, ThetaCivUnit.CHARIOT);
 	}
 
@@ -274,9 +274,18 @@ public class TestAlphaCiv {
 	public void StartAgeShouldbe4000BC(){
 		assertEquals("Starting age should be -4000", -4000, game.getAge());
 	}
+	
+	@Test
+	public void archerShouldNotBeFortified(){
+		game.performUnitActionAt(new Position(2,0));
+		assertEquals("Archer defensiveStat should be 3", 3, game.getUnitAt(new Position(2,0)).getDefensiveStrength());
+		((DecoratedGame)game).setTranscription();
+		game.performUnitActionAt(new Position(2,4));
+	}
 
 	@After
 	public void closeTranscription() throws IOException{
+		((DecoratedGame)game).setTranscription();
 		((DecoratedGame)game).closeTranscription();
 	}
 

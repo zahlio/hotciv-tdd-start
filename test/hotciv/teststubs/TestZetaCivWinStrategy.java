@@ -1,6 +1,7 @@
 package hotciv.teststubs;
 
 import static org.junit.Assert.*;
+import hotciv.civs.Utility;
 import hotciv.common.CityImpl;
 import hotciv.common.UnitImpl;
 import hotciv.framework.common.City;
@@ -74,6 +75,16 @@ public class TestZetaCivWinStrategy {
 		zetaWin.setAttackCount(game2);
 		zetaWin.setAttackCount(game2);
 		assertNull("No one should have won EpsilonCiv", zetaWin.getWinner(game2));
+	}
+	
+	@Test
+	public void AttacksExpected(){
+		Utility.attack(game, zetaWin, 3);
+		game.endOfTurn();
+		Utility.attack(game, zetaWin, 2);
+		
+		assertEquals("Red attacks should be 3", 3, zetaWin.getRedAttacks());
+		assertEquals("Blue attacks should be 2", 2, zetaWin.getBlueAttacks());
 	}
 }
 

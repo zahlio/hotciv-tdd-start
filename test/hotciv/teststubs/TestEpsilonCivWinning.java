@@ -57,6 +57,7 @@ public class TestEpsilonCivWinning {
 		assertEquals("Red attacks should be 3", 3, epsilonWin.getRedAttacks());
 		assertEquals("Blue attacks should be 2", 2, epsilonWin.getBlueAttacks());
 	}
+	
 }
 
 class EpsilonWinStub implements Game {
