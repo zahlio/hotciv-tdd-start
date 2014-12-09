@@ -1,4 +1,4 @@
- package hotciv.civs;
+package hotciv.civs;
 
 import hotciv.teststubs.TestAlphaCivAging;
 import hotciv.teststubs.TestAlphaCivWinStrategy;
@@ -9,7 +9,6 @@ import hotciv.teststubs.TestDeltaCivWorldLayout;
 import hotciv.teststubs.TestDieStub;
 import hotciv.teststubs.TestEpsilonCivAttacking;
 import hotciv.teststubs.TestEpsilonCivWinning;
-import hotciv.teststubs.TestZetaCivAttacking;
 import hotciv.teststubs.TestZetaCivWinStrategy;
 
 import org.junit.runner.RunWith;
@@ -31,7 +30,6 @@ import org.junit.runners.Suite;
 	TestGammaCiv.class,
 	TestSemiCiv.class,
 	TestThetaCiv.class,
-	TestZetaCivAttacking.class,
 	TestZetaCivWinStrategy.class,
 	TestDieStub.class
 })

@@ -11,9 +11,7 @@ import hotciv.framework.strategy.UnitActionStrategy;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.aging.AlphaCivAging;
-import hotciv.variants.attacks.AlphaCivAttacking;
 import hotciv.variants.attacks.EpsilonAttacking;
-import hotciv.variants.attacks.ZetaCivAttacks;
 import hotciv.variants.unitaction.AlphaCivUnitAction;
 import hotciv.variants.wincondition.BetaCivWinCondition;
 import hotciv.variants.wincondition.EpsilonWinCondition;
@@ -55,7 +53,7 @@ public class ZetaCivFactory implements CivFactory {
 
 	@Override
 	public AttackStrategy createAttack() {
-		return new ZetaCivAttacks(new AlphaCivAttacking(), new EpsilonAttacking(die));
+		return new EpsilonAttacking(die);
 	}
 	
 	public UnitActionStrategy createUnitAction() {

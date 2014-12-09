@@ -9,7 +9,6 @@ public class ZetaCivWinCondition implements WinStrategy {
 	private int totalRedAttacks;
 	private int totalBlueAttacks;
 	
-	
 	WinStrategy winStrat1;
 	WinStrategy winStrat2;
 	
