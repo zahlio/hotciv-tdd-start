@@ -23,6 +23,7 @@ import org.junit.runners.Suite;
 	TestBetaCiv.class,
 	TestBetaCivAging.class,
 	TestBetaCivWinStrategy.class,
+	TestDeltaCiv.class,
 	TestDeltaCivWorldLayout.class,
 	TestEpsilonCivAttacking.class,
 	TestEpsilonCivWinning.class,
@@ -30,6 +31,7 @@ import org.junit.runners.Suite;
 	TestGammaCiv.class,
 	TestSemiCiv.class,
 	TestThetaCiv.class,
+	TestZetaCiv.class,
 	TestZetaCivWinStrategy.class,
 	TestDieStub.class
 })
