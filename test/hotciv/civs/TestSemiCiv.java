@@ -6,10 +6,10 @@ import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
 import hotciv.common.UnitInfo;
 import hotciv.factories.SemiCivFactory;
-import hotciv.framework.common.Game;
-import hotciv.framework.common.GameConstants;
-import hotciv.framework.common.Player;
-import hotciv.framework.common.Position;
+import hotciv.framework.Game;
+import hotciv.framework.GameConstants;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
 import hotciv.variants.die.OneSidedDie;
 
 import org.junit.Before;

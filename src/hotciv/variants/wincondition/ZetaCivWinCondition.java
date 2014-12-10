@@ -1,7 +1,7 @@
 package hotciv.variants.wincondition;
 
-import hotciv.framework.common.Game;
-import hotciv.framework.common.Player;
+import hotciv.framework.Game;
+import hotciv.framework.Player;
 import hotciv.framework.strategy.WinStrategy;
 
 public class ZetaCivWinCondition implements WinStrategy {

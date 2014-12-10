@@ -1,7 +1,7 @@
 package hotciv.common;
 
-import hotciv.framework.common.Player;
-import hotciv.framework.common.Unit;
+import hotciv.framework.Player;
+import hotciv.framework.Unit;
 
 public class UnitImpl implements Unit {
 

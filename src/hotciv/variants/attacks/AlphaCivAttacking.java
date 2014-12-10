@@ -1,7 +1,7 @@
 package hotciv.variants.attacks;
 
-import hotciv.framework.common.Game;
-import hotciv.framework.common.Position;
+import hotciv.framework.Game;
+import hotciv.framework.Position;
 import hotciv.framework.strategy.AttackStrategy;
 
 public class AlphaCivAttacking implements AttackStrategy {

@@ -1,4 +1,4 @@
-package hotciv.framework.common;
+package hotciv.framework;
 
 /** Tile represents a single territory tile of a given type.
 

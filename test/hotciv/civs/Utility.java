@@ -5,11 +5,11 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashMap;
 
 import hotciv.common.CityImpl;
-import hotciv.framework.common.City;
-import hotciv.framework.common.Game;
-import hotciv.framework.common.Player;
-import hotciv.framework.common.Position;
-import hotciv.framework.common.Tile;
+import hotciv.framework.City;
+import hotciv.framework.Game;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
+import hotciv.framework.Tile;
 import hotciv.framework.strategy.WinStrategy;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 

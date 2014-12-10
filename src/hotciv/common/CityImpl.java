@@ -1,9 +1,9 @@
 package hotciv.common;
 
+import hotciv.framework.City;
+import hotciv.framework.GameConstants;
+import hotciv.framework.Player;
 import hotciv.framework.ThetaCivUnit;
-import hotciv.framework.common.City;
-import hotciv.framework.common.GameConstants;
-import hotciv.framework.common.Player;
 
 public class CityImpl implements City {
 

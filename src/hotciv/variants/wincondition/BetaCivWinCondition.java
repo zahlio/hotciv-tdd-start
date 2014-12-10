@@ -1,9 +1,9 @@
 package hotciv.variants.wincondition;
 
-import hotciv.framework.common.City;
-import hotciv.framework.common.Game;
-import hotciv.framework.common.Player;
-import hotciv.framework.common.Position;
+import hotciv.framework.City;
+import hotciv.framework.Game;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
 import hotciv.framework.strategy.WinStrategy;
 
 public class BetaCivWinCondition implements WinStrategy {

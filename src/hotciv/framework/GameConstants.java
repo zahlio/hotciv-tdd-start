@@ -1,4 +1,4 @@
-package hotciv.framework.common;
+package hotciv.framework;
 
 /** Collection of constants used in HotCiv Game. Note that strings are
  * used instead of enumeration types to keep the set of valid

@@ -1,7 +1,7 @@
 package hotciv.framework.strategy;
 
-import hotciv.framework.common.Game;
-import hotciv.framework.common.Player;
+import hotciv.framework.Game;
+import hotciv.framework.Player;
 
 
 public interface WinStrategy {

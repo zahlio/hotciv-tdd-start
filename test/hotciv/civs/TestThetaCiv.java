@@ -5,11 +5,11 @@ import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
 import hotciv.common.UnitInfo;
 import hotciv.factories.ThetaCivFactory;
+import hotciv.framework.Game;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
 import hotciv.framework.ThetaCivUnit;
-import hotciv.framework.common.Game;
-import hotciv.framework.common.Player;
-import hotciv.framework.common.Position;
-import hotciv.framework.common.Unit;
+import hotciv.framework.Unit;
 import hotciv.throwable.NotAUnitException;
 
 import org.junit.Before;

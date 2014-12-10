@@ -1,8 +1,8 @@
 package hotciv.framework.strategy;
 
 import hotciv.common.CityImpl;
-import hotciv.framework.common.Position;
-import hotciv.framework.common.Tile;
+import hotciv.framework.Position;
+import hotciv.framework.Tile;
 
 import java.util.HashMap;
 

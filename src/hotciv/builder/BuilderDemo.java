@@ -165,7 +165,6 @@ class HTMLBuilder implements Builder {
 	}
 }
 
-//TODO: HOW DA FUCK AM I GONNA BUILD THIS? ALSO NEED TO ANT IT
 class XMLBuilder implements Builder {
 	private String result;
 	boolean section, subsection = false;
@@ -242,19 +241,19 @@ class WordCounter implements Builder {
 	}
 
 	public void buildSection(String text) {
-		String[] words = text.split(" ");
+		String[] words = text.split("\\s+");
 		for(int i=0; i<words.length; i++){
 			section++;
 		}
 	}
 	public void buildSubsection(String text) {
-		String[] words = text.split(" ");
+		String[] words = text.split("\\s+");
 		for(int i=0; i<words.length; i++){
 			subsection++;
 		}
 	}
 	public void buildParagraph(String text) { 
-		String[] words = text.split(" ");
+		String[] words = text.split("\\s+");
 		for(int i=0; i<words.length; i++){
 			paragraph++;
 		}

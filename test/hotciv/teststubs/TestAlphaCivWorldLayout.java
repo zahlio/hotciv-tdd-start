@@ -2,10 +2,10 @@ package hotciv.teststubs;
 
 import hotciv.civs.Utility;
 import hotciv.common.CityImpl;
-import hotciv.framework.common.GameConstants;
-import hotciv.framework.common.Player;
-import hotciv.framework.common.Position;
-import hotciv.framework.common.Worlds;
+import hotciv.framework.GameConstants;
+import hotciv.framework.Player;
+import hotciv.framework.Position;
+import hotciv.framework.Worlds;
 import hotciv.framework.strategy.WorldLayoutStrategy;
 import hotciv.variants.worldlayout.AlphaCivWorldLayout;
 

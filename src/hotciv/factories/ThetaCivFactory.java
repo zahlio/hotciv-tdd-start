@@ -1,10 +1,10 @@
 package hotciv.factories;
 
 import hotciv.common.UnitInfo;
+import hotciv.framework.GameConstants;
 import hotciv.framework.ThetaCivUnit;
+import hotciv.framework.Worlds;
 import hotciv.framework.abstractfactory.CivFactory;
-import hotciv.framework.common.GameConstants;
-import hotciv.framework.common.Worlds;
 import hotciv.framework.strategy.AgingStrategy;
 import hotciv.framework.strategy.AttackStrategy;
 import hotciv.framework.strategy.UnitActionStrategy;

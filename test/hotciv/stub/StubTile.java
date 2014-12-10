@@ -1,11 +1,8 @@
-package hotciv.framework.common;
+package hotciv.stub;
 
-/** Represents a city in the game.
+import hotciv.framework.Tile;
 
-Responsibilities:
-1) Knows its owner.
-2) Knows its population size.
-
+/** Implementation of Tile for the stub.
    This source code is from the book 
      "Flexible, Reliable Software:
        Using Patterns and Agile Development"
@@ -30,27 +27,12 @@ Responsibilities:
    limitations under the License.
 
 */
-public interface City {
-  /** return the owner of this city.
-   * @return the player that controls this city.
-   */
-  public Player getOwner();
-  
-  /** return the size of the population.
-   * @return population size.
-   */
-  public int getSize();
 
-  /** return the type of unit this city is currently producing.
-   * @return a string type defining the unit under production,
-   * see GameConstants for valid values.
-   */
-  public String getProduction();
 
-  /** return the work force's focus in this city.
-   * @return a string type defining the focus, see GameConstants
-   * for valid return values.
-   */
-  public String getWorkforceFocus();
-
+public class StubTile implements Tile {
+  private String type;
+  public StubTile(String type) {
+    this.type = type;
+  }
+  public String getTypeString() { return type; }
 }

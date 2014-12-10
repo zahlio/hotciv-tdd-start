@@ -13,9 +13,11 @@
 	<property name="build-directory" value="build" />
 	<property name="resource-directory" value="resource" />
 	<property name="doc-directory" value="doc" />
+	<property name="resource-directory" value="resource" />
 
 	<property name="fractal" value="lib/fractal.jar" />
 	<property name="junitJar" value="lib/junit-4.4.jar" />
+	<property name="minidrawJar" value="lib/minidraw.jar" />
 
 	<!-- JaCoCo Coverage analysis -->
 	<taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
@@ -50,17 +52,22 @@
 			(output in doc/index.html)
 
 			test: Run JUnit test cases.
-			
-			test.batch: Run JUnit test
+
+			test.batch: Run
+			JUnit test
 			cases with output in TEST-RESULT
-			coverage: Run JUnit tests and
+			coverage: Run JUnit
+			tests
+			and
 			generate code coverage report.
-			
+
 			Group Delta builds
-			run: Runs the fractal map
+			run: Runs the
+			fractal map
 			with 2 parameters (row,column)
-			
-			buildwp: builds the formats for the builder
+
+			buildwp: builds the formats
+			for the builder
 		</echo>
 	</target>
 
@@ -80,8 +87,8 @@
 		<javac srcdir="${source-directory}" destdir="${build-directory}"
 			debug="on" includeantruntime="no">
 			<classpath>
-			    <path refid="class-path" />
-			    <path refid="fractal-path" />
+				<path refid="class-path" />
+				<path refid="fractal-path" />
 			</classpath>
 		</javac>
 	</target>
@@ -90,13 +97,21 @@
 		<javac srcdir="${test-source-directory}" destdir="${build-directory}"
 			debug="on" includeantruntime="no">
 			<classpath>
-			    <path refid="class-path" />
-			    <path refid="fractal-path" />
+				<path refid="class-path" />
+				<path refid="fractal-path" />
 			</classpath>
 		</javac>
 	</target>
 
-	<target name="build-all" depends="build-src,build-test" />
+	<target name="copy-resource" depends="prepare">
+		<copy todir="${build-directory}\${resource-directory}">
+			<fileset dir="${resource-directory}">
+				<include name="*.gif" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="build-all" depends="build-src,build-test,copy-resource" />
 
 	<target name="mkdirdoc">
 		<mkdir dir="${doc-directory}"></mkdir>
@@ -129,10 +144,10 @@
 		<java classname="hotciv.common.Main">
 			<arg value="${row}" />
 			<arg value="${column}" />
-				<classpath refid="fractal-path" />
+			<classpath refid="fractal-path" />
 		</java>
 	</target>
-	
+
 	<!-- builds the builderdemo -->
 	<target name="buildwp" description="builds each formap for the wordprocessor">
 		<java classname="hotciv.builder.BuilderDemo">
@@ -190,5 +205,83 @@
 		<echo message="To see report, browse to index.html at ${jacoco.report.dir}." />
 	</target>
 
+
+	<!-- MiniDraw execution targets -->
+	<target name="show" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.ShowWorld">
+			<classpath>
+				<path refid="class-path" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="text" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.ShowText">
+			<classpath>
+				<path refid="class-path" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="city" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.ShowCity">
+			<classpath>
+				<path refid="class-path" />
+			</classpath>
+		</java>
+	</target>
+
+	<!-- dSoftArk targets -->
+	<target name="update" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.ShowUpdating">
+			<classpath>
+				<path refid="class-path" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="move" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.ShowMove">
+			<classpath>
+				<path refid="class-path" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="setfocus" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.ShowSetFocus">
+			<classpath>
+				<path refid="class-path" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="turn" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.ShowEndOfTurn">
+			<classpath>
+				<path refid="class-path" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="action" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.ShowAction">
+			<classpath>
+				<path refid="class-path" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="comp" depends="build-all">
+		<java fork="yes" classname="hotciv.visual.ShowComposition">
+			<classpath>
+				<path refid="class-path" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="semi" depends="build-all">
+		<echo message="*** Placeholder for your Semi task ***" />
+	</target>
 
 </project>

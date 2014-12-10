@@ -1,7 +1,7 @@
 package hotciv.framework.strategy;
 
-import hotciv.framework.common.Game;
-import hotciv.framework.common.Position;
+import hotciv.framework.Game;
+import hotciv.framework.Position;
 
 //FIND OUT WHAT PATTERN THIS IS
 public interface UnitActionStrategy {
