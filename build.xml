@@ -51,15 +51,16 @@
 
 			test: Run JUnit test cases.
 			
-			run: Runs the fractal map
-			with 2 parameters (row,column)
-			
-			buildwp: builds the formats for the builder
-
 			test.batch: Run JUnit test
 			cases with output in TEST-RESULT
 			coverage: Run JUnit tests and
 			generate code coverage report.
+			
+			Group Delta builds
+			run: Runs the fractal map
+			with 2 parameters (row,column)
+			
+			buildwp: builds the formats for the builder
 		</echo>
 	</target>
 
