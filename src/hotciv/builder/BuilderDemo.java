@@ -1,5 +1,7 @@
 package hotciv.builder;
 
+import java.util.Scanner;
+
 /** Demonstration of Builder Pattern.
 
    This source code is from the book 
@@ -60,7 +62,7 @@ public class BuilderDemo {
 		System.out.println( "Subcections: "+countBuilder.getSubSectionCount() );
 		System.out.println( "Paragraphs : "+countBuilder.getParagraphCount() );
 		System.out.print("\n");
-		
+
 		WordCounter wordCounter;
 		wordCounter = new WordCounter();
 		wp.construct(wordCounter);
@@ -166,26 +168,53 @@ class HTMLBuilder implements Builder {
 //TODO: HOW DA FUCK AM I GONNA BUILD THIS? ALSO NEED TO ANT IT
 class XMLBuilder implements Builder {
 	private String result;
+	boolean section, subsection = false;
 
 	public XMLBuilder() {
 		result = new String();
 	}
 
 	public void buildSection(String text) {
-		result += "<section name='" + text + "'/>\n";
+		if(section){
+			result += "</section>\n";
+			result += "<section name='" + text + "'>\n";
+		}else{
+			result += "<section name='" + text + "'>\n";
+			section = true;
+		}
 
 	}
 
 	public void buildSubsection(String text) {
-		result += "<subsection name='" + text + "'/>\n";
-
+		if(subsection){
+			result += "\t</subsection>\n"; 
+			result += "\t<subsection name='" + text + "'>\n";
+		}else{
+			result += "\t<subsection name='" + text + "'>\n";
+			subsection = true;
+		}
 	}
 
 	public void buildParagraph(String text) {
-		result += "<paragraph>\n" + text + "\n" + "</paragraph>\n";
+		Scanner scan = new Scanner(text);
+		String indenter = new String();
+
+		while(scan.hasNextLine()){
+				indenter +=  "\n\t\t\t" + scan.nextLine();
+		}
+		
+		result += "\t\t<paragraph>" + indenter + "\n\t\t</paragraph>\n";
 	}
-	
+
 	public String getResult(){
+		if(subsection){
+			result += "\t</subsection>\n";
+			subsection = false;
+		}
+		if(section){
+			result += "</section>\n";
+			section = false;
+		}
 		return result;
 	}
 }

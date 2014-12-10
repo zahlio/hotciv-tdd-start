@@ -79,14 +79,20 @@
 	<target name="build-src" depends="prepare">
 		<javac srcdir="${source-directory}" destdir="${build-directory}"
 			debug="on" includeantruntime="no">
-			<classpath refid="class-path" />
+			<classpath>
+			    <path refid="class-path" />
+			    <path refid="fractal-path" />
+			</classpath>
 		</javac>
 	</target>
 
 	<target name="build-test" depends="build-src">
 		<javac srcdir="${test-source-directory}" destdir="${build-directory}"
 			debug="on" includeantruntime="no">
-			<classpath refid="class-path" />
+			<classpath>
+			    <path refid="class-path" />
+			    <path refid="fractal-path" />
+			</classpath>
 		</javac>
 	</target>
 
