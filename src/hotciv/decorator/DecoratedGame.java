@@ -5,6 +5,7 @@ import hotciv.common.GameImpl;
 import hotciv.common.UnitImpl;
 import hotciv.framework.City;
 import hotciv.framework.Game;
+import hotciv.framework.GameObserver;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
@@ -99,6 +100,18 @@ public class DecoratedGame implements Game {
 
 	public void closeTranscription() throws IOException {
 		writer.closeTranscript();
+	}
+
+	@Override
+	public void addObserver(GameObserver observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setTileFocus(Position position) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

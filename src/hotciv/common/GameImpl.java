@@ -3,6 +3,7 @@ package hotciv.common;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
+import hotciv.framework.GameObserver;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
@@ -257,5 +258,17 @@ public class GameImpl implements Game {
 
 	public void performUnitActionAt(Position p) {
 		unitActionStrategy.performUnitAction(p, this);
+	}
+
+	@Override
+	public void addObserver(GameObserver observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setTileFocus(Position position) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -8,6 +8,7 @@ import hotciv.common.UnitImpl;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
+import hotciv.framework.GameObserver;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
@@ -251,5 +252,15 @@ class GameStubForBattleTesting implements Game {
 	@Override
 	public HashMap<Position, CityImpl> getCities() {
 		return null;
+	}
+	@Override
+	public void addObserver(GameObserver observer) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void setTileFocus(Position position) {
+		// TODO Auto-generated method stub
+		
 	}
 }

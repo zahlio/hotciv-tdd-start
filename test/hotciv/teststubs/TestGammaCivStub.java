@@ -7,6 +7,7 @@ import hotciv.common.UnitInfo;
 import hotciv.framework.City;
 import hotciv.framework.Game;
 import hotciv.framework.GameConstants;
+import hotciv.framework.GameObserver;
 import hotciv.framework.Player;
 import hotciv.framework.Position;
 import hotciv.framework.Tile;
@@ -126,6 +127,18 @@ class GammaCivTestStub implements Game{
 
 	@Override
 	public void performUnitActionAt(Position p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void addObserver(GameObserver observer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setTileFocus(Position position) {
 		// TODO Auto-generated method stub
 		
 	}
