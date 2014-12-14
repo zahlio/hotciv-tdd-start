@@ -1,10 +1,10 @@
 package hotciv.visual;
 
 import hotciv.framework.Game;
-import hotciv.stub.StubGame2;
+import hotciv.stub.StubForMiniDraw;
+import hotciv.tools.UnitMoveTool;
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.MiniDrawApplication;
-import minidraw.standard.SelectionTool;
 
 /** Template code for exercise FRS 36.39.
 
@@ -16,24 +16,26 @@ import minidraw.standard.SelectionTool;
      Henrik B Christensen 
      Computer Science Department
      Aarhus University
-   
+
    This source code is provided WITHOUT ANY WARRANTY either 
    expressed or implied. You may study, use, modify, and 
    distribute it for non-commercial purposes. For any 
    commercial use, see http://www.baerbak.com/
  */
-public class ShowMove {
-  
-  public static void main(String[] args) {
-    Game game = new StubGame2();
+public class ShowUnitMoveTool {
 
-    DrawingEditor editor = 
-      new MiniDrawApplication( "Move any unit using the mouse",  
-                               new HotCivFactory4(game) );
-    editor.open();
-    editor.showStatus("Move units to see Game's moveUnit method being called.");
+	public static void main(String[] args) {
+		new ShowUnitMoveTool();
+	}
 
-    // Replace the setting of the tool with your UnitMoveTool implementation.
-    editor.setTool( new SelectionTool(editor) );
-  }
+	public ShowUnitMoveTool() {
+		final Game game = new StubForMiniDraw();
+
+		DrawingEditor editor = new MiniDrawApplication(
+				"click and drag unit to move him around", 
+				new HotCivFactory4(game) );
+		editor.open();
+
+		editor.setTool(new UnitMoveTool(editor, game));
+	}
 }

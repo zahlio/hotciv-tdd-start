@@ -1,10 +1,10 @@
 package hotciv.visual;
 
 import hotciv.framework.Game;
-import hotciv.stub.StubGame2;
+import hotciv.stub.StubForMiniDraw;
+import hotciv.tools.EndOfTurnTool;
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.MiniDrawApplication;
-import minidraw.standard.NullTool;
 
 /** Template code for exercise FRS 36.42.
 
@@ -25,7 +25,7 @@ import minidraw.standard.NullTool;
 public class ShowEndOfTurn {
   
   public static void main(String[] args) {
-    Game game = new StubGame2();
+    Game game = new StubForMiniDraw();
 
     DrawingEditor editor = 
       new MiniDrawApplication( "Click top shield to end the turn",  
@@ -34,6 +34,6 @@ public class ShowEndOfTurn {
     editor.showStatus("Click to shield to see Game's endOfTurn method being called.");
 
     // Replace the setting of the tool with your EndOfTurnTool implementation.
-    editor.setTool( new NullTool() );
+    editor.setTool( new EndOfTurnTool(editor, game) );
   }
 }

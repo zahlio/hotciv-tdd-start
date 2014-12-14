@@ -1,7 +1,7 @@
 package hotciv.visual;
 
 import hotciv.framework.Game;
-import hotciv.stub.StubGame1;
+import hotciv.stub.StubForMiniDraw;
 import hotciv.view.MapView;
 
 import javax.swing.JTextField;
@@ -34,7 +34,7 @@ public class ShowWorld {
   
   public static void main(String[] args) {
 
-    Game game = new StubGame1();
+    Game game = new StubForMiniDraw();
 
     DrawingEditor editor = 
       new MiniDrawApplication( "Paint the HotCiv world map...",  
