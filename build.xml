@@ -32,6 +32,7 @@
 	<path id="class-path">
 		<pathelement location="${build-directory}" />
 		<pathelement location="${junitJar}" />
+		<pathelement location="${minidrawJar}" />
 	</path>
 
 	<!-- define the class path for JUnit testing with fractalMap -->
@@ -68,6 +69,23 @@
 
 			buildwp: builds the formats
 			for the builder
+
+			MiniDraw targets:
+			show: Test MapView
+			text: Test TextFigure
+			city: Test CityFigure
+
+			dSoftArk Targets:
+			update: Test partial CivDrawing implementation
+			(and partial solution for FRS 36.38)
+			move: Test UnitMoveTool, FRS 36.39
+			setfocus: Test SetFocusTool, FRS 36.40
+			turn: Test EndOfTurnTool, FRS 36.42
+			action: Test ActionTool, FRS 36.43
+			comp: Test CompositionTool, FRS 36.44
+
+			semi: Play SemiCiv using the GUI :-)
+			=====
 		</echo>
 	</target>
 
@@ -281,7 +299,11 @@
 	</target>
 
 	<target name="semi" depends="build-all">
-		<echo message="*** Placeholder for your Semi task ***" />
+		<java fork="yes" classname="hotciv.visual.ShowSemiCiv">
+			<classpath>
+				<path refid="class-path" />
+			</classpath>
+		</java>
 	</target>
 
 </project>

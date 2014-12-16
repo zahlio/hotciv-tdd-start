@@ -24,7 +24,7 @@ public class StubForMiniDraw implements Game {
 	private Position pos_settler_red;
 
 	private Unit red_archer, red_settler, blue_legion;
-	private City red_city;
+	private City red_city, blue_city;
 	
 	private int age = -4000;
 
@@ -39,12 +39,14 @@ public class StubForMiniDraw implements Game {
 		blue_legion = new UnitStub( GameConstants.LEGION, Player.BLUE );  
 		
 		red_city = new CityStub(Player.RED);
+		blue_city = new CityStub(Player.BLUE);
 
 		units.put(pos_archer_red, (UnitStub) red_archer);
 		units.put(pos_settler_red, (UnitStub) red_settler);
 		units.put(pos_legion_blue, (UnitStub) blue_legion);
 		
 		cities.put(new Position(1,1), (CityStub) red_city);
+		cities.put(new Position(4,1), (CityStub) blue_city);
 		defineWorld(1); 
 
 		inTurn = Player.RED;
@@ -62,12 +64,14 @@ public class StubForMiniDraw implements Game {
 		if (getUnitAt(from) == null || getUnitAt(from).getOwner() != getPlayerInTurn() ) { return false; }
 		if (getTileAt(to).getTypeString().equals(GameConstants.OCEANS) || getTileAt(to).getTypeString().equals(GameConstants.MOUNTAINS) ) { return false; }
 		if (getUnitAt(from).getMoveCount()==0 || !canMoveDistance(from, to)) { return false; }
-		if(getUnitAt(to) != null && getUnitAt(to).getOwner().equals(getPlayerInTurn())) { return false; }
+		if (getUnitAt(to) != null && getUnitAt(to).getOwner().equals(getPlayerInTurn())) { return false; }
 
-		//gameObserver.worldChangedAt(from);
-		//gameObserver.worldChangedAt(to);
+		
 		units.put(to, (UnitStub) getUnitAt(from));
 		units.remove(from);
+		
+		gameObserver.worldChangedAt(from);
+		gameObserver.worldChangedAt(to);
 
 		return true;
 	}
@@ -75,7 +79,8 @@ public class StubForMiniDraw implements Game {
 	public boolean canMoveDistance(Position from, Position to){
 		int moveHorizontal = from.getRow() - to.getRow();
 		int moveVertical = from.getColumn() - to.getColumn();
-		if(getUnitAt(from).getMoveCount() >= Math.abs(moveHorizontal) && getUnitAt(from).getMoveCount() >= Math.abs(moveVertical)){
+		if(getUnitAt(from).getMoveCount() >= Math.abs(moveHorizontal)
+				&& getUnitAt(from).getMoveCount() >= Math.abs(moveVertical)){
 			return true;
 		}else{
 			return false;
@@ -128,7 +133,9 @@ public class StubForMiniDraw implements Game {
 	public Player getWinner() { return null; }
 	public int getAge() { return age; }  
 	public void changeWorkForceFocusInCityAt( Position p, String balance ) {}
-	public void changeProductionInCityAt( Position p, String unitType ) {}
+	public void changeProductionInCityAt( Position p, String unitType ) {
+		gameObserver.worldChangedAt(p);
+	}
 	
 	public void performUnitActionAt( Position p ) {
 		System.out.println("perform action has been called");
@@ -190,7 +197,7 @@ class CityStub implements City{
 	}
 
 	public String getProduction() {
-		return null;
+		return "null";
 	}
 
 	public String getWorkforceFocus() {

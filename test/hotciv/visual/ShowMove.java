@@ -22,13 +22,13 @@ import minidraw.standard.MiniDrawApplication;
    distribute it for non-commercial purposes. For any 
    commercial use, see http://www.baerbak.com/
  */
-public class ShowUnitMoveTool {
+public class ShowMove {
 
 	public static void main(String[] args) {
-		new ShowUnitMoveTool();
+		new ShowMove();
 	}
 
-	public ShowUnitMoveTool() {
+	public ShowMove() {
 		final Game game = new StubForMiniDraw();
 
 		DrawingEditor editor = new MiniDrawApplication(

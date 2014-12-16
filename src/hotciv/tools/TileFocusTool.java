@@ -1,10 +1,11 @@
 package hotciv.tools;
 
-import java.awt.event.MouseEvent;
-
 import hotciv.framework.Game;
 import hotciv.framework.Position;
 import hotciv.view.GfxConstants;
+
+import java.awt.event.MouseEvent;
+
 import minidraw.framework.DrawingEditor;
 import minidraw.standard.AbstractTool;
 

@@ -75,8 +75,6 @@ public class GameImpl implements Game {
 			units.put(new Position(4,3), new UnitImpl(unitsInGame.get(GameConstants.SETTLER), GameConstants.SETTLER, Player.RED));
 		}
 		layoutStrategy.putCities(cities);
-
-
 	}
 
 	public Tile getTileAt(Position p) {
@@ -127,26 +125,36 @@ public class GameImpl implements Game {
 		}
 		if(outcome && outcomeIsinitialized && getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
 			moveToTile(from, to, "cityAndUnit");
+			validMoveObserver(from, to);
 			return true;
 		}
 		if(outcome && outcomeIsinitialized){
 			winner.setAttackCount(this);
 			moveToTile(from, to, "unit");
+			validMoveObserver(from, to);
 			return true;
 		}
 		if(!outcome && outcomeIsinitialized){
 			units.remove(from);
+			validMoveObserver(from, to);
 			return true;
 		}
 		if(getCityAt(to) != null && getCityAt(to).getOwner() != currentPlayer){
 			moveToTile(from, to, "city");
+			validMoveObserver(from, to);
 			return true;
 		}
 		if(getTileAt(to).getTypeString().equals(GameConstants.PLAINS) && getUnitAt(to)==null || getTileAt(to).getTypeString().equals(GameConstants.HILLS) && getUnitAt(to)==null){
 			moveToTile(from, to, "tile");
+			validMoveObserver(from, to);
 			return true; 
 		}
 		return false;
+	}
+	
+	public void validMoveObserver(Position from, Position to){
+		gameObserver.worldChangedAt(from);
+		gameObserver.worldChangedAt(to);
 	}
 
 	//MOVE TO OBJECT? THIS METHOD LOOKS UGLY
@@ -183,6 +191,7 @@ public class GameImpl implements Game {
 
 	public void produceUnitAt(Position p, UnitInfo info, String unit, Player owner) {
 		units.put(getNextSpawnPositionAtCity(p), new UnitImpl(unitsInGame.get(unit), unit, owner));
+		gameObserver.worldChangedAt(getNextSpawnPositionAtCity(p));
 	}
 
 	public Position getNextSpawnPositionAtCity(Position p){
@@ -214,6 +223,7 @@ public class GameImpl implements Game {
 	}
 
 	public void endOfTurn() {
+		gameObserver.turnEnds(currentPlayer, age);
 		if(currentPlayer == Player.RED){
 			currentPlayer = Player.BLUE;
 		}else if(currentPlayer == Player.BLUE){
@@ -227,6 +237,7 @@ public class GameImpl implements Game {
 	private void resetUnitMoveCount(){
 		for(Position p : units.keySet()){
 			((UnitImpl)getUnitAt(p)).setHasMoved(false);
+			gameObserver.worldChangedAt(p);
 		}
 	}
 
@@ -251,6 +262,7 @@ public class GameImpl implements Game {
 		if(unitsInGame.containsKey(unitType)){
 			CityImpl c = (CityImpl) getCityAt(p);
 			c.setProduction(unitType);
+			gameObserver.worldChangedAt(p);
 		}else{
 			throw new NotAUnitException(unitType);
 		}
@@ -258,16 +270,16 @@ public class GameImpl implements Game {
 
 	public void performUnitActionAt(Position p) {
 		unitActionStrategy.performUnitAction(p, this);
+		gameObserver.worldChangedAt(p);
 	}
 
-	@Override
+	protected GameObserver gameObserver;
+	// observer list is only a single one...
 	public void addObserver(GameObserver observer) {
-		
-	}
+		gameObserver = observer;
+	} 
 
-	@Override
 	public void setTileFocus(Position position) {
-		// TODO Auto-generated method stub
-		
+		gameObserver.tileFocusChangedAt(position);
 	}
 }

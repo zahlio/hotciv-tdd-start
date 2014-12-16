@@ -3,7 +3,6 @@ package hotciv.tools;
 import hotciv.framework.Game;
 import hotciv.framework.Position;
 import hotciv.view.GfxConstants;
-import hotciv.view.UnitFigure;
 
 import java.awt.event.MouseEvent;
 
@@ -23,15 +22,8 @@ public class UnitActionTool extends AbstractTool {
 
 	public void mouseDown(MouseEvent e, int x, int y) {
 		Position p = GfxConstants.getPositionFromXY(x, y);
-		Figure f = editor.drawing().findFigure(x, y);
-		if(game.getUnitAt(p)!=null && e.isShiftDown()){
+		if(game.getUnitAt(p)!=null && e.isShiftDown() && game.getUnitAt(p).getOwner().equals(game.getPlayerInTurn())){
 			game.performUnitActionAt(p);
-		}
-		if(f instanceof UnitFigure && game.getCityAt(p)!=null){
-			//CityFigure c = new CityFigure(game.getCityAt(p), 
-			//		new Point(GfxConstants.getXFromColumn(p.getColumn()),
-			//				GfxConstants.getYFromRow(p.getRow())));
-			//editor.drawing().add(c);
 		}
 	}
 }

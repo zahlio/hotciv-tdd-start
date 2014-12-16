@@ -1,6 +1,7 @@
 package hotciv.tools;
 
 import hotciv.framework.Game;
+import hotciv.framework.GameConstants;
 import hotciv.framework.Position;
 import hotciv.view.GfxConstants;
 import hotciv.view.UnitFigure;
@@ -23,16 +24,19 @@ public class UnitMoveTool extends AbstractTool {
 		this.game = game;
 		unitFigure = null;
 	}
-
+	
 	public void mouseDown(MouseEvent e, int x, int y){
-		fromX = x;
-		fromY = y;
-		Figure f = editor.drawing().findFigure(e.getX(), e.getY());
-		if(f instanceof UnitFigure){
-			editor.drawing().lock();
-			unitFigure = (UnitFigure) f;
-			toX = x;
-			toY = y;
+		Position p = GfxConstants.getPositionFromXY(x, y);
+		if(p.getColumn()<GameConstants.WORLDSIZE){
+			fromX = x;
+			fromY = y;
+			Figure f = editor.drawing().findFigure(e.getX(), e.getY());
+			if(f instanceof UnitFigure){
+				editor.drawing().lock();
+				unitFigure = (UnitFigure) f;
+				toX = x;
+				toY = y;
+			}
 		}
 	}
 
@@ -41,22 +45,29 @@ public class UnitMoveTool extends AbstractTool {
 			unitFigure.moveBy(x - toX, y - toY);
 			toX = x;
 			toY = y;
+		}else{
+			
 		}
 	}
 
+	/* TODO: figure out how to get the units to move the center of the tile */
 	public void mouseUp(MouseEvent e, int x, int y){
-		editor.drawing().unlock();
-		Position from = GfxConstants.getPositionFromXY(fromX, fromY);
-		Position to = GfxConstants.getPositionFromXY(x, y);
+		Position p = GfxConstants.getPositionFromXY(x, y);
+		if(p.getColumn()<GameConstants.WORLDSIZE && unitFigure!=null){
+			editor.drawing().unlock();
+			Position from = GfxConstants.getPositionFromXY(fromX, fromY);
+			Position to = GfxConstants.getPositionFromXY(x, y);
 
-		if(!game.moveUnit(from, to)){
-			int dx = fromX - x;
-			int dy = fromY - y;
-			unitFigure.moveBy(dx, dy);
-			System.out.println("Invalid move");
-		}else{
-			System.out.println("unit has been moved");
+			if(!game.moveUnit(from, to)){
+				int dx = fromX - x;
+				int dy = fromY - y;
+				unitFigure.moveBy(dx, dy);
+			}else if(game.moveUnit(from, to)){
+				int closestTileX = y % to.getRow();
+				int closestTileY = x % to.getColumn();
+				unitFigure.moveBy(-closestTileX, -closestTileY);
+			}
+			unitFigure = null;
 		}
-		unitFigure = null;
 	}
 }
