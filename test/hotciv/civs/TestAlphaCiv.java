@@ -53,7 +53,7 @@ import org.junit.Test;
 public class TestAlphaCiv {
 
 	private Game game;
-	private Position redCity; 
+	private Position redCity;
 
 	@Before
 	public void setUp() {
@@ -64,6 +64,7 @@ public class TestAlphaCiv {
 		}
 		redCity = new Position(1,1);
 		((DecoratedGame)game).setTranscription();
+		
 	}
 
 	@Test

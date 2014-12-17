@@ -2,13 +2,13 @@ package hotciv.tools;
 
 import hotciv.framework.Game;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 import minidraw.framework.DrawingEditor;
 import minidraw.framework.Tool;
-import minidraw.standard.AbstractTool;
 
-public class CompositionTool extends AbstractTool{
+public class CompositionTool implements Tool{
 
 	private Tool unitMoveTool;
 	private Tool tileFocusTool;
@@ -16,7 +16,6 @@ public class CompositionTool extends AbstractTool{
 	private Tool unitActionTool;
 	
 	public CompositionTool(DrawingEditor editor, Game game) {
-		super(editor);
 		unitMoveTool = new UnitMoveTool(editor, game);
 		tileFocusTool = new TileFocusTool(editor, game);
 		endOfTurnTool = new EndOfTurnTool(editor, game);
@@ -36,6 +35,18 @@ public class CompositionTool extends AbstractTool{
 	
 	public void mouseUp(MouseEvent e, int x, int y) {
 		unitMoveTool.mouseUp(e, x, y);
+	}
+
+	@Override
+	public void keyDown(KeyEvent arg0, int arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMove(MouseEvent arg0, int arg1, int arg2) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

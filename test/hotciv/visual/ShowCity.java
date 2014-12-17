@@ -5,6 +5,7 @@ import minidraw.framework.*;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 import hotciv.framework.*;
@@ -31,7 +32,7 @@ public class ShowCity {
   
   public static void main(String[] args) {
 
-    Game game = new StubGame1();
+    Game game = new StubForMiniDraw();
 
     DrawingEditor editor = 
       new MiniDrawApplication( "Click to see city graphics update...",  

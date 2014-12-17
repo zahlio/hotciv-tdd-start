@@ -45,7 +45,7 @@ import java.util.HashMap;
 
  */
 
-public class GameImpl implements Game {
+public class GameImpl implements Game, GameObserver {
 
 	private Player currentPlayer = Player.RED;
 	private int age = -4000;
@@ -75,6 +75,7 @@ public class GameImpl implements Game {
 			units.put(new Position(4,3), new UnitImpl(unitsInGame.get(GameConstants.SETTLER), GameConstants.SETTLER, Player.RED));
 		}
 		layoutStrategy.putCities(cities);
+		addObserver(this);
 	}
 
 	public Tile getTileAt(Position p) {
@@ -115,9 +116,11 @@ public class GameImpl implements Game {
 		//BAD WAY TO USE OUTCOME
 		boolean outcome = false;
 
-		if (getUnitAt(from) == null || getUnitAt(from).getOwner() != getPlayerInTurn() ) { return false; }
+		if (getUnitAt(from) == null) { return false; }
+		if (getUnitAt(from).getOwner() != getPlayerInTurn() ) { return false; }
 		if (getTileAt(to).getTypeString().equals(GameConstants.OCEANS) || getTileAt(to).getTypeString().equals(GameConstants.MOUNTAINS) ) { return false; }
-		if (getUnitAt(from).getMoveCount()==0 || !canMoveDistance(from, to)) { return false; }
+		if (getUnitAt(from).getMoveCount()==0) { return false; }
+		if (!canMoveDistance(from, to)) { return false; }
 
 		if(getUnitAt(to) != null && getUnitAt(to).getOwner() != currentPlayer){
 			outcomeIsinitialized = true;
@@ -281,5 +284,23 @@ public class GameImpl implements Game {
 
 	public void setTileFocus(Position position) {
 		gameObserver.tileFocusChangedAt(position);
+	}
+
+	@Override
+	public void worldChangedAt(Position pos) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void turnEnds(Player nextPlayer, int age) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tileFocusChangedAt(Position position) {
+		// TODO Auto-generated method stub
+		
 	}
 }
